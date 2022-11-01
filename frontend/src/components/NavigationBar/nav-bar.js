@@ -16,7 +16,7 @@ const NavigationBar = () => {
           <li class={styles["main-nav__item"]}>
             <a href="customers/index.html">Customers</a>
           </li>
-          {/* <li class={styles["main-nav__item main-nav__item--cta"]}>
+          {/* <li className={`${styles["main-nav__item"]} ${styles["main-nav__item--cta"]}`}>
             <a href="start-hosting/index.html">Start Hosting</a>
           </li> */}
         </ul>
