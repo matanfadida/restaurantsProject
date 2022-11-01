@@ -14,7 +14,8 @@ app.use("/", (req, res) => {});
 // app.use('/admin',adminRouts);
 // app.use(shopRouts);
 
-// mongodbConnect((client) => {
-//     console.log(client);
-//     app.listen(5000);
-// });
+mongodbConnect((client) => {
+    console.log(client);
+    app.listen(5000);
+});
+//chack
