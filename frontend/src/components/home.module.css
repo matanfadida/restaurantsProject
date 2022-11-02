@@ -1,5 +1,18 @@
 .main-div {
-    width: 100%;
-    height: 500px;
-    background: url("http://localhost:3000/image-home-backgrond.jpg");
+  width: 100%;
+  height: 500px;
+  background: url("http://localhost:3000/image-home-backgrond.jpg");
+}
+
+.cart {
+  background-color: #3e424b;
+  text-align: center;
+  color: #ec9706;
+  padding: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  border-radius: 14px;
+}
+
+.welcome{
+    margin: 0;
 }

@@ -1,7 +1,7 @@
 import styles from "./cart.module.css";
 
 const Cart = (props) => {
-    return <div className={styles.div}></div>
+    return <div className={`${props.className} ${styles.card}`}>{props.children}</div>
 }
 
 export default Cart;
