@@ -1,6 +1,5 @@
 import style from "./home.module.css";
 import ShowItem from "./list-items/show-item";
-// import img from "./image-home-backgrond.jpg";
 
 const Home = () => {
   return (

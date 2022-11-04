@@ -1,4 +1,5 @@
 import Item from "./item";
+import style from "./show-item.module.css"
 
 const order = [
   {
@@ -14,11 +15,18 @@ const order = [
       "טחינה לבנה, בשר עגל קצוץ מתובל בתערובת תבלינים מסורתית,  צנוברים ועשבי תיבול",
     price: 46,
   },
+  {
+    id: 3,
+    name: "טחינה ספייס",
+    detail:
+      "טחינה לבנה, בשר עגל קצוץ מתובל בתערובת תבלינים מסורתית,  צנוברים ועשבי תיבול",
+    price: 46,
+  },
 ];
 
 const ShowItem = (props) => {
   return (
-    <ul>
+    <ul className={style["ul-item"]}>
       {order.map((item) => (
         <Item
           key={item.id}

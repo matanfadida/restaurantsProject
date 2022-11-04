@@ -9,7 +9,8 @@ const NavigationBar = () => {
         </a>
       </div>
       <nav className={styles["main-nav"]}>
-        <ul className={styles["main-nav__items"]}>
+        <img src="./image-home-backgrond.jpg" alt="dinner"/>
+        {/* <ul className={styles["main-nav__items"]}>
           <li className={styles["main-nav__item"]}>
             <a href="packages/index.html">Packages</a>
           </li>
@@ -18,8 +19,8 @@ const NavigationBar = () => {
           </li>
           {/* <li className={`${styles["main-nav__item"]} ${styles["main-nav__item--cta"]}`}>
             <a href="start-hosting/index.html">Start Hosting</a>
-          </li> */}
-        </ul>
+          </li> 
+        </ul> */}
       </nav>
     </header>
   );

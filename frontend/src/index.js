@@ -1,13 +1,14 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import Home from './components/Home';
-import NavigationBar from './components/NavigationBar/nav-bar';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
+import "./index.css";
+import CartProvider from "./state/cart-provider";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <NavigationBar/>
-    <Home/>
+    <CartProvider>
+      <App/>
+    </CartProvider>
   </React.StrictMode>
 );
