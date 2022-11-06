@@ -1,4 +1,5 @@
 import styles from "./nav-bar.module.css";
+// import M from "./image-home-backgrond.jpg";
 
 const NavigationBar = () => {
   return (
@@ -9,7 +10,10 @@ const NavigationBar = () => {
         </a>
       </div>
       <nav className={styles["main-nav"]}>
-        <img src="./image-home-backgrond.jpg" alt="dinner"/>
+        <button className={styles.btn}>
+          <img src={"./wedding-dinner.png"} alt="dinner" className={styles.img}/>
+        </button>
+        
         {/* <ul className={styles["main-nav__items"]}>
           <li className={styles["main-nav__item"]}>
             <a href="packages/index.html">Packages</a>

@@ -10,7 +10,6 @@
 
 .main-div{
     display: inline-block;
-    margin-top: 20px;
 }
 .main-div__brand{
     color:#EC9706;
@@ -60,4 +59,8 @@
     border: none;
     color: #ff1b68;
     background: white;
+}
+.img{
+    width: 45px;
+    height: 45px;
 }
