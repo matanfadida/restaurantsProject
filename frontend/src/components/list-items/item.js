@@ -4,7 +4,6 @@ import CartContext from "../../state/buy-context";
 const Item = (props) => {
   const ctx = useContext(CartContext);
   const buttonAddItemHanlder = () => {
-    console.log("test")
     ctx.AddItem({
       id: props.id,
       name: props.name,
@@ -21,7 +20,7 @@ const Item = (props) => {
             <p>{props.detail}</p>
           </div>
           <div>
-            <h4>{props.price}</h4>
+            <h4>{`${props.price}₪`}</h4>
           </div>
         </div>
         <button onClick={buttonAddItemHanlder}>+</button>

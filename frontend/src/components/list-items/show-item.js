@@ -30,6 +30,7 @@ const ShowItem = (props) => {
       {order.map((item) => (
         <Item
           key={item.id}
+          id={item.id}
           name={item.name}
           detail={item.detail}
           price={item.price}

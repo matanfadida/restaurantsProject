@@ -1,5 +1,6 @@
 .div-show-price{
     text-align: right;
+    font-size: 20px;
 }
 
 .div_span{
@@ -11,9 +12,12 @@
     background-color: #3e424b;
     color: white;
     margin: 0px 5px;
+    padding: 8px 16px;
 }
 .btn_ord{
     border-radius: 0 0 0 5px;
     background-color: #EC9706;
     color: white;
+    padding: 8px 16px;
+
 }
