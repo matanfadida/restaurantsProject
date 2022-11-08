@@ -3,6 +3,7 @@ import CartContext from "../../../state/buy-context";
 import Modal from "../../UI/modal";
 
 import style from "./Cart.module.css";
+import CartItem from "./CartItem";
 
 const Cart = (props) => {
   const ctx = useContext(CartContext);
@@ -10,6 +11,7 @@ const Cart = (props) => {
   const hashItem = ctx.items.length > 0;
   return (
     <Modal>
+      <CartItem/>
       <ul>{ctx.items.map(item => (<li>{item.name}</li>))}</ul>
       <div className={style["div-show-price"]}>
         <span>{totalAmount}</span>
