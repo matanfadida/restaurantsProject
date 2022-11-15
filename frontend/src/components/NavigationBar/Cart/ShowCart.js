@@ -11,8 +11,18 @@ const Cart = (props) => {
   const hashItem = ctx.items.length > 0;
   return (
     <Modal>
-      <CartItem/>
-      <ul>{ctx.items.map(item => (<li>{item.name}</li>))}</ul>
+      <ul className={style["ul-cart"]}>
+        {ctx.items.map((item) => (
+          <CartItem
+            key={item.id}
+            id={item.id}
+            name={item.name}
+            detail={item.detail}
+            price={item.price}
+            amount={item.amount}
+          />
+        ))}
+      </ul>
       <div className={style["div-show-price"]}>
         <span>{totalAmount}</span>
         <span className={style["div_span"]}> :סה"כ לתשלום</span>
@@ -28,4 +38,3 @@ const Cart = (props) => {
 };
 
 export default Cart;
-

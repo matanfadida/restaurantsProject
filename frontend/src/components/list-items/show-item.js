@@ -34,6 +34,7 @@ const ShowItem = (props) => {
           name={item.name}
           detail={item.detail}
           price={item.price}
+          amount={1}
         />
       ))}
     </ul>

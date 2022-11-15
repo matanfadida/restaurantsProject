@@ -9,6 +9,7 @@ const Item = (props) => {
       name: props.name,
       detail: props.detail,
       price: props.price,
+      amount: props.amount,
     });
   };
   return (
