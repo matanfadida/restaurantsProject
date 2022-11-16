@@ -64,3 +64,25 @@
     width: 45px;
     height: 45px;
 }
+.btn{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    outline: none;
+    border: none;
+}
+.btn__badge{
+    position: absolute;
+    top: -4px;
+    right: -15px;
+    background-color: red;
+    color: #ffff;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items:center;
+}
