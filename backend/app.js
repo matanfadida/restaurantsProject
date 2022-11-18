@@ -2,7 +2,7 @@ const path = require('path');
 
 const adminRouts = require('./routes/admin');
 const shopRouts = require('./routes/shop');
-const mongodbConnect = require('./util/database');
+const mongodbConnect = require('./util/database').mongodbConnect;
 
 const express = require('express');
 const bodyParser = require('body-parser');
