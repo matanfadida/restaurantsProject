@@ -1,33 +1,23 @@
+import { useEffect, useState } from "react";
 import Item from "./item";
-import style from "./show-item.module.css"
-
-const order = [
-  {
-    id: 1,
-    name: "הלחם שלנו",
-    detail: "לחם פראנה באפייה מסורתית,שמן זית ומטבלים טעימים",
-    price: 26,
-  },
-  {
-    id: 2,
-    name: "טחינה ספייס",
-    detail:
-      "טחינה לבנה, בשר עגל קצוץ מתובל בתערובת תבלינים מסורתית,  צנוברים ועשבי תיבול",
-    price: 46,
-  },
-  {
-    id: 3,
-    name: "טחינה ספייס",
-    detail:
-      "טחינה לבנה, בשר עגל קצוץ מתובל בתערובת תבלינים מסורתית,  צנוברים ועשבי תיבול",
-    price: 46,
-  },
-];
+import style from "./show-item.module.css";
 
 const ShowItem = (props) => {
+  const [orders, setOrders] = useState([]);
+  useEffect(() => {
+    fetch("/")
+      .then((res) => {
+        if(res.ok){
+          console.log('ok')
+          return res.json()
+        }
+      }).then(result => console.log(result))
+      .catch((err) => console.log(err));
+  }, []);
+
   return (
     <ul className={style["ul-item"]}>
-      {order.map((item) => (
+      {orders.map((item) => (
         <Item
           key={item.id}
           id={item.id}

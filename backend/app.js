@@ -9,14 +9,17 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 
-app.use(bodyParser.urlencoded({ extended: false }));
-
+app.use(bodyParser.json(), bodyParser.urlencoded({ extended: false }));
+const port = process.env.PORT || 5000;
 app.use('/admin',adminRouts);
 app.use('/shef', shefRouts);
 app.use(shopRouts);
 
-mongodbConnect((client) => {
-    console.log(client);
-    app.listen(5000);
-});
+console.log('listen ', port)
+    app.listen(port);
+
+// mongodbConnect((client) => {
+//     console.log('listen ', )
+//     app.listen();
+// });
 //chack
