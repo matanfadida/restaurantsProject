@@ -1,3 +1,4 @@
+import Chef from "./cuisine/chef";
 import style from "./home.module.css";
 import ShowItem from "./list-items/show-item";
 
@@ -7,7 +8,8 @@ const Home = () => {
       <div className={style.cart}>
         <h2 className={style.welcome}>! ברוכים הבאים</h2>
       </div>
-      <ShowItem />
+      <Chef />
+      {/* <ShowItem /> */}
     </div>
   );
 };

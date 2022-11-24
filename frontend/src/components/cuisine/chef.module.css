@@ -1,0 +1,13 @@
+.chef {
+  margin: 5rem auto;
+  width: 60%;
+  animation: proj-appear 1s ease-out forwards;
+  display: flow-root;
+}
+
+.chef ul {
+  text-align: right;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
