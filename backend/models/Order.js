@@ -1,14 +1,14 @@
 const getDb = require("../util/database").getDb;
 
 class Order {
-  constructor(number, price, product) {
-    this.number = number;
+  constructor(numberTable, price, products) {
+    this.numberTable = numberTable;
     this.price = price;
-    this.product = product;
+    this.products = products;
   }
   save() {
     const db = getDb();
-    db.collection("Orders")
+    return db.collection("Orders")
       .insertOne(this)
       .then((result) => {
         console.log(result);

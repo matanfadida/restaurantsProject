@@ -5,13 +5,13 @@ import style from "./show-item.module.css";
 const ShowItem = (props) => {
   const [orders, setOrders] = useState([]);
   useEffect(() => {
-    fetch("/")
+    fetch("/api")
       .then((res) => {
         if(res.ok){
-          console.log('ok')
+          console.log(res)
           return res.json()
         }
-      }).then(result => console.log(result))
+      }).then(result => setOrders(result))
       .catch((err) => console.log(err));
   }, []);
 
