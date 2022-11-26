@@ -1,7 +1,7 @@
 const express = require("express");
 
 const router = express.Router();
-
+const shopController = require("../controller/shop");
 
 const order = [
     {
@@ -26,8 +26,9 @@ const order = [
     },
   ];
 
-router.use("/", (req, res, next) => {
-    console.log('here');
+router.post("/api/add-order", shopController.postAddOrder);
+
+router.use("/api", (req, res, next) => {
     res.json(order);
 });
 
