@@ -18,10 +18,23 @@
     margin: 0px 5px;
     padding: 8px 16px;
 }
+.btn:hover {
+    border-radius: 0 0 0 5px;
+    background-color: #b70909;
+    color: white;
+    margin: 0px 5px;
+    padding: 8px 16px;
+}
+
 .btn_ord{
+    border-radius: 0 0 0 5px;
+    background-color: #3e424b;
+    color: white;
+    padding: 8px 16px;
+}
+.btn_ord:hover{
     border-radius: 0 0 0 5px;
     background-color: #EC9706;
     color: white;
     padding: 8px 16px;
-
 }
