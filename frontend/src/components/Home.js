@@ -8,8 +8,9 @@ const Home = () => {
       <div className={style.cart}>
         <h2 className={style.welcome}>! ברוכים הבאים</h2>
       </div>
-      <Chef />
-      {/* <ShowItem /> */}
+      {/* <Chef /> */}
+      <ShowItem />
+
     </div>
   );
 };

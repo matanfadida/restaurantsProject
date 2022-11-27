@@ -9,6 +9,18 @@ const Cart = (props) => {
   const ctx = useContext(CartContext);
   const totalAmount = `${ctx.totalAmount.toFixed(2)}₪`;
   const hashItem = ctx.items.length > 0;
+  const sendOrder = async() => {
+    await fetch('/api/add-order', {
+      method: "POST",
+      body: JSON.stringify({
+        numberTable: 1,
+        price: totalAmount,
+        products: ctx.items,
+      }),
+      headers: { "Content-Type": "application/json" },
+    }).catch(err => console.log(err))
+  }
+
   return (
     <Modal>
       <ul className={style["ul-cart"]}>
@@ -31,7 +43,7 @@ const Cart = (props) => {
         <button className={style.btn} onClick={ctx.cartShowhandler}>
           סגור
         </button>
-        {hashItem && <button className={style["btn_ord"]}>! הזמן</button>}
+        {hashItem && <button onClick={sendOrder} className={style["btn_ord"]}>! הזמן</button>}
       </div>
     </Modal>
   );
