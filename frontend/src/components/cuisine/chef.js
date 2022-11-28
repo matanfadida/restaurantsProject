@@ -1,5 +1,6 @@
 import ChefItem from "./chefItem";
 import classes from "./chef.module.css";
+import { useEffect, useState } from "react";
 
 const data = [
   {
@@ -40,14 +41,22 @@ const data = [
 ];
 
 const Chef = (props) => {
-  const orderList = data.map((order) => (
+  const [orders, setOrders] = useState([])
+  useEffect(() => {
+    fetch("/api/chef/getOrders")
+      .then((res) => {
+        return res.json();
+      })
+      .then((result) => setOrders(result))
+      .catch();
+  }, []);
+  const orderList = orders.map((order) => (
     <ChefItem
       key={order.id}
-      name={order.name}
-      amount={order.amount}
-      remark={order.remark}
-      table={order.table}
-    ></ChefItem>
+      price={order.price}
+      products={order.products}
+      table={order.numberTable}
+    />
   ));
 
   return (

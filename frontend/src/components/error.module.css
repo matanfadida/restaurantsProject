@@ -1,0 +1,10 @@
+.main-error{
+    text-align: center;
+}
+.main-error__label{
+    margin: 0px 8px;
+}
+
+.cart-error{
+    margin: 20% 10%;
+}

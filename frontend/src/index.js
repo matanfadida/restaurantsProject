@@ -5,9 +5,6 @@ import "./index.css";
 import CartProvider from "./state/cart-provider";
 import {
   BrowserRouter as Router,
-  Switch,
-  Route,
-  NavLink,
 } from "react-router-dom";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

@@ -11,7 +11,7 @@ const app = express();
 app.use(bodyParser.json(), bodyParser.urlencoded({ extended: false }));
 const port = process.env.PORT || 5000;
 app.use('/api/admin',adminRouts);
-app.use('/api/shef', shefRouts);
+app.use('/api/chef', shefRouts);
 app.use(shopRouts);
 
 mongodbConnect((client) => {

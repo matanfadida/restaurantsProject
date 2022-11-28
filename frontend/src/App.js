@@ -1,16 +1,23 @@
 import { Fragment, useContext } from "react";
 import Home from "./components/Home";
+import Error404 from "./components/error404";
 import Cart from "./components/NavigationBar/Cart/ShowCart";
 import NavigationBar from "./components/NavigationBar/nav-bar";
 import CartContext from "./state/buy-context";
+import { Routes, Route } from "react-router-dom";
+import Chef from "./components/cuisine/chef";
 
 const App = () => {
   const ctx = useContext(CartContext);
   return (
     <Fragment>
-      {ctx.cartShow && <Cart/>}
+      {ctx.cartShow && <Cart />}
       <NavigationBar />
-      <Home />
+      <Routes>
+        <Route path="/chef" element={<Chef/>}/>
+        <Route path="/" element={<Home />}/>
+        <Route path="*" element={<Error404 />}/>
+      </Routes>
     </Fragment>
   );
 };

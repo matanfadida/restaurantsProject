@@ -8,10 +8,25 @@ class Order {
   }
   save() {
     const db = getDb();
-    return db.collection("Orders")
+    return db
+      .collection("Orders")
       .insertOne(this)
       .then((result) => {
         console.log(result);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+  static fetchAllOrders() {
+    const db = getDb();
+    return db
+      .collection("Orders")
+      .find()
+      .toArray()
+      .then((orders) => {
+        console.log(orders);
+        return orders;
       })
       .catch((err) => {
         console.log(err);
