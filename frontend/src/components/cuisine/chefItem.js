@@ -6,20 +6,29 @@ const ChefItem = (props) => {
   return (
     <Cart>
       <div>
-        <h1>:הזמנה</h1>
-        <h4>מוצרים בהזמנה</h4>
-        <div>
-          <Button>בהכנה</Button>
-          <Button>מוכן</Button>
-        </div>
-        <ul>
-          {props.products.map((product) => (
-            <li><div><span>{product.amount} x</span> {product.name}</div></li>
-          ))}
-        </ul>
-        <div>
-          <span>מספר שולחן: {props.table}</span>
-          <span>מחיר: {props.price}</span>
+        <h2>{props.table} שולחן מספר</h2>
+        <div className={classes.item}>
+          <div className={classes.buttons}>
+            <ul>
+              <li>
+                <Button>בהכנה</Button>
+              </li>{" "}
+              <li>
+                {" "}
+                <Button>מוכן</Button>
+              </li>
+            </ul>
+          </div>
+
+          <ul>
+            {props.products.map((product) => (
+              <li>
+                <div>
+                  <span>{product.amount} x</span> {product.name}
+                </div>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </Cart>

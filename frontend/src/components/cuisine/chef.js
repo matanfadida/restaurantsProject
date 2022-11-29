@@ -53,7 +53,6 @@ const Chef = (props) => {
   const orderList = orders.map((order) => (
     <ChefItem
       key={order.id}
-      price={order.price}
       products={order.products}
       table={order.numberTable}
     />

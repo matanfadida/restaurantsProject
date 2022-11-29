@@ -12,6 +12,7 @@ const CartItem = (props) => {
       detail: props.detail,
       price: props.price,
       amount: props.amount,
+      remark: props.remark,
     })
   }
 
@@ -31,6 +32,7 @@ const CartItem = (props) => {
           <button onClick={RemoveItemFromCartHandler}>-</button>
           <button onClick={AddToCartHanlder}>+</button>
         </div>
+        <span>{props.remark}</span>
       </div>
     </li>
   );

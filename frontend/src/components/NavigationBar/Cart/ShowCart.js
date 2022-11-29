@@ -9,8 +9,9 @@ const Cart = (props) => {
   const ctx = useContext(CartContext);
   const totalAmount = `${ctx.totalAmount.toFixed(2)}₪`;
   const hashItem = ctx.items.length > 0;
-  const sendOrder = async() => {
-    await fetch('/api/add-order', {
+  const sendOrder = async () => {
+
+    await fetch("/api/add-order", {
       method: "POST",
       body: JSON.stringify({
         numberTable: 1,
@@ -18,8 +19,10 @@ const Cart = (props) => {
         products: ctx.items,
       }),
       headers: { "Content-Type": "application/json" },
-    }).catch(err => console.log(err))
-  }
+    }).catch((err) => console.log(err));
+
+    ctx.RemoveAll();
+  };
 
   return (
     <Modal>
@@ -32,6 +35,7 @@ const Cart = (props) => {
             detail={item.detail}
             price={item.price}
             amount={item.amount}
+            remark={item.remark}
           />
         ))}
       </ul>
@@ -43,7 +47,11 @@ const Cart = (props) => {
         <button className={style.btn} onClick={ctx.cartShowhandler}>
           סגור
         </button>
-        {hashItem && <button onClick={sendOrder} className={style["btn_ord"]}>! הזמן</button>}
+        {hashItem && (
+          <button onClick={sendOrder} className={style["btn_ord"]}>
+            ! הזמן
+          </button>
+        )}
       </div>
     </Modal>
   );

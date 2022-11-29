@@ -5,6 +5,20 @@
   cursor: pointer;
   font-size: 15px;
   font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.button_clicked {
+  background-color: #fe3b32;
+  color: aliceblue;
+  border-color: aliceblue;
+  border-radius: 20px;
+  width: 5rem;
+  padding: 0.5rem;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: bold;
+  margin-bottom: 1rem;
 }
 
 .button:hover,
