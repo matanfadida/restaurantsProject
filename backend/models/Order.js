@@ -25,7 +25,6 @@ class Order {
       .find()
       .toArray()
       .then((orders) => {
-        console.log(orders);
         return orders;
       })
       .catch((err) => {
