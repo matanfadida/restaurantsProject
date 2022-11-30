@@ -18,6 +18,21 @@ class Product {
         console.log(err);
       });
   }
+
+  static fetchAllProducts() {
+    const db = getDb();
+    return db
+      .collection("Products")
+      .find()
+      .toArray()
+      .then((product) => {
+        return product;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
 }
 
-exports.module = Product;
+module.exports = Product;

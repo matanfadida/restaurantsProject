@@ -28,8 +28,6 @@ const order = [
 
 router.post("/api/add-order", shopController.postAddOrder);
 
-router.use("/api", (req, res, next) => {
-    res.json(order);
-});
+router.use("/api", shopController.getProduct);
 
 module.exports = router;

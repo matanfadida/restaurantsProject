@@ -19,11 +19,12 @@ const ShowItem = (props) => {
     <ul className={style["ul-item"]}>
       {orders.map((item) => (
         <Item
-          key={item.id}
-          id={item.id}
+          key={item._id}
+          id={item._id}
           name={item.name}
           detail={item.detail}
           price={item.price}
+          img={item.image}
           amount={1}
         />
       ))}

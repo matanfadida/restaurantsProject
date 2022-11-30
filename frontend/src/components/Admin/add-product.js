@@ -1,10 +1,11 @@
 import { useRef } from "react";
+import Cart from "../UI/cart";
 import classes from "./add-product.module.css";
 
 const AddProduct = () => {
   const name = useRef();
   const detail = useRef();
-  const link = useRef();
+  const img = useRef();
   const price = useRef();
 
   const addHandler = (event) => {
@@ -12,36 +13,40 @@ const AddProduct = () => {
     const product = {
       name: name.current.value,
       detail: detail.current.value,
-      link: link.current.value,
+      img: img.current.value,
       price: price.current.value,
     };
 
-    //המנה מוכנה תוסיף לבסיס נתונים
+    fetch("/api/admin/add-product", {
+      method: "POST",
+      body: JSON.stringify(product),
+      headers: { "Content-Type": "application/json" },
+    })
+      .then(result => console.log(result))
+      .catch((err) => console.log(err));
   };
+
+  
   return (
-    <div className={classes.main}>
+    <Cart className={classes.main}>
       <form className={classes.form} onSubmit={addHandler}>
         <div>
           <input ref={name} type="text" placeholder="שם המנה" />
-          {/* <label name="name">שם מנה</label> */}
         </div>
         <div>
-          <input ref={detail} type="text" placeholder="פירוט" />
-          {/* <label name="detail">פרטים</label> */}
-        </div>
-        <div>
-          <input ref={link} type="text" placeholder="קישור לתמונה" />
-          {/* <label name="link">קישור לתמונה</label> */}
+          <input ref={img} type="text" placeholder="קישור לתמונה" />
         </div>
         <div>
           <input ref={price} type="number" min={0} placeholder="הזן מחיר" />
-          {/* <label name="price" >מחיר</label> */}
         </div>
         <div>
+          <textarea ref={detail} type="text" placeholder="פירוט" />
+        </div>
+        <div className={classes.div}>
           <button type="submit">הוסף מוצר</button>
         </div>
       </form>
-    </div>
+    </Cart>
   );
 };
 

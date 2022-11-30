@@ -1,4 +1,5 @@
 const Order = require("../models/Order");
+const Product = require("../models/Product");
 
 exports.postAddOrder = (req, res, next) => {
   const numberTable = req.body.numberTable;
@@ -9,4 +10,12 @@ exports.postAddOrder = (req, res, next) => {
     .save()
     .then((result) => console.log(result))
     .catch((err) => console.log(err));
+};
+
+exports.getProduct = (req, res, next) => {
+  Product.fetchAllProducts()
+    .then((result) => res.json(result))
+    .catch((err) => {
+      console.log(err);
+    });
 };
