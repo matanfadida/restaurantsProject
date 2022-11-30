@@ -1,0 +1,41 @@
+
+.main{
+    display: flex;
+  justify-content: space-around;
+}
+
+.form {
+  text-align: right;
+  
+}
+
+.form label {
+  margin-left: 1rem;
+}
+.form button {
+  border-radius: 20px;
+  width: 10rem;
+  padding: 0.5rem;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.form button:hover,
+.form button:active {
+  background-color: #fe3b32;
+  color: aliceblue;
+  border-color: aliceblue;
+}
+
+.form input {
+  margin: 0.3rem auto;
+  border-radius: 10px;
+  font-size: 30px;
+  font-style: italic;
+  border: none;
+  text-align: right;
+
+  background-color: #f9f9f9;
+}

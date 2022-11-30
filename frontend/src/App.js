@@ -6,6 +6,8 @@ import NavigationBar from "./components/NavigationBar/nav-bar";
 import CartContext from "./state/buy-context";
 import { Routes, Route } from "react-router-dom";
 import Chef from "./components/cuisine/chef";
+import AdminHome from "./components/Admin/Home";
+import AddProduct from "./components/Admin/add-product";
 
 const App = () => {
   const ctx = useContext(CartContext);
@@ -13,11 +15,15 @@ const App = () => {
     <Fragment>
       {ctx.cartShow && <Cart />}
       <NavigationBar />
-      <Routes>
-        <Route path="/chef" element={<Chef/>}/>
-        <Route path="/" element={<Home />}/>
-        <Route path="*" element={<Error404 />}/>
-      </Routes>
+  
+        <Routes>
+          <Route path="/chef" element={<Chef />} />
+          <Route path="/admin/add-product" element={<AddProduct />} />
+          <Route path="/admin" element={<AdminHome />} />
+          <Route path="/" element={<Home />} />
+          <Route path="*" element={<Error404 />} />
+        </Routes>
+  
     </Fragment>
   );
 };
