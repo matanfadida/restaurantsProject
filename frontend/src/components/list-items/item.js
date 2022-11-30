@@ -1,9 +1,11 @@
 import Cart from "../UI/cart";
 import { useContext, useState } from "react";
 import CartContext from "../../state/buy-context";
+import classes from "./item.module.css"
 const Item = (props) => {
   const ctx = useContext(CartContext);
   const [remark, setRemark] = useState("")
+  const [amount, setAmount] = useState(1)
   const buttonAddItemHanlder = () => {
     ctx.AddItem({
       id: props.id,
@@ -11,13 +13,18 @@ const Item = (props) => {
       detail: props.detail,
       price: props.price,
       remark: remark,
-      amount: props.amount,
+      amount: amount,
     });
     setRemark("")
+    setAmount(1)
   };
 
   const remarkChangeHandler = (event) =>{
     setRemark(event.target.value)
+  }
+
+  const amountChangeHandler = (event) => {
+    setAmount(event.target.value)
   }
 
   return (
@@ -31,10 +38,10 @@ const Item = (props) => {
           <div>
             <h4>{`${props.price}₪`}</h4>
           </div>
-          <input type="text" onChange={remarkChangeHandler} value={remark} placeholder="הערות לטבח"></input>
+          <input className={classes.remark} type="text" onChange={remarkChangeHandler} value={remark} placeholder="הערות לטבח"></input>
         </div>
-        <button onClick={buttonAddItemHanlder}>+</button>
-        <input type="number" min={0} placeholder="כמות" ></input>
+        <button className={classes.plus_button} onClick={buttonAddItemHanlder}>+</button>
+        <input className={classes.amount} value={amount} type="number" min={0} defaultValue={1} onChange={amountChangeHandler}></input>
         
       </li>
     </Cart>
