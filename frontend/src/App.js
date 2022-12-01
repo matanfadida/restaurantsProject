@@ -20,6 +20,7 @@ const App = () => {
           <Route path="/chef" element={<Chef />} />
           <Route path="/admin/add-product" element={<AddProduct />} />
           <Route path="/admin" element={<AdminHome />} />
+          <Route path="/:restaurantName/:tableId" element={<Home />} />
           <Route path="/" element={<Home />} />
           <Route path="*" element={<Error404 />} />
         </Routes>
