@@ -5,7 +5,7 @@ import ShowItem from "./list-items/show-item";
 
 const Home = () => {
 
-  const params = useParams()
+  const params = useParams();
 
   console.log("sdsdsd" + params.restaurantName)
 
@@ -15,7 +15,6 @@ const Home = () => {
         <h2 className={style.welcome}>! ברוכים הבאים</h2>
         {params.restaurantName && <h2 className={style.welcome}>{params.restaurantName.toUpperCase()} מסעדת </h2>}
         {params.tableId && <h2 className={style.welcome}>שולחן מספר {params.tableId}</h2>}
-        
       </div>
       <ShowItem />
     </div>

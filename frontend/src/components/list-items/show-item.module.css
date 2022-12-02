@@ -4,3 +4,12 @@
     padding-inline-start: 0;
     padding: 10px 15px;
 }
+
+.div-search{
+    text-align: center;
+    margin: 20px;
+}
+
+.div-search__input{
+    text-align: right;
+}

@@ -2,7 +2,9 @@ import Cart from "../UI/cart";
 import { useContext, useState } from "react";
 import CartContext from "../../state/buy-context";
 import classes from "./item.module.css";
+import { NavLink, useParams } from "react-router-dom";
 const Item = (props) => {
+  const params = useParams();
   const ctx = useContext(CartContext);
   const [remark, setRemark] = useState("");
   const [amount, setAmount] = useState(1);
@@ -65,6 +67,7 @@ const Item = (props) => {
             onChange={amountChangeHandler}
           ></input>
         </div>
+        <NavLink to={`/admin/edit-product/${props.id}`} >עריכה</NavLink>
       </li>
     </Cart>
   );

@@ -1,3 +1,4 @@
+const mongodb = require("mongodb");
 const getDb = require("../util/database").getDb;
 
 class Product {
@@ -9,8 +10,16 @@ class Product {
   }
   save() {
     const db = getDb();
-    db.collection("Products")
-      .insertOne(this)
+    let dbOp;
+    if (this._id) {
+      dbOp
+        .collection("Products")
+        .updateOne({ _id: new mongodb.ObjectId(this._id) }, { $set: this });
+    } else {
+      dbOp.collection("Products").insertOne(this);
+    }
+
+    return dbOp
       .then((result) => {
         console.log(result);
       })
@@ -33,6 +42,17 @@ class Product {
       });
   }
 
+  static findById(proId) {
+    const db = getDb();
+    return db
+      .collection("Products")
+      .find({ _id: new mongodb.ObjectId(proId) })
+      .next()
+      .then((product) => {
+        return product;
+      })
+      .catch((err) => console.log(err));
+  }
 }
 
 module.exports = Product;

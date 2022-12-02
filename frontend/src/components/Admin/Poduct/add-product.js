@@ -1,11 +1,41 @@
-import useInput from "../hooks/use-input";
-import Cart from "../UI/cart";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import useInput from "../../hooks/use-input";
+import Cart from "../../UI/cart";
 import classes from "./add-product.module.css";
 
 const isNotEmpty = (value) => value.trim() !== "";
 const isBiggerThenZero = (value) => value > 0;
 
 const AddProduct = () => {
+  const params = useParams();
+  const [product, setProduct] = useState({
+    nameValue: "",
+    priceValue: "",
+    detailValue: "",
+    imgValue: "",
+  });
+
+  useEffect(() => {
+    if (params.productId) {
+      fetch(`/api/admin/edit-product/${params.productId}`)
+        .then((res) => {
+          if (res.ok) {
+            return res.json();
+          }
+        })
+        .then((result) =>
+          setProduct({
+            nameValue: result.name,
+            priceValue: result.price,
+            detailValue: result.detail,
+            imgValue: result.image,
+          })
+        )
+        .catch((err) => console.log(err));
+    }
+  }, []);
+//צריך לראות למה זה לא משנה את הנתונים מה שעשיתה שם תראה איך משנים יש את הנתונים הם מופיעים אבל אי אפשר לשנות תסדר את זה
   const {
     value: nameValue,
     isValid: nameIsValid,
@@ -63,16 +93,26 @@ const AddProduct = () => {
       img: imgValue,
       price: priceValue,
     };
-
-    fetch("/api/admin/add-product", {
-      method: "POST",
-      body: JSON.stringify(product),
-      headers: { "Content-Type": "application/json" },
-    })
-      .then((result) => console.log(result))
-      .catch((err) => console.log(err));
-
-      resetForm();
+    if (params.productId) {
+      console.log('Update')
+      fetch("/api/admin/edit-product", {
+        method: "POST",
+        body: JSON.stringify(product),
+        headers: { "Content-Type": "application/json" },
+      })
+        .then((result) => console.log(result))
+        .catch((err) => console.log(err));
+    }else{
+      fetch("/api/admin/add-product", {
+        method: "POST",
+        body: JSON.stringify(product),
+        headers: { "Content-Type": "application/json" },
+      })
+        .then((result) => console.log(result))
+        .catch((err) => console.log(err));
+    }
+    
+    resetForm();
   };
 
   const nameNameClasses = nameHasError ? "invalid" : "valid";
@@ -91,7 +131,7 @@ const AddProduct = () => {
             type="text"
             name="name"
             placeholder="שם המוצר"
-            value={nameValue}
+            value={product.nameValue}
             onChange={nameChangeHandler}
             onBlur={nameBlurHandler}
           ></input>
@@ -105,7 +145,7 @@ const AddProduct = () => {
             type="text"
             name="img"
             placeholder="קישור לתמונה"
-            value={imgValue}
+            value={product.imgValue}
             onChange={imgChangeHandler}
             onBlur={imgBlurHandler}
           ></input>
@@ -119,7 +159,7 @@ const AddProduct = () => {
             type="number"
             name="price"
             placeholder="מחיר המוצר"
-            value={priceValue}
+            value={product.priceValue}
             onChange={priceChangeHandler}
             onBlur={priceBlurHandler}
           ></input>
@@ -133,7 +173,7 @@ const AddProduct = () => {
             type="text"
             name="detail"
             placeholder="פרטי המוצר"
-            value={detailValue}
+            value={product.detailValue}
             onChange={detailChangeHandler}
             onBlur={detailBlurHandler}
           ></textarea>
