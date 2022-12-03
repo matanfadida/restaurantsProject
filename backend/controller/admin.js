@@ -1,4 +1,3 @@
-const mongodb = require("mongodb");
 const Product = require("../models/Product");
 
 exports.postAddProduct = (req, res, next) => {
@@ -31,10 +30,17 @@ exports.postEditProduct = (req, res, next) => {
     Updateprice,
     Updateimg,
     Updatedetail,
-    new mongodb.ObjectId(proId)
+    proId
   );
   product
     .save()
-    .then(result => console.log("Update"))
+    .then((result) => console.log("Update"))
+    .catch((err) => console.log(err));
+};
+
+exports.postDeleteProduct = (req, res, next) => {
+  const proId = req.params.productId;
+  Product.deleteById(proId)
+    .then((result) => console.log("Delete"))
     .catch((err) => console.log(err));
 };
