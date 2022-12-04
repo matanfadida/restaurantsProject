@@ -22,7 +22,6 @@ const ShowItem = (props) => {
 
   const searchProductHandler = (e) => {
     const val = e.target.value;
-    console.log(val);
     setSearch(
       orders.filter((value) => {
         if (val === "") {
