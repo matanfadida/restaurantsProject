@@ -9,6 +9,9 @@ const inputStateReducer = (state, action) => {
   if (action.type === "INPUT") {
     return { value: action.value, isTouched: state.isTouched };
   }
+  if (action.type === "DEF") {
+    return { value: action.value, isTouched: true };
+  }
   if (action.type === "BLUR") {
     return { isTouched: true, value: state.value };
   }
@@ -24,19 +27,25 @@ const useInput = (validateFunc) => {
     initialInputState
   );
 
+
   const valueIsValid = validateFunc(inputState.value);
   const hasError = !valueIsValid && inputState.isTouched;
 
-  const valueChangeHandler = event =>{
-    dispatch({type: 'INPUT', value: event.target.value})
-  }
+  const valueChangeHandler = (event) => {
+    dispatch({ type: "INPUT", value: event.target.value });
+  };
 
-  const inputBlurHandler = event => {
-    dispatch({type: 'BLUR'})
-  }
+  const inputBlurHandler = (event) => {
+    dispatch({ type: "BLUR" });
+  };
 
   const reset = () => {
-    dispatch({type: 'RESET'})
+    dispatch({ type: "RESET" });
+  };
+
+  const defaultValue = (value) => {
+    dispatch({type: "DEF", value:value})
+    console.log(value)
   }
 
   return {
@@ -46,9 +55,8 @@ const useInput = (validateFunc) => {
     valueChangeHandler,
     inputBlurHandler,
     reset,
-  }
-
-
+    defaultValue,
+  };
 };
 
 export default useInput;

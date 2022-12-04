@@ -14,6 +14,7 @@ const AddProduct = () => {
     priceValue: "",
     detailValue: "",
     imgValue: "",
+    flag: false,
   });
 
   useEffect(() => {
@@ -30,12 +31,14 @@ const AddProduct = () => {
             priceValue: result.price,
             detailValue: result.detail,
             imgValue: result.image,
+            flag: true,
           })
         )
+
         .catch((err) => console.log(err));
     }
   }, []);
-//צריך לראות למה זה לא משנה את הנתונים מה שעשיתה שם תראה איך משנים יש את הנתונים הם מופיעים אבל אי אפשר לשנות תסדר את זה
+ 
   const {
     value: nameValue,
     isValid: nameIsValid,
@@ -43,6 +46,7 @@ const AddProduct = () => {
     valueChangeHandler: nameChangeHandler,
     inputBlurHandler: nameBlurHandler,
     reset: nameReset,
+    defaultValue: nameDefault,
   } = useInput(isNotEmpty);
 
   const {
@@ -52,6 +56,7 @@ const AddProduct = () => {
     valueChangeHandler: priceChangeHandler,
     inputBlurHandler: priceBlurHandler,
     reset: priceReset,
+    defaultValue: priceDefault,
   } = useInput(isBiggerThenZero);
 
   const {
@@ -61,6 +66,8 @@ const AddProduct = () => {
     valueChangeHandler: detailChangeHandler,
     inputBlurHandler: detailBlurHandler,
     reset: detailReset,
+    defaultValue: detailDefault,
+
   } = useInput(isNotEmpty);
 
   const {
@@ -70,6 +77,8 @@ const AddProduct = () => {
     valueChangeHandler: imgChangeHandler,
     inputBlurHandler: imgBlurHandler,
     reset: imgReset,
+    defaultValue: imgDefault,
+
   } = useInput(isNotEmpty);
 
   let formIsValid = false;
@@ -85,6 +94,21 @@ const AddProduct = () => {
     priceReset();
   };
 
+  const defaultValues = () => {
+    nameDefault(product.nameValue);
+    priceDefault(product.priceValue);
+    detailDefault(product.detailValue);
+    imgDefault(product.imgValue);
+
+    setProduct({
+      nameValue: product.nameValue,
+      priceValue: product.priceValue,
+      detailValue: product.detailValue,
+      imgValue: product.imgValue,
+      flag: false,
+    })
+  };
+
   const addHandler = (event) => {
     event.preventDefault();
     const product = {
@@ -92,9 +116,10 @@ const AddProduct = () => {
       detail: detailValue,
       img: imgValue,
       price: priceValue,
+      flag: true,
     };
     if (params.productId) {
-      console.log('Update')
+      console.log("Update");
       fetch("/api/admin/edit-product", {
         method: "POST",
         body: JSON.stringify(product),
@@ -102,7 +127,7 @@ const AddProduct = () => {
       })
         .then((result) => console.log(result))
         .catch((err) => console.log(err));
-    }else{
+    } else {
       fetch("/api/admin/add-product", {
         method: "POST",
         body: JSON.stringify(product),
@@ -111,7 +136,7 @@ const AddProduct = () => {
         .then((result) => console.log(result))
         .catch((err) => console.log(err));
     }
-    
+
     resetForm();
   };
 
@@ -119,6 +144,10 @@ const AddProduct = () => {
   const namePriceClasses = priceHasError ? "invalid" : "valid";
   const nameDetailClasses = detailHasError ? "invalid" : "valid";
   const nameImgClasses = imgHasError ? "invalid" : "valid";
+
+  if (product.flag === true) {
+    defaultValues();
+  }
 
   return (
     <Cart className={classes.main}>
@@ -131,7 +160,7 @@ const AddProduct = () => {
             type="text"
             name="name"
             placeholder="שם המוצר"
-            value={product.nameValue}
+            value={nameValue}
             onChange={nameChangeHandler}
             onBlur={nameBlurHandler}
           ></input>
@@ -145,7 +174,7 @@ const AddProduct = () => {
             type="text"
             name="img"
             placeholder="קישור לתמונה"
-            value={product.imgValue}
+            value={imgValue}
             onChange={imgChangeHandler}
             onBlur={imgBlurHandler}
           ></input>
@@ -159,21 +188,21 @@ const AddProduct = () => {
             type="number"
             name="price"
             placeholder="מחיר המוצר"
-            value={product.priceValue}
+            value={priceValue}
             onChange={priceChangeHandler}
             onBlur={priceBlurHandler}
           ></input>
         </div>
 
         <div className={classes[nameDetailClasses]}>
-          {priceHasError && (
+          {detailHasError && (
             <p className={classes.error_text}>נא להכניס את פרטי המוצר</p>
           )}
           <textarea
             type="text"
             name="detail"
             placeholder="פרטי המוצר"
-            value={product.detailValue}
+            value={detailValue}
             onChange={detailChangeHandler}
             onBlur={detailBlurHandler}
           ></textarea>
