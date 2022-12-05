@@ -2,7 +2,8 @@ import Cart from "../UI/cart";
 import { useContext, useState } from "react";
 import CartContext from "../../state/buy-context";
 import classes from "./item.module.css";
-import { NavLink, useParams } from "react-router-dom";
+
+import { NavLink, Route, useParams } from "react-router-dom";
 const Item = (props) => {
   const params = useParams();
   const ctx = useContext(CartContext);
@@ -19,6 +20,7 @@ const Item = (props) => {
     });
     setRemark("");
     setAmount(1);
+   
   };
 
   const remarkChangeHandler = (event) => {
@@ -30,6 +32,7 @@ const Item = (props) => {
   };
 
   return (
+    
     <Cart>
       <li>
         <div className={classes["div__img"]}>

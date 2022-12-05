@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import useInput from "../../hooks/use-input";
 import Cart from "../../UI/cart";
 import classes from "./add-product.module.css";
@@ -8,6 +8,7 @@ const isNotEmpty = (value) => value.trim() !== "";
 const isBiggerThenZero = (value) => value > 0;
 
 const AddProduct = () => {
+  const navigate = useNavigate();
   const params = useParams();
   const [product, setProduct] = useState({
     nameValue: "",
@@ -38,7 +39,7 @@ const AddProduct = () => {
         .catch((err) => console.log(err));
     }
   }, []);
- 
+
   const {
     value: nameValue,
     isValid: nameIsValid,
@@ -67,7 +68,6 @@ const AddProduct = () => {
     inputBlurHandler: detailBlurHandler,
     reset: detailReset,
     defaultValue: detailDefault,
-
   } = useInput(isNotEmpty);
 
   const {
@@ -78,7 +78,6 @@ const AddProduct = () => {
     inputBlurHandler: imgBlurHandler,
     reset: imgReset,
     defaultValue: imgDefault,
-
   } = useInput(isNotEmpty);
 
   let formIsValid = false;
@@ -101,12 +100,9 @@ const AddProduct = () => {
     imgDefault(product.imgValue);
 
     setProduct({
-      nameValue: product.nameValue,
-      priceValue: product.priceValue,
-      detailValue: product.detailValue,
-      imgValue: product.imgValue,
+      ...product,
       flag: false,
-    })
+    });
   };
 
   const addHandler = (event) => {
@@ -138,6 +134,7 @@ const AddProduct = () => {
     }
 
     resetForm();
+    navigate("/admin")
   };
 
   const nameNameClasses = nameHasError ? "invalid" : "valid";
