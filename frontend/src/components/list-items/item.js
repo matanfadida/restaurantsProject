@@ -4,6 +4,7 @@ import CartContext from "../../state/buy-context";
 import classes from "./item.module.css";
 import { NavLink, useParams } from "react-router-dom";
 const Item = (props) => {
+  
   const params = useParams();
   const ctx = useContext(CartContext);
   const [remark, setRemark] = useState("");
@@ -20,6 +21,14 @@ const Item = (props) => {
     setRemark("");
     setAmount(1);
   };
+
+  const deleteHandler = () => {
+    fetch('/api/admin/delete-product',{
+      method: "POST",
+      body: JSON.stringify({productId: props.id}),
+      headers: { "Content-Type": "application/json" },
+    })
+  }
 
   const remarkChangeHandler = (event) => {
     setRemark(event.target.value);
@@ -67,6 +76,7 @@ const Item = (props) => {
             onChange={amountChangeHandler}
           ></input>
         </div>
+        <button onClick={deleteHandler}>מחיקה</button>
         <NavLink to={`/admin/edit-product/${props.id}`} >עריכה</NavLink>
       </li>
     </Cart>

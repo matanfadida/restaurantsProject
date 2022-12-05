@@ -19,6 +19,7 @@ const AddProduct = () => {
 
   useEffect(() => {
     if (params.productId) {
+      console.log('up')
       fetch(`/api/admin/edit-product/${params.productId}`)
         .then((res) => {
           if (res.ok) {
@@ -128,6 +129,7 @@ const AddProduct = () => {
         .then((result) => console.log(result))
         .catch((err) => console.log(err));
     } else {
+      console.log('else')
       fetch("/api/admin/add-product", {
         method: "POST",
         body: JSON.stringify(product),
@@ -210,7 +212,7 @@ const AddProduct = () => {
 
         <div className={classes.div}>
           <button type="submit" disabled={!formIsValid}>
-            הוסף מוצר
+            {params.productId ?" הוסף מוצר" : "עדכן מוצר" }
           </button>
         </div>
       </form>

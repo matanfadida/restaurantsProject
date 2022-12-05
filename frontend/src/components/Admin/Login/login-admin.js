@@ -10,6 +10,7 @@ const Login = () => {
           <label>סיסמא</label>
           <input type="password" />
         </div>
+        <button>כניסה</button>
       </form>
     </div>
   );

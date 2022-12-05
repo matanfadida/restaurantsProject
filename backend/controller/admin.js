@@ -39,7 +39,7 @@ exports.postEditProduct = (req, res, next) => {
 };
 
 exports.postDeleteProduct = (req, res, next) => {
-  const proId = req.params.productId;
+  const proId = req.body.productId;
   Product.deleteById(proId)
     .then((result) => console.log("Delete"))
     .catch((err) => console.log(err));
