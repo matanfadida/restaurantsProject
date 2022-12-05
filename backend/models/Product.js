@@ -12,11 +12,14 @@ class Product {
   save() {
     const db = getDb();
     let dbOp;
-    if (this._id) {
+    console.log(this._id);
+    if (!this._id) {
+      console.log('update')
       dbOp = db
         .collection("Products")
         .updateOne({ _id: new mongodb.ObjectId(this._id) }, { $set: this });
     } else {
+      console.log('add')
       dbOp = db.collection("Products").insertOne(this);
     }
 

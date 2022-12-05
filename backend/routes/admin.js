@@ -9,6 +9,8 @@ router.get("/edit-product/:productId", adminController.getEditProduct);
 
 router.post("/edit-product", adminController.postEditProduct);
 
+router.post("/delete-product", adminController.postDeleteProduct);
+
 router.get("/", (req, res, next) => {
     console.log('admin')
     res.send('<h1>hello</h1>')
