@@ -8,6 +8,7 @@ import { Routes, Route } from "react-router-dom";
 import Chef from "./components/cuisine/chef";
 import AdminHome from "./components/Admin/Home";
 import AddProduct from "./components/Admin/Poduct/add-product";
+import Tables from "./components/Admin/Tables";
 
 const App = () => {
   const ctx = useContext(CartContext);
@@ -20,6 +21,7 @@ const App = () => {
           <Route path="/chef" element={<Chef />} />
           <Route path="/admin/add-product" element={<AddProduct />} />
           <Route path="/admin/edit-product/:productId" element={<AddProduct />} />
+          <Route path="/admin/tables" element={<Tables/>} />
           <Route path="/admin" element={<AdminHome />} />
           <Route path="/:restaurantName/:tableId" element={<Home />} />
           <Route path="/" element={<Home />} />

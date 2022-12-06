@@ -6,8 +6,14 @@ const AdminHome = () => {
   return (
     <Cart>
       <h1>! ברוכים הבאים</h1>
-      <Link to="/admin/add-product">הוסף לתפריט</Link>
-      
+      <ul>
+        <li>
+          <Link to="/admin/add-product">הוסף לתפריט</Link>
+        </li>
+        <li>
+          <Link to="/admin/tables">שולחנות</Link>
+        </li>
+      </ul>
     </Cart>
   );
 };
