@@ -8,8 +8,8 @@ const TableItem = (props) => {
         <h1>שולחן {props.table}</h1>
       </div>
     
-      <Link to={`./${props.id}`}>פירוט הזמנה</Link>
-      <h4>סה"כ מחיר הזמנה : {props.table}₪ </h4>
+      <Link to={`./${props.table}`}>פירוט הזמנה</Link>
+      <h4>סה"כ מחיר הזמנה : {props.totalPrice}₪ </h4>
       <h4>שולם: {props.paid}₪ </h4>
       <h4>נותר לשלם: {props.totalPrice - props.paid}₪ </h4>
     </div>

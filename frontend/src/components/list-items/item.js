@@ -5,7 +5,6 @@ import classes from "./item.module.css";
 
 import { NavLink, Route, useParams } from "react-router-dom";
 const Item = (props) => {
-  
   const params = useParams();
   const ctx = useContext(CartContext);
   const [remark, setRemark] = useState("");
@@ -21,16 +20,15 @@ const Item = (props) => {
     });
     setRemark("");
     setAmount(1);
-   
   };
 
   const deleteHandler = () => {
-    fetch('/api/admin/delete-product',{
+    fetch("/api/admin/delete-product", {
       method: "POST",
-      body: JSON.stringify({productId: props.id}),
+      body: JSON.stringify({ productId: props.id }),
       headers: { "Content-Type": "application/json" },
-    })
-  }
+    });
+  };
 
   const remarkChangeHandler = (event) => {
     setRemark(event.target.value);
@@ -41,46 +39,49 @@ const Item = (props) => {
   };
 
   return (
-    
     <Cart>
       <li>
-        <div className={classes["div__img"]}>
-          <img className={classes.img} src={props.img} alt={props.name} />
-        </div>
-        <div className={classes.div}>
-          <div>
-            <h3>{props.name}</h3>
-            <div>
-              <p>{props.detail}</p>
-            </div>
-            <div>
-              <h4>{`${props.price}₪`}</h4>
-            </div>
-            <input
-              className={classes.remark}
-              type="text"
-              onChange={remarkChangeHandler}
-              value={remark}
-              placeholder="הערות לטבח"
-            ></input>
+        <div className={classes.item}>
+          <div className={classes["div__img"]}>
+            <img className={classes.img} src={props.img} alt={props.name} />
           </div>
-          <button
-            className={classes.plus_button}
-            onClick={buttonAddItemHanlder}
-          >
-            +
-          </button>
-          <input
-            className={classes.amount}
-            value={amount}
-            type="number"
-            min={0}
-            defaultValue={1}
-            onChange={amountChangeHandler}
-          ></input>
+          <div className={classes.div}>
+            <div>
+              <h3>{props.name}</h3>
+              <div>
+                <p>{props.detail}</p>
+              </div>
+              <div>
+                <h4>{`${props.price}₪`}</h4>
+              </div>
+              <input
+                className={classes.remark}
+                type="text"
+                onChange={remarkChangeHandler}
+                value={remark}
+                placeholder="הערות לטבח"
+              ></input>
+            </div>
+            <button
+              className={classes.plus_button}
+              onClick={buttonAddItemHanlder}
+            >
+              +
+            </button>
+            <input
+              className={classes.amount}
+              value={amount}
+              type="number"
+              min={0}
+              defaultValue={1}
+              onChange={amountChangeHandler}
+            ></input>
+            <div>
+              <button onClick={deleteHandler}>מחיקה</button>
+              <NavLink to={`/admin/edit-product/${props.id}`}>עריכה</NavLink>
+            </div>
+          </div>
         </div>
-        <button onClick={deleteHandler}>מחיקה</button>
-        <NavLink to={`/admin/edit-product/${props.id}`} >עריכה</NavLink>
       </li>
     </Cart>
   );

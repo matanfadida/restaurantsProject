@@ -8,6 +8,10 @@
   margin-bottom: 0.5rem;
 }
 
+.item{
+  justify-content: space-between;
+}
+
 .amount {
   width: 30%;
   background-color: white;
