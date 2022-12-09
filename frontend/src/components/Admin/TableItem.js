@@ -1,5 +1,5 @@
 import classes from "./tableItem.module.css";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const TableItem = (props) => {
   return (
@@ -8,7 +8,8 @@ const TableItem = (props) => {
         <h1>שולחן {props.table}</h1>
       </div>
     
-      <Link to={`./${props.table}`}>פירוט הזמנה</Link>
+      {/* <Link to={`./1`}>פירוט הזמנה</Link> */}
+      <NavLink to={`./1`}>פירוט הזמנה</NavLink>
       <h4>סה"כ מחיר הזמנה : {props.totalPrice}₪ </h4>
       <h4>שולם: {props.paid}₪ </h4>
       <h4>נותר לשלם: {props.totalPrice - props.paid}₪ </h4>

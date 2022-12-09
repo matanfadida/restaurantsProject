@@ -44,3 +44,17 @@ exports.postDeleteProduct = (req, res, next) => {
     .then((result) => console.log("Delete"))
     .catch((err) => console.log(err));
 };
+
+const Order = require("../models/Order");
+
+exports.getTables = (req, res, next) => {
+  const numTable = req.params.numTable;
+  Order.fetchAllOrders()
+    .then((result) => {
+      const orderByTable = result.filter(num => num.numberTable == numTable);
+      res.json(orderByTable);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};

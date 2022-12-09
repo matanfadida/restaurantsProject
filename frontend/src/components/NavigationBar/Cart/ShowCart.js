@@ -7,10 +7,10 @@ import CartItem from "./CartItem";
 
 const Cart = (props) => {
   const ctx = useContext(CartContext);
-  const totalAmount = `${ctx.totalAmount.toFixed(2)}₪`;
+  const totalAmount = `${Number(ctx.totalAmount).toFixed(2)}₪`;
+  console.log('asd',ctx.items);
   const hashItem = ctx.items.length > 0;
   const sendOrder = async () => {
-
     await fetch("/api/add-order", {
       method: "POST",
       body: JSON.stringify({
@@ -33,7 +33,7 @@ const Cart = (props) => {
             id={item.id}
             name={item.name}
             detail={item.detail}
-            price={item.price}
+            price={Number(item.price)}
             amount={item.amount}
             remark={item.remark}
           />

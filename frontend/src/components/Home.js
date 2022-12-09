@@ -6,9 +6,6 @@ import ShowItem from "./list-items/show-item";
 const Home = () => {
 
   const params = useParams();
-
-  console.log("sdsdsd" + params.restaurantName)
-
   return (
     <div className={style["main-div"]}>
       <div className={style.cart}>
