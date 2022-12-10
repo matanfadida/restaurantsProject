@@ -58,3 +58,29 @@ exports.getTables = (req, res, next) => {
       console.log(err);
     });
 };
+const ass = [1,2,3,4,5,6,7,8,9,10]
+
+exports.getAllTable = (req, res, next) => {
+  const arrayOfTable = []
+  let arr = []
+  Order.fetchAllOrders()
+  .then((result) => {
+      ass.forEach(number => {
+        let totalPrice = 0
+          result.forEach(element => {
+              if(element.numberTable === number){
+                  totalPrice += element.price;
+              }
+          })
+          if(result[number] == undefined){
+            return;
+          }
+          arrayOfTable.push({_id:result[number]._id, numberTable:number ,totalPrice:totalPrice});
+          arr = []
+      });
+    res.json(arrayOfTable);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+}

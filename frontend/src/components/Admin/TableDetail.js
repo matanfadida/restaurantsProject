@@ -8,18 +8,15 @@ const TableDetail = () => {
   const params = useParams();
   const [orders, getOrders] = useState([]);
   let totalPrice = 0;
-  // const sumWithInitial = orders.products.price.reduce(
-  //   (accumulator, currentValue) => accumulator + currentValue,
-  //   0
-  // );
-  if(orders.length > 0){
-    const arr = orders.map(order => order.price);
-    totalPrice = (arr.reduce((accumulator, currentValue) => accumulator + currentValue,
-    0));
+
+  if (orders.length > 0) {
+    const arrOfPrice = orders.map((order) => order.price);
+    totalPrice = arrOfPrice.reduce(
+      (accumulator, currentValue) => accumulator + currentValue,
+      0
+    );
   }
- 
-    // console.log(orders.map(order => console.log(order.t)))
-  //   תוציא מהבסיס נתונים את כל הפריטים מאותו שולחן
+
   useEffect(() => {
     fetch(`/api/admin/tables/${params.tableId}`)
       .then((res) => {
@@ -27,39 +24,21 @@ const TableDetail = () => {
       })
       .then((result) => getOrders(result))
       .catch((err) => console.log(err));
-  }, []);
+  }, [params.tableId]);
 
   // status: מוכן-2 בהכנה-1 לא התחילו -0
-  const DEMMYDATA = [
-    {
-      name: "לחם הבית",
-      count: 5,
-      price: 100,
-      status: 0,
-    },
-    {
-      name: "לחם הבית",
-      count: 5,
-      price: 100,
-      status: 1,
-    },
-    {
-      name: "לחם הבית",
-      count: 5,
-      price: 100,
-      status: 2,
-    },
-    {
-      name: "לחם הבית",
-      count: 5,
-      price: 100,
-      status: 1,
-    },
-  ];
 
-  const products = DEMMYDATA.map((item) => (
+//תסדר את זה 
+  const products = orders.map((order) => (
     <tr>
-      <td>
+      {order.products.map((item) => (
+        <div>
+          <td>{item.price}</td>
+          <td>{item.amount}</td>
+          <td>{item.name}</td>
+        </div>
+      ))}
+      {/* <td>
         <ButtonGroup aria-label="Basic example">
           <Button variant={item.status === 1 ? "success" : "light"}>
             מוכן
@@ -68,10 +47,11 @@ const TableDetail = () => {
             בהכנה
           </Button>
         </ButtonGroup>
-      </td>
-      <td>{item.price}</td>
-      <td>{item.count}</td>
-      <td>{item.name}</td>
+      </td> */}
+      {/* <td>{item.price}</td>
+      <td>{item.amount}</td>
+      <td>{item.name}</td> */}
+      sad
     </tr>
   ));
 

@@ -8,7 +8,6 @@ import CartItem from "./CartItem";
 const Cart = (props) => {
   const ctx = useContext(CartContext);
   const totalAmount = `${Number(ctx.totalAmount).toFixed(2)}₪`;
-  console.log('asd',ctx.items);
   const hashItem = ctx.items.length > 0;
   const sendOrder = async () => {
     await fetch("/api/add-order", {
