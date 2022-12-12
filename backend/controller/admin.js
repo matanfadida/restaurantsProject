@@ -5,6 +5,7 @@ exports.postAddProduct = (req, res, next) => {
   const price = req.body.price;
   const img = req.body.img;
   const detail = req.body.detail;
+  console.log('asda');
   const product = new Product(name, price, img, detail);
   product
     .save()
@@ -21,6 +22,7 @@ exports.getEditProduct = (req, res, next) => {
 
 exports.postEditProduct = (req, res, next) => {
   const proId = req.body.productId;
+  console.log(proId)
   const Updatename = req.body.name;
   const Updateprice = req.body.price;
   const Updateimg = req.body.img;

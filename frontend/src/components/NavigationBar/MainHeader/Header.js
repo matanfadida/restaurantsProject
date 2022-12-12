@@ -15,13 +15,13 @@ const Header = () => {
     <header className={classes.header}>
       <div>
         <div className={style["main-div"]}>
-          <a href="index.html" className={style["main-div__brand"]}>
+          <a href="/" className={style["main-div__brand"]}>
             M&H
           </a>
         </div>
         <div className={style["main-nav"]}>
           <button className={style.btn} onClick={ctx.cartShowhandler}>
-            <BiRestaurant size="40px" color="white" className={classes.icon} />
+            <BiRestaurant size="20px" color="white" className={classes.icon} />
             {numberOfItems > 0 && (
               <span className={style["btn__badge"]}>{numberOfItems}</span>
             )}

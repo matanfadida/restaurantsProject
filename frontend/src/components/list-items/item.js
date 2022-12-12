@@ -3,9 +3,10 @@ import { useContext, useState } from "react";
 import CartContext from "../../state/buy-context";
 import classes from "./item.module.css";
 
-import { NavLink, Route, useParams } from "react-router-dom";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 const Item = (props) => {
   const params = useParams();
+  const navigate = useNavigate();
   const ctx = useContext(CartContext);
   const [remark, setRemark] = useState("");
   const [amount, setAmount] = useState(1);
@@ -28,6 +29,7 @@ const Item = (props) => {
       body: JSON.stringify({ productId: props.id }),
       headers: { "Content-Type": "application/json" },
     });
+    navigate(0);
   };
 
   const remarkChangeHandler = (event) => {

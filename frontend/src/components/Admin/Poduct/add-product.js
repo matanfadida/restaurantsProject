@@ -20,7 +20,6 @@ const AddProduct = () => {
 
   useEffect(() => {
     if (params.productId) {
-      console.log('up')
       fetch(`/api/admin/edit-product/${params.productId}`)
         .then((res) => {
           if (res.ok) {
@@ -112,23 +111,35 @@ const AddProduct = () => {
       name: nameValue,
       detail: detailValue,
       img: imgValue,
-      price: priceValue,
+      price: Number(priceValue),
       flag: true,
     };
     if (params.productId) {
       console.log("Update");
       fetch("/api/admin/edit-product", {
         method: "POST",
-        body: JSON.stringify(product),
+        body: JSON.stringify({
+          productId: params.productId,
+          name: product.name,
+          price: product.price,
+          img: product.img,
+          detail: product.detail,
+        }),
         headers: { "Content-Type": "application/json" },
       })
         .then((result) => console.log(result))
         .catch((err) => console.log(err));
     } else {
-      console.log('else')
+      console.log("else");
       fetch("/api/admin/add-product", {
         method: "POST",
-        body: JSON.stringify(product),
+        body: JSON.stringify({
+          productId: params.productId,
+          name: product.name,
+          price: product.price,
+          img: product.img,
+          detail: product.detail,
+        }),
         headers: { "Content-Type": "application/json" },
       })
         .then((result) => console.log(result))
@@ -136,7 +147,7 @@ const AddProduct = () => {
     }
 
     resetForm();
-    navigate("/admin")
+    navigate("/admin");
   };
 
   const nameNameClasses = nameHasError ? "invalid" : "valid";
@@ -209,7 +220,7 @@ const AddProduct = () => {
 
         <div className={classes.div}>
           <button type="submit" disabled={!formIsValid}>
-            {params.productId ?" הוסף מוצר" : "עדכן מוצר" }
+            {params.productId ? "עדכן מוצר" : " הוסף מוצר"}
           </button>
         </div>
       </form>

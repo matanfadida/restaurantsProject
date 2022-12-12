@@ -45,7 +45,6 @@ const useInput = (validateFunc) => {
 
   const defaultValue = (value) => {
     dispatch({type: "DEF", value:value})
-    console.log(value)
   }
 
   return {
