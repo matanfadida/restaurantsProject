@@ -1,0 +1,44 @@
+.header {
+  
+  top:0;
+  left:0;
+  background-color: #1f1f1f;
+  color: aliceblue;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100vw;
+  height: 60px;
+  font: inherit;
+  overflow-x: hidden;
+  border-bottom: 1px solid black;
+  padding: 0 5% 0 5%;
+  
+  
+}
+
+.img{
+  width: 50px;
+  height: 50px;
+  vertical-align: middle;
+  border-radius: 50%;
+} 
+.name{
+  padding: 0 5%;
+  font-size: 40px;
+  font-weight: bold;
+  
+}
+
+.name a {
+  text-decoration: dashed;
+}
+
+
+@media (max-width: 600px){
+  .name{
+    font-size: 25px;
+    
+  }
+}
+

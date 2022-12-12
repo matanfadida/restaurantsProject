@@ -39,8 +39,8 @@ const Item = (props) => {
   };
 
   return (
-    <Cart>
-      <li>
+    
+      <li className={classes.glass}>
         <div className={classes.item}>
           <div className={classes["div__img"]}>
             <img className={classes.img} src={props.img} alt={props.name} />
@@ -83,7 +83,7 @@ const Item = (props) => {
           </div>
         </div>
       </li>
-    </Cart>
+    
   );
 };
 

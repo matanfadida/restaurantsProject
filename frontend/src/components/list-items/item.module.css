@@ -1,5 +1,5 @@
 .remark {
-  width: 80%;
+  width: 90%;
   background-color: white;
   border-radius: 10px;
   font-style: italic;
@@ -8,7 +8,20 @@
   margin-bottom: 0.5rem;
 }
 
-.item{
+.glass {
+  /* From https://css.glass */
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: black;
+  text-align: right;
+  margin-bottom: 1rem;
+}
+
+.item {
   justify-content: space-between;
 }
 
@@ -46,10 +59,8 @@
 .div {
   display: inline-block;
 }
-@media only screen and (min-width: 600px) {
+@media (min-width: 600px) {
   .img {
     width: 50%;
   }
 }
-
-
