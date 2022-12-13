@@ -1,0 +1,79 @@
+
+.box{
+    width: 100%;
+    
+    
+}
+
+
+.searchBox{
+    position: relative;
+    height: 30px;
+    width: 30px;
+    transition: all 2s;
+    
+}
+
+.searchBoxOpen{
+    position: relative;
+    height: 30px;
+    width: 100%;
+    transition: all 2s;
+}
+
+
+
+.input{
+    height: 100%;
+    width: 100%;
+    border-radius: 20px;
+    background-color: #fff;
+    outline: none;
+    border: none;
+    text-align: right;
+    font-size: 18px;
+    padding: 3px;
+
+}
+
+.icon{
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 30px;
+    border: none;
+    background-color: orange;
+    height: 100%;
+    text-align: center;
+    line-height: 30px;
+    border-radius: 20px;
+
+    font-size: 20px;
+    cursor: pointer;  
+    transition: all 2s;
+}
+
+.iconOpen{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 30px;
+    border: none;
+    background-color: orange;
+    height: 100%;
+    text-align: center;
+    line-height: 30px;
+
+    font-size: 20px;
+    cursor: pointer;  
+    border-radius: 20px 0 0 20px;
+    transition: all 2s;
+}
+
+
+@media (max-width:600px) {
+    .searchBoxOpen{
+        
+        width: 70%;
+    }
+}
