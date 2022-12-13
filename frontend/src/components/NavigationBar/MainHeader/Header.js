@@ -16,7 +16,7 @@ const Header = () => {
     <header className={classes.header}>
       <div className={classes.left}>
         <div className={style["main-div"]}>
-          <a href="index.html" className={style["main-div__brand"]}>
+          <a href="/" className={style["main-div__brand"]}>
             M&H
           </a>
         </div>
