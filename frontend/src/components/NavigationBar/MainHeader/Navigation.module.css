@@ -3,12 +3,12 @@
 }
 .nav {
   align-items: center;
+  z-index: 99999;
 }
 
 .nav li {
   margin: 0;
   margin-left: 2rem;
-  
 }
 
 .nav ul {
@@ -48,25 +48,19 @@
     display: flex;
     flex-direction: column;
     position: absolute;
-    top: 59px;
-    right: 0;
-    width: 100%;
-    background-color: #181818;
-    border-top: orange;
-  }
-  .nav ul {
-    display: flex;
-    flex-direction: column;
-    position: absolute;
     top: 60px;
     right: 0;
     width: 100%;
-    background-color: #1f1f1f;
+    background: rgba(31, 31, 31, 0.86);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(9.4px);
+    -webkit-backdrop-filter: blur(9.4px);
+    border-bottom: 1px solid rgba(31, 31, 31, 1);
+
     border-top: 2px solid orange;
     padding-bottom: 1rem;
-    
   }
-  .nav li{
+  .nav li {
     padding-top: 1rem;
   }
   .nav a:hover,
@@ -74,7 +68,6 @@
   .nav a.active {
     color: orange;
     border-bottom: none;
-    
   }
 
   .nav .deskBar {

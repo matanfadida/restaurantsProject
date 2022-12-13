@@ -19,7 +19,7 @@ const NavLinks = (props) => {
         transition={{ delay: 0.1 }}
       >
         <NavLink activeClassName={classes.active} to="/">
-          השולחן שלי
+          השולחן-שלי
         </NavLink>
       </motion.li>
       <motion.li
