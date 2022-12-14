@@ -9,6 +9,12 @@
     text-align: center;
     margin: 20px;
 }
+.noFound{
+    text-align: center;
+    color: red;
+    font-weight: bolder;
+    font-size: larger;
+}
 
 .div-search__input{
     text-align: center;
