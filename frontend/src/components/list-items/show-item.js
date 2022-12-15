@@ -15,7 +15,6 @@ const ShowItem = (props) => {
     fetch("/api")
       .then((res) => {
         if (res.ok) {
-          console.log(res);
           return res.json();
         }
       })

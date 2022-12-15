@@ -18,7 +18,7 @@ const NavLinks = (props) => {
         animate={animateTo}
         transition={{ delay: 0.1 }}
       >
-        <NavLink activeClassName={classes.active} to="/">
+        <NavLink className={classes.active} to="/">
           השולחן-שלי
         </NavLink>
       </motion.li>
@@ -28,7 +28,7 @@ const NavLinks = (props) => {
         animate={animateTo}
         transition={{ delay: 0.2 }}
       >
-        <NavLink activeClassName={classes.active} to="/menu">
+        <NavLink className={classes.active} to="/menu">
           תפריט
         </NavLink>
       </motion.li>

@@ -32,8 +32,8 @@ const Cart = (props) => {
             id={item.id}
             name={item.name}
             detail={item.detail}
-            price={Number(item.price)}
-            amount={item.amount}
+            price={+item.price}
+            amount={+item.amount}
             remark={item.remark}
           />
         ))}

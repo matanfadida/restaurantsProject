@@ -17,7 +17,7 @@ const Item = (props) => {
       detail: props.detail,
       price: props.price,
       remark: remark,
-      amount: amount,
+      amount: +amount,
     });
     setRemark("");
     setAmount(1);
@@ -75,7 +75,6 @@ const Item = (props) => {
               value={amount}
               type="number"
               min={0}
-              defaultValue={1}
               onChange={amountChangeHandler}
             ></input>
             <div>

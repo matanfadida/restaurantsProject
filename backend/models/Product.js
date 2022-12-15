@@ -12,7 +12,6 @@ class Product {
   save() {
     const db = getDb();
     let dbOp;
-    console.log(this._id);
     if (this._id != null) {
       console.log('update')
       dbOp = db

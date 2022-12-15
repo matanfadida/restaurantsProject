@@ -170,7 +170,7 @@ const AddProduct = () => {
             type="text"
             name="name"
             placeholder="שם המוצר"
-            value={nameValue}
+            defaultValue={nameValue}
             onChange={nameChangeHandler}
             onBlur={nameBlurHandler}
           ></input>
@@ -184,7 +184,7 @@ const AddProduct = () => {
             type="text"
             name="img"
             placeholder="קישור לתמונה"
-            value={imgValue}
+            defaultValue={imgValue}
             onChange={imgChangeHandler}
             onBlur={imgBlurHandler}
           ></input>
@@ -198,7 +198,7 @@ const AddProduct = () => {
             type="number"
             name="price"
             placeholder="מחיר המוצר"
-            value={priceValue}
+            defaultValue={priceValue}
             onChange={priceChangeHandler}
             onBlur={priceBlurHandler}
           ></input>
@@ -212,7 +212,7 @@ const AddProduct = () => {
             type="text"
             name="detail"
             placeholder="פרטי המוצר"
-            value={detailValue}
+            defaultValue={detailValue}
             onChange={detailChangeHandler}
             onBlur={detailBlurHandler}
           ></textarea>
