@@ -7,36 +7,28 @@ import classes from "./show-item.module.css";
 const ShowItem = (props) => {
   const [orders, setOrders] = useState([]);
   const [search, setSearch] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const filterVal = queryParams.get('filter');
   useEffect(() => {
-    fetch("/api")
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-      })
-      .then((result) => {
-        setOrders(result);
-        setSearch(result);
-      })
-      .catch((err) => console.log(err));
+    const fetchProduct = async() => {
+      const response = await fetch('/api');
+      if (!response.ok) {
+        throw new Error("Request failed!");
+      }
+      const result = await response.json();
+      setOrders(result);
+      setSearch(result);
+      setLoading(false);
+    };
+    fetchProduct().catch((error) => {
+      setLoading(false);
+      // setHasError(error.message || "Something went wrong!");
+    });
   }, []);
 
-  // const searchProductHandler = (e) => {
-  //   const val = e.target.value;
-  //   setSearch(
-  //     orders.filter((value) => {
-  //       if (val === "") {
-  //         return value;
-  //       } else if (value.name.includes(val)) {
-  //         return value;
-  //       }
-  //     })
-  //   );
-  // };
   useEffect(() => {
     const val = filterVal;
     setSearch(
@@ -48,25 +40,17 @@ const ShowItem = (props) => {
         }
       })
     );
-  }, [filterVal]);
+  }, [filterVal]); 
 
-  let noFound = false;
-  if(search.length === 0){
-    noFound=<div className={classes.noFound}>לא נמצאו פריטים התואמים את החיפוש</div>
+  if(loading){
+    return <div>loading..</div>
   }
-
+  if(search.length === 0){
+    return <div className={classes.noFound}>לא נמצאו פריטים התואמים את החיפוש</div>
+  }
   return (
     <div>
-      {/* <div className={classes["div-search"]}>
-        <input
-          className={classes["div-search__input"]}
-          type="text"
-          onChange={searchProductHandler}
-          placeholder="חיפוש מנה"
-        />
-      </div> */}
-      {noFound}
-      <ul className={classes["ul-item"]}>
+      {<ul className={classes["ul-item"]}>
         {search.map((item) => (
           <Item
             key={item._id}
@@ -78,7 +62,8 @@ const ShowItem = (props) => {
             amount={1}
           />
         ))}
-      </ul>
+      </ul>}
+      
     </div>
   );
 };
