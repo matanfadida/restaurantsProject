@@ -17,7 +17,7 @@ const Header = () => {
       <div className={classes.left}>
         <div className={style["main-div"]}>
           <a href="/" className={style["main-div__brand"]}>
-            M&H
+            MTF
           </a>
         </div>
         <button className={style.btn} onClick={ctx.cartShowhandler}>
