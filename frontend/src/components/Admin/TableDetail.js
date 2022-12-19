@@ -9,36 +9,35 @@ const TableDetail = () => {
   const [orders, getOrders] = useState([]);
   let totalPrice = 0;
 
-  if (orders.length > 0) {
-    const arrOfPrice = orders.map((order) => order.price);
-    totalPrice = arrOfPrice.reduce(
-      (accumulator, currentValue) => accumulator + currentValue,
-      0
-    );
+  if(orders.length > 0){
+    const arrOfPrice = orders.map(order => order.price);
+    totalPrice = (arrOfPrice.reduce((accumulator, currentValue) => accumulator + currentValue,
+    0));
+    
+    const arrOfProdutcs = [];
+    orders.map(order => order.products.map(product => arrOfProdutcs.push(product)))
   }
 
   useEffect(() => {
-    fetch(`/api/admin/tables/${params.tableId}`)
-      .then((res) => {
-        return res.json();
-      })
-      .then((result) => getOrders(result))
-      .catch((err) => console.log(err));
-  }, [params.tableId]);
+    const fetchOrders = async() => {
+      const response = await fetch(`/api/admin/tables/${params.tableId}`);
+      if (!response.ok) {
+        throw new Error("Request failed!");
+      }
+      const result = await response.json();
+      getOrders(result);
+      // setLoading(false);
+    };
+    fetchOrders().catch((error) => {
+      // setLoading(false);
+      // setHasError(error.message || "Something went wrong!");
+    });
+  }, []);
 
   // status: מוכן-2 בהכנה-1 לא התחילו -0
-
-//תסדר את זה 
-  const products = orders.map((order) => (
-    <tr>
-      {order.products.map((item) => (
-        <div>
-          <td>{item.price}</td>
-          <td>{item.amount}</td>
-          <td>{item.name}</td>
-        </div>
-      ))}
-      {/* <td>
+  const products = orders.map((order) => order.products.map((item) => (
+    <tr key={Math.random()}>
+      <td>
         <ButtonGroup aria-label="Basic example">
           <Button variant={item.status === 1 ? "success" : "light"}>
             מוכן
@@ -47,13 +46,12 @@ const TableDetail = () => {
             בהכנה
           </Button>
         </ButtonGroup>
-      </td> */}
-      {/* <td>{item.price}</td>
+      </td>
+      <td>{item.price}</td>
       <td>{item.amount}</td>
-      <td>{item.name}</td> */}
-      sad
+      <td>{item.name}</td>
     </tr>
-  ));
+  )));
 
   return (
     <div className={classes.table}>
