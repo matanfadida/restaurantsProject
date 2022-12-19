@@ -7,7 +7,9 @@ import CartItem from "./CartItem";
 
 const Cart = (props) => {
   const ctx = useContext(CartContext);
-  const totalAmount = `${Number(ctx.totalAmount).toFixed(2)}₪`;
+  // const totalAmount = `${Number(ctx.totalAmount).toFixed(2)}₪`;
+  const totalAmount = Number(ctx.totalAmount).toFixed(2);
+
   const hashItem = ctx.items.length > 0;
   const sendOrder = async () => {
     await fetch("/api/add-order", {
