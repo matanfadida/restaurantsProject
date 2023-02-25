@@ -10,6 +10,7 @@ import AddProduct from "./components/Admin/Poduct/add-product";
 import Tables from "./components/Admin/Tables";
 import TableDetail from "./components/Admin/TableDetail";
 import Header from "./components/NavigationBar/MainHeader/Header";
+import Login from "./components/Admin/Login/login-admin";
 
 
 const App = () => {
@@ -25,6 +26,7 @@ const App = () => {
         <Route path="/admin/edit-product/:productId" element={<AddProduct />} />
         <Route path="/admin/tables" element={<Tables />} />
         <Route path="/admin/tables/:tableId" element={<TableDetail />} />
+        <Route path="/admin/login" element={<Login />} />
         <Route path="/admin" element={<AdminHome />} />
         <Route path="/:restaurantName/:tableId" element={<Home />} />
         <Route path="/" element={<Home />} />

@@ -62,7 +62,8 @@ const ass = [1,2,3,4,5,6,7,8,9,10]
 
 exports.getAllTable = (req, res, next) => {
   const arrayOfTable = []
-  let arr = []
+  let flag = true;
+  let flag2 = false;
   Order.fetchAllOrders()
   .then((result) => {
       ass.forEach(number => {
@@ -70,13 +71,17 @@ exports.getAllTable = (req, res, next) => {
           result.forEach(element => {
               if(element.numberTable === number){
                   totalPrice += element.price;
+                  flag2 = true;
               }
           })
-          if(result[number] == undefined){
-            return;
+          if(result[0] != undefined && flag){
+            flag = false;
+            arrayOfTable.push({_id:result[0]._id, numberTable:1 ,totalPrice:totalPrice});
           }
-          arrayOfTable.push({_id:result[number]._id, numberTable:number ,totalPrice:totalPrice});
-          arr = []
+          if(flag2 && number-1 != 0){
+            arrayOfTable.push({_id:Math.random(), numberTable:number ,totalPrice:totalPrice});
+          }
+          flag2 = false;
       });
     res.json(arrayOfTable);
   })
