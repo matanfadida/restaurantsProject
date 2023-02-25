@@ -9,7 +9,7 @@ const TableItem = (props) => {
       </div>
     
       {/* <Link to={`./1`}>פירוט הזמנה</Link> */}
-      <NavLink to={`./1`}>פירוט הזמנה</NavLink>
+      <NavLink to={`./${props.table}`}>פירוט הזמנה</NavLink>
       <h4>סה"כ מחיר הזמנה : {props.totalPrice}₪ </h4>
       <h4>שולם: {props.paid}₪ </h4>
       <h4>נותר לשלם: {props.totalPrice - props.paid}₪ </h4>

@@ -1,8 +1,24 @@
-import { Link, Route, Routes } from "react-router-dom";
+import { useEffect } from "react";
+import { Link } from "react-router-dom";
 import Cart from "../UI/cart";
-import AddProduct from "./Poduct/add-product";
 
 const AdminHome = () => {
+  useEffect(()=>{
+    const fetchLogin = async() => {
+      const response = await fetch('/api/auth');
+      if (!response.ok) {
+        throw new Error("Request failed!");
+      }
+      const result = await response.json();
+      // setOrders(result);
+      // setSearch(result);
+      // setLoading(false);
+    };
+    fetchLogin().catch((error) => {
+      // setLoading(false);
+      // setHasError(error.message || "Something went wrong!");
+    });
+  },[]);
   return (
     <Cart>
       <h1>! ברוכים הבאים</h1>

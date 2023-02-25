@@ -16,7 +16,7 @@ const Cart = (props) => {
       method: "POST",
       body: JSON.stringify({
         numberTable: 1,
-        price: totalAmount,
+        price: Number(totalAmount),
         products: ctx.items,
       }),
       headers: { "Content-Type": "application/json" },
