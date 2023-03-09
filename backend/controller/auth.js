@@ -3,6 +3,6 @@ exports.getLogin = (req, res, next) => {
 }
 
 exports.postLogin = (req, res, next) => {
-    console.log('test');
-    res.cookies('auth', 'true');
+    res.cookie('auth', 'true');
+    res.json('ok');
 }

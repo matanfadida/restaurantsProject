@@ -9,7 +9,7 @@ const AdminHome = () => {
       if (!response.ok) {
         throw new Error("Request failed!");
       }
-      const result = await response.json();
+      // const result = await response.json();
       // setOrders(result);
       // setSearch(result);
       // setLoading(false);
