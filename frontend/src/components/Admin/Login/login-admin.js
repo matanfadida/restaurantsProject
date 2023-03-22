@@ -25,7 +25,7 @@ const Login = () => {
       setUserPasswordIsValid(true);
       return;
     }
-    if(!enterdEmail.include('@')){
+    if(!enterdEmail.includes('@')){
       setUserEmailNotEmail(true);
       return;
     }
@@ -51,18 +51,18 @@ const Login = () => {
   return (
     <div>
       <form onSubmit={LoginHandler}>
-        <div>
-          <label>אימייל</label>
-          <input ref={userEmail} type="email" placeholder="אימייל"/>
+        <div class="form-group">
+          <label for="exampleInputEmail1">אימייל</label>
+          <input ref={userEmail} type="email" placeholder="אימייל" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"/>
           {userEmailIsValid && <span>אימייל לא יכול להיות ריק</span>}
           {userEmailNotEmail && <span>זה לא אימייל</span>}
         </div>
-        <div>
-          <label>סיסמה</label>
-          <input ref={userPassword} type="password"/>
+        <div class="form-group">
+          <label for="exampleInputPassword1">סיסמה</label>
+          <input ref={userPassword} type="password" class="form-control" id="exampleInputPassword1"/>
           {userPasswordIsValid && <span>סיסמה לא יכולה להיות ריקה</span>}
         </div>
-        <button>כניסה</button>
+        <button class="btn btn-primary">כניסה</button>
       </form>
     </div>
   );
