@@ -1,8 +1,24 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import classes from "./Navigation.module.css";
 
 import { motion } from "framer-motion";
 const NavLinks = (props) => {
+  const navigate = useNavigate();
+
+  const Logout = async () => {
+    const response = await fetch(`/api/auth/logout`, {
+      method: "POST"
+    });
+    if (!response.ok) {
+      throw new Error("Request failed!");
+    }
+    const result = await response.json();
+    if(result === 'ok'){
+      navigate('/', { replace: true });
+    }
+  }
+
+
   const closeMenuHandler = () => {
     if (props.isMobile) {
       props.closeMenu();
@@ -32,6 +48,7 @@ const NavLinks = (props) => {
           תפריט
         </NavLink>
       </motion.li>
+      <button onClick={Logout}>התנתק</button>
 
     
     </ul>
