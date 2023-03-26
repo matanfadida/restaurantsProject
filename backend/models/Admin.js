@@ -2,8 +2,8 @@ const mongodb = require("mongodb");
 const { getDb } = require("../util/database");
 
 class Admin {
-  constructor(userName, email) {
-    (this.userName = userName), (this.email = email);
+  constructor(email, password) {
+    (this.password = password), (this.email = email);
   }
 
   save() {
@@ -19,11 +19,11 @@ class Admin {
       });
   }
 
-  static findById(userId) {
+  static findByEmail(email) {
     const db = getDb();
     return db
       .collection("Admins")
-      .findOne({ _id: new mongodb.ObjectId(userId) })
+      .findOne({ email: email })
       .then()
       .catch((err) => console.log(err));
   }
