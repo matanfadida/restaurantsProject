@@ -41,50 +41,53 @@ const Item = (props) => {
   };
 
   return (
-    
-      <li className={classes.glass}>
-        <div className={classes.item}>
-          <div className={classes["div__img"]}>
-            <img className={classes.img} src={props.img} alt={props.name} />
-          </div>
-          <div className={classes.div}>
+    <li className={classes.glass}>
+      <div className={classes.item}>
+        <div className={classes["div__img"]}>
+          <img className={classes.img} src={props.img} alt={props.name} />
+        </div>
+        <div className={classes.div}>
+          <div>
+            <h3>{props.name}</h3>
             <div>
-              <h3>{props.name}</h3>
-              <div>
-                <p>{props.detail}</p>
-              </div>
-              <div>
-                <h4>{`${props.price}₪`}</h4>
-              </div>
-              <input
-                className={classes.remark}
-                type="text"
-                onChange={remarkChangeHandler}
-                value={remark}
-                placeholder="הערות לטבח"
-              ></input>
+              <p>{props.detail}</p>
+              <NavLink to={`/product/${props.id}`} className={classes.detail}>
+                לחץ לפרטים נוספים
+              </NavLink>
             </div>
-            <button
-              className={classes.plus_button}
-              onClick={buttonAddItemHanlder}
-            >
-              +
-            </button>
+            <div>
+              <h4>{`${props.price}₪`}</h4>
+            </div>
             <input
-              className={classes.amount}
-              value={amount}
-              type="number"
-              min={0}
-              onChange={amountChangeHandler}
+              className={classes.remark}
+              type="text"
+              onChange={remarkChangeHandler}
+              value={remark}
+              placeholder="הערות לטבח"
             ></input>
-            <div>
-              <button onClick={deleteHandler}>מחיקה</button>
-              <NavLink to={`/admin/edit-product/${props.id}`}>עריכה</NavLink>
-            </div>
+          </div>
+          <button
+            className={classes.plus_button}
+            onClick={buttonAddItemHanlder}
+          >
+            +
+          </button>
+          <input
+            className={classes.amount}
+            value={amount}
+            type="number"
+            min={0}
+            onChange={amountChangeHandler}
+          ></input>
+
+          <div>
+            <button onClick={deleteHandler}>מחיקה</button>
+
+            <NavLink to={`/admin/edit-product/${props.id}`}>עריכה</NavLink>
           </div>
         </div>
-      </li>
-    
+      </div>
+    </li>
   );
 };
 

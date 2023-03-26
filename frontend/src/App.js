@@ -10,7 +10,7 @@ import AddProduct from "./components/Admin/Poduct/add-product";
 import Tables from "./components/Admin/Tables";
 import TableDetail from "./components/Admin/TableDetail";
 import Header from "./components/NavigationBar/MainHeader/Header";
-import Login from "./components/Admin/Login/login-admin";
+import Login from "./components/Admin/Login/admin-login"; 
 
 
 const App = () => {
@@ -22,6 +22,7 @@ const App = () => {
 
       <Routes>
         <Route path="/chef" element={<Chef />} />
+        <Route path="/product/:productId" element />
         <Route path="/admin/add-product" element={<AddProduct />} />
         <Route path="/admin/edit-product/:productId" element={<AddProduct />} />
         <Route path="/admin/tables" element={<Tables />} />

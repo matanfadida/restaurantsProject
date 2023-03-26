@@ -21,6 +21,15 @@
   margin-bottom: 1rem;
 }
 
+.detail {
+  color: #fe3b32;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 22px;
+}
+
+
+
 .item {
   justify-content: space-between;
 }

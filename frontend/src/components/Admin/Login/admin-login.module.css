@@ -1,0 +1,76 @@
+.main {
+    margin: 5% 25%;
+    box-shadow: 5px 10px 18px #888888;
+    width: 50%;
+  }
+  
+  .form {
+    text-align: right;
+  }
+  
+  .form label {
+    margin-left: 1rem;
+  }
+  .form button {
+    border-radius: 20px;
+    width: 10rem;
+    padding: 0.5rem;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+  
+  .form button:disabled,
+  .form button:disabled:hover,
+  .form button:disabled:active {
+    cursor: not-allowed;
+    background-color: white;
+    color: gray;
+  }
+  
+  .invalid input {
+    border: 1px solid #b40e0e;
+    background-color: #fddddd;
+  }
+  
+  .invalid textarea {
+    border: 1px solid #b40e0e;
+    background-color: #fddddd;
+  }
+  
+  .error_text {
+    margin: 0;
+    font-weight: bold;
+    margin-left: 1rem;
+    font-size: 20px;
+    color: rgb(83, 5, 13);
+  }
+  
+  .form button:hover,
+  .form button:active {
+    background-color: #fe3b32;
+    color: aliceblue;
+    border-color: aliceblue;
+  }
+  
+  .form input {
+    width: 100%;
+    padding: 8px;
+    margin: 0.3rem auto;
+    border-radius: 10px;
+    text-align: right;
+  }
+  .form textarea {
+    height: 100px;
+    width: 100%;
+    margin: 0.3rem auto;
+    border-radius: 10px;
+    text-align: right;
+  }
+  
+  .div {
+    margin-top: 50px;
+    text-align: left;
+  }
+  
