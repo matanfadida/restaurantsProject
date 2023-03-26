@@ -3,7 +3,7 @@ import Cart from "../../UI/cart";
 import classes from "./admin-login.module.css";
 
 const isNotEmpty = (value) => value.trim() !== "";
-const isBiggerThenZero = (value) => value > 0;
+const isValidEmail = (email) => /\S+@\S+\.\S+/.test(email);
 
 const Login = () => {
   const defaultValue = {
@@ -24,7 +24,7 @@ const Login = () => {
   const userChangeHangler = (event) => {
     setUser({
       value: event.target.value,
-      isValid: isNotEmpty(event.target.value),
+      isValid: isValidEmail(event.target.value),
     });
   };
 
@@ -62,7 +62,7 @@ const Login = () => {
             <p className={classes.error_text}>נא להכניס שם משתמש תקין</p>
           )}
           <input
-            type="text"
+            type="email"
             name="user"
             placeholder="שם מתשמש"
             onChange={userChangeHangler}
@@ -75,7 +75,7 @@ const Login = () => {
             <p className={classes.error_text}>נא להכניס סיסמא</p>
           )}
           <input
-            type="text"
+            type="password"
             name="user"
             placeholder="סיסמא"
             onChange={passChangeHangler}
