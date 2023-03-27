@@ -34,7 +34,7 @@ const NavLinks = (props) => {
   const animateFrom = { opacity: 0, y: -40 };
   const animateTo = { opacity: 1, y: 0 };
   return (
-    <ul>
+    <ul className={classes.nav_ul}>
       <motion.li
         onClick={closeMenuHandler}
         initial={animateFrom}
@@ -66,20 +66,27 @@ const NavLinks = (props) => {
           קטגוריות
         </button>
         {category && (
-          <div className={classes.cat}>
-            <div>
-              <NavLink to="/admin" onClick={closeMenuHandler}>תפריט</NavLink>
-            </div>
-            <div>
-              <NavLink to="/admin" onClick={closeMenuHandler}>תפריט</NavLink>
-            </div>
-            <div>
-              <NavLink to="/admin" onClick={closeMenuHandler}>תפריט</NavLink>
-            </div>
-            
-           
-          </div>
+          <ul className={classes.cat}>
+            <li>
+              <NavLink to="/admin" onClick={closeMenuHandler}>
+                תפריט
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/admin" onClick={closeMenuHandler}>
+                תפריט
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/admin" onClick={closeMenuHandler}>
+                תפריט
+              </NavLink>
+            </li>
+          </ul>
         )}
+      </motion.li>
+      <motion.li>
+        
       </motion.li>
     </ul>
   );
