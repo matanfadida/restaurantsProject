@@ -5,20 +5,9 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 const NavLinks = (props) => {
   const [category, setCategory] = useState(false);
-  const navigate = useNavigate();
+  
 
-  const Logout = async () => {
-    const response = await fetch(`/api/auth/logout`, {
-      method: "POST"
-    });
-    if (!response.ok) {
-      throw new Error("Request failed!");
-    }
-    const result = await response.json();
-    if(result === 'ok'){
-      navigate('/', { replace: true });
-    }
-  }
+  
 
   const closeMenuHandler = () => {
     if (props.isMobile) {
@@ -55,7 +44,7 @@ const NavLinks = (props) => {
           תפריט
         </NavLink>
       </motion.li>
-      <button onClick={Logout}>התנתק</button>
+      
 
       <motion.li
         initial={animateFrom}
