@@ -14,6 +14,7 @@ const Home = () => {
         {params.tableId && <h2 className={style.welcome}>שולחן מספר {params.tableId}</h2>}
       </div>
       <ShowItem />
+      
     </div>
   );
 };

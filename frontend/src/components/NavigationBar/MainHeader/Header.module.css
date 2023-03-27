@@ -32,6 +32,15 @@
   font-weight: bold;
 }
 
+.logout{
+  background-color: transparent;
+  border: none;
+  color: #c55307;
+  font-weight: bold;
+  font-size: large;
+  
+}
+
 .name a {
   text-decoration: dashed;
 }

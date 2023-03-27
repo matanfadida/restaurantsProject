@@ -1,8 +1,8 @@
 import { useContext, useState } from "react";
 import CartContext from "../../state/buy-context";
 import classes from "./item.module.css";
-
 import { NavLink, useNavigate } from "react-router-dom";
+
 const Item = (props) => {
   const navigate = useNavigate();
   const ctx = useContext(CartContext);

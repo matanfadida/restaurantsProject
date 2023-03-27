@@ -1,24 +1,13 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import classes from "./Navigation.module.css";
 
 import { motion } from "framer-motion";
 import { useState } from "react";
 const NavLinks = (props) => {
   const [category, setCategory] = useState(false);
-  const navigate = useNavigate();
+  
 
-  const Logout = async () => {
-    const response = await fetch(`/api/auth/logout`, {
-      method: "POST"
-    });
-    if (!response.ok) {
-      throw new Error("Request failed!");
-    }
-    const result = await response.json();
-    if(result === 'ok'){
-      navigate('/', { replace: true });
-    }
-  }
+  
 
   const closeMenuHandler = () => {
     if (props.isMobile) {
@@ -34,7 +23,7 @@ const NavLinks = (props) => {
   const animateFrom = { opacity: 0, y: -40 };
   const animateTo = { opacity: 1, y: 0 };
   return (
-    <ul>
+    <ul className={classes.nav_ul}>
       <motion.li
         onClick={closeMenuHandler}
         initial={animateFrom}
@@ -55,7 +44,7 @@ const NavLinks = (props) => {
           תפריט
         </NavLink>
       </motion.li>
-      <button onClick={Logout}>התנתק</button>
+      
 
       <motion.li
         initial={animateFrom}
@@ -66,18 +55,27 @@ const NavLinks = (props) => {
           קטגוריות
         </button>
         {category && (
-          <div className={classes.cat}>
-            <div>
-              <NavLink to="/admin" onClick={closeMenuHandler}>תפריט</NavLink>
-            </div>
-            <div>
-              <NavLink to="/admin" onClick={closeMenuHandler}>תפריט</NavLink>
-            </div>
-            <div>
-              <NavLink to="/admin" onClick={closeMenuHandler}>תפריט</NavLink>
-            </div>
-          </div>
+          <ul className={classes.cat}>
+            <li>
+              <NavLink to="/admin" onClick={closeMenuHandler}>
+                תפריט
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/admin" onClick={closeMenuHandler}>
+                תפריט
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/admin" onClick={closeMenuHandler}>
+                תפריט
+              </NavLink>
+            </li>
+          </ul>
         )}
+      </motion.li>
+      <motion.li>
+        
       </motion.li>
     </ul>
   );
