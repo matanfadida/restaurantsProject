@@ -11,7 +11,6 @@ import Tables from "./components/Admin/Tables";
 import TableDetail from "./components/Admin/TableDetail";
 import Header from "./components/NavigationBar/MainHeader/Header";
 import Login from "./components/Admin/Login/admin-login"; 
-import Account from "./components/Admin/Login/account-admin";
 
 const App = () => {
   const ctx = useContext(CartContext);
@@ -19,7 +18,6 @@ const App = () => {
     <Fragment>
       <Header/>
       {ctx.cartShow && <Cart />}
-
       <Routes>
         <Route path="/chef" element={<Chef />} />
         <Route path="/product/:productId" element />
@@ -27,8 +25,8 @@ const App = () => {
         <Route path="/admin/edit-product/:productId" element={<AddProduct />} />
         <Route path="/admin/tables" element={<Tables />} />
         <Route path="/admin/tables/:tableId" element={<TableDetail />} />
-        <Route path="/admin/login" element={<Account />} />
-        <Route path="/admin/signup" element={<Account />} />
+        <Route path="/admin/login" element={<Login />} />
+        <Route path="/admin/signup" element={<Login />} />
         <Route path="/admin" element={<AdminHome />} />
         <Route path="/:restaurantName/:tableId" element={<Home />} />
         <Route path="/" element={<Home />} />

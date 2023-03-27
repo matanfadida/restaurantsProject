@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect} from "react";
 import Cart from "../../UI/cart";
 import classes from "./admin-login.module.css";
+import { useNavigate, useLocation } from "react-router-dom";
+
 
 const isNotEmpty = (value) => value.trim() !== "";
 const isValidEmail = (email) => /\S+@\S+\.\S+/.test(email);
@@ -11,18 +13,28 @@ const Login = () => {
     isValid: false,
     blur: false,
   };
-  const [user, setUser] = useState(defaultValue);
 
+  const [email, setEmail] = useState(defaultValue);
   const [pass, setPass] = useState(defaultValue);
+  const [signup, setSignup] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    console.log(location.pathname);
+    if(location.pathname.includes('signup')){
+      setSignup(true);
+    }
+  }, [location.pathname])
 
   let formIsValid = false;
 
-  if (pass.isValid && user.isValid) {
+  if (pass.isValid && email.isValid) {
     formIsValid = true;
   }
 
-  const userChangeHangler = (event) => {
-    setUser({
+  const emailChangeHangler = (event) => {
+    setEmail({
       value: event.target.value,
       isValid: isValidEmail(event.target.value),
     });
@@ -42,31 +54,74 @@ const Login = () => {
     });
   };
 
-  const userBlurHangler = (event) => {
-    setUser({
-      ...user,
+  const emailBlurHandler = (event) => {
+    setEmail({
+      ...email,
       blur: true,
     });
   };
 
-  const loginHandler = () => {};
+  const AccountHandler = async (e) => {
+    e.preventDefault();
 
-  const nameUserClasses = !user.isValid && user.blur? "invalid" : "valid";
+    if(signup){
+      const response = await fetch(`/api/auth/signup`, {
+        method: "POST",
+        body: JSON.stringify({
+          email: email.value,
+          password: pass.value
+        }),
+        headers: { "Content-Type": "application/json" },
+      });
+      if (!response.ok) {
+        throw new Error("Request failed!");
+      }
+      const result = await response.json();
+      if(result === 'ok'){
+        navigate('/admin/login', { replace: true });
+      }else{
+        navigate('/admin/signup', { replace: true });
+        console.log('error');
+      }
+      return;
+    }
+    const response = await fetch(`/api/auth`, {
+      method: "POST",
+      body: JSON.stringify({
+        email: email.value,
+        password: pass.value
+      }),
+      headers: { "Content-Type": "application/json" },
+    });
+    if (!response.ok) {
+      throw new Error("Request failed!");
+    }
+    const result = await response.json();
+    console.log(result);
+    if(result === 'succeeded'){
+      navigate('/admin', { replace: true });
+    }else{
+      navigate('/admin/login', { replace: true });
+      console.log('error');
+    }
+  }
+
+  const nameUserClasses = !email.isValid && email.blur? "invalid" : "valid";
   const namePassClasses = !pass.isValid && pass.blur? "invalid" : "valid";
 
   return (
     <Cart className={classes.main}>
-      <form className={classes.form} onSubmit={loginHandler}>
+      <form className={classes.form} onSubmit={AccountHandler}>
         <div className={classes[nameUserClasses]}>
-          {!user.isValid && user.blur &&(
+          {!email.isValid && email.blur &&(
             <p className={classes.error_text}>נא להכניס שם משתמש תקין</p>
           )}
           <input
             type="email"
             name="user"
             placeholder="שם מתשמש"
-            onChange={userChangeHangler}
-            onBlur={userBlurHangler}
+            onChange={emailChangeHangler}
+            onBlur={emailBlurHandler}
           ></input>
         </div>
 

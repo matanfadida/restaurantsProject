@@ -76,8 +76,6 @@ const NavLinks = (props) => {
             <div>
               <NavLink to="/admin" onClick={closeMenuHandler}>תפריט</NavLink>
             </div>
-            
-           
           </div>
         )}
       </motion.li>
