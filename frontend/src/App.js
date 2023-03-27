@@ -10,8 +10,9 @@ import AddProduct from "./components/Admin/Poduct/add-product";
 import Tables from "./components/Admin/Tables";
 import TableDetail from "./components/Admin/TableDetail";
 import Header from "./components/NavigationBar/MainHeader/Header";
-import Login from "./components/Admin/Login/admin-login"; 
 import Account from "./components/Admin/Login/account-admin";
+import Meal from "./pages/mealPage";
+import Rate from "./components/Rating/rate";
 
 const App = () => {
   const ctx = useContext(CartContext);
@@ -22,7 +23,8 @@ const App = () => {
 
       <Routes>
         <Route path="/chef" element={<Chef />} />
-        <Route path="/product/:productId" element />
+        <Route path="/product/:productId" element={<Meal/>} />
+        <Route path="/rate" element={<Rate />} />
         <Route path="/admin/add-product" element={<AddProduct />} />
         <Route path="/admin/edit-product/:productId" element={<AddProduct />} />
         <Route path="/admin/tables" element={<Tables />} />
