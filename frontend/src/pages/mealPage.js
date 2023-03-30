@@ -1,32 +1,58 @@
-import { useNavigate, useParams } from "react-router-dom";
-import { useState } from "react";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 import classes from "./mealPage.module.css";
 import Stars from "../components/Rating/ratingStar";
 
 const Meal = () => {
   const params = useParams();
-  const [product, setProduct] = useState({
-    nameValue: "פסטה רוזטו",
-    priceValue: 56,
-    detailValue: "פסטה מגעילה ברוטב עגבניות ונגיעות בזיליקום על מצע של חרא",
-    imgValue: "https://img.mako.co.il/2017/03/28/DSC_0376_x5.jpg",
-    flag: false,
-    rating: 4,
-  });
-  //להוציא את המנה מהבסיס נתונים לפי מה שמקבלים בלינק params.productId
+  const [loading, setLoading] = useState(true);
+  const [product, setProduct] = useState();
+
+  useEffect(() => {
+    const fetchProduct = async () => {
+      const response = await fetch(`/api/get-product`, {
+        method: "POST",
+        body: JSON.stringify({
+          id: params.productId,
+          getComment: true,
+        }),
+        headers: { "Content-Type": "application/json" },
+      });
+      if (!response.ok) {
+        throw new Error("Request failed!");
+      }
+      const result = await response.json();
+
+      console.log(result);
+      setProduct(result);
+      setLoading(false);
+    };
+    fetchProduct().catch((error) => {
+      setLoading(false);
+    });
+  }, [params.productId]);
+
+  if (loading) {
+    return <div>loading..</div>;
+  }
 
   return (
-    <div className={classes.main}>
-      <img
-        className={classes.img}
-        src={product.imgValue}
-        alt={product.nameValue}
-      ></img>
+    <div>
+      <div className={classes.main}>
+        <img
+          className={classes.img}
+          src={product.product.image}
+          alt={product.product.name}
+        ></img>
 
-      <h1>{product.nameValue}</h1>
-      <h5>{product.detailValue}</h5>
-      <h2>{`${product.priceValue}₪`}</h2>
-      <Stars value={product.rating} />
+        <h1>{product.product.name}</h1>
+        <h5>{product.product.detail}</h5>
+        <h2>{`${product.product.price}₪`}</h2>
+        <Stars value={product.product.rating} />
+      </div>
+      <div>
+        {product.comments.map(comment => <p key={comment._id}>{comment.comment}</p>)}
+      </div>
     </div>
   );
 };

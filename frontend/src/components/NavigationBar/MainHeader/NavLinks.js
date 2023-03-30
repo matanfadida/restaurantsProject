@@ -51,24 +51,24 @@ const NavLinks = (props) => {
         animate={animateTo}
         transition={{ delay: 0.3 }}
       >
-        <button onClick={categoryHandler} className={classes.category}>
+        <button onClick={categoryHandler}>
           קטגוריות
         </button>
         {category && (
-          <ul className={classes.cat}>
+          <ul>
             <li>
               <NavLink to="/admin" onClick={closeMenuHandler}>
-                תפריט
+               1 תפריט
               </NavLink>
             </li>
             <li>
               <NavLink to="/admin" onClick={closeMenuHandler}>
-                תפריט
+               2 תפריט
               </NavLink>
             </li>
             <li>
               <NavLink to="/admin" onClick={closeMenuHandler}>
-                תפריט
+               3 תפריט
               </NavLink>
             </li>
           </ul>

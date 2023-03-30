@@ -1,15 +1,11 @@
 const mongodb = require("mongodb");
 const getDb = require("../util/database").getDb;
 
-class Product {
-  constructor(name, price, image, detail, rating, counterRating, _id) {
-    this.name = name;
-    this.price = price;
-    this.detail = detail;
-    this.image = image;
+class Comment {
+  constructor(proId, comment, _id) {
+    this.proId = proId;
+    this.comment = comment;
     this._id = _id ? new mongodb.ObjectId(_id) : null;
-    this.rating = rating ? rating : 0;
-    this.counterRating = counterRating ? counterRating : 0;
   }
   save() {
     const db = getDb();
@@ -17,11 +13,11 @@ class Product {
     if (this._id != null) {
       console.log('update')
       dbOp = db
-        .collection("Products")
+        .collection("Comments")
         .updateOne({ _id: new mongodb.ObjectId(this._id) }, { $set: this });
     } else {
       console.log('add')
-      dbOp = db.collection("Products").insertOne(this);
+      dbOp = db.collection("Comments").insertOne(this);
     }
 
     return dbOp
@@ -33,24 +29,24 @@ class Product {
       });
   }
 
-  static fetchAllProducts() {
+  static fetchAllCommentForProduct(proId) {
     const db = getDb();
     return db
-      .collection("Products")
-      .find()
+      .collection("Comments")
+      .find({ proId: proId })
       .toArray()
-      .then((product) => {
-        return product;
+      .then((comments) => {
+        return comments;
       })
       .catch((err) => {
         console.log(err);
       });
   }
 
-  static findById(proId) {
+  static findByProId(proId) {
     const db = getDb();
     return db
-      .collection("Products")
+      .collection("Comments")
       .find({ _id: new mongodb.ObjectId(proId) })
       .next()
       .then((product) => {
@@ -59,23 +55,14 @@ class Product {
       .catch((err) => console.log(err));
   }
 
-  static deleteById(proId) {
+  static deleteCommentByProductId(proId) {
     const db = getDb();
     return db
-      .collection("Products")
+      .collection("Comments")
       .deleteOne({ _id: new mongodb.ObjectId(proId) })
       .then(result => console.log("Delete"))
       .catch((err) => console.log(err));
   }
-
-  static updateRating(proId, newRating, newCounterRating){
-    const db = getDb();
-    return db
-    .collection("Products")
-    .updateOne({ _id: new mongodb.ObjectId(proId) }, { $set: { rating: newRating, counterRating: newCounterRating } })
-    .then(result => console.log(result))
-    .catch((err) => console.log(err));
-  }
 }
 
-module.exports = Product;
+module.exports = Comment;

@@ -1,4 +1,5 @@
 const Product = require("../models/Product");
+const Order = require("../models/Order");
 
 exports.postAddProduct = (req, res, next) => {
   const name = req.body.name;
@@ -25,12 +26,14 @@ exports.postEditProduct = (req, res, next) => {
   const Updateprice = req.body.price;
   const Updateimg = req.body.img;
   const Updatedetail = req.body.detail;
+  const rating = req.body.rating;
   const product = new Product(
     Updatename,
     Updateprice,
     Updateimg,
     Updatedetail,
-    proId
+    proId,
+    rating
   );
   product
     .save()
@@ -45,8 +48,6 @@ exports.postDeleteProduct = (req, res, next) => {
     .catch((err) => console.log(err));
 };
 
-const Order = require("../models/Order");
-
 exports.getTables = (req, res, next) => {
   const numTable = req.params.numTable;
   Order.fetchAllOrders()
@@ -58,7 +59,7 @@ exports.getTables = (req, res, next) => {
       console.log(err);
     });
 };
-const ass = [1,2,3,4,5,6,7,8,9,10]
+const NUMBERTABLE = [1,2,3,4,5,6,7,8,9,10]
 
 exports.getAllTable = (req, res, next) => {
   const arrayOfTable = []
@@ -66,7 +67,7 @@ exports.getAllTable = (req, res, next) => {
   let flag2 = false;
   Order.fetchAllOrders()
   .then((result) => {
-      ass.forEach(number => {
+    NUMBERTABLE.forEach(number => {
         let totalPrice = 0
           result.forEach(element => {
               if(element.numberTable === number){

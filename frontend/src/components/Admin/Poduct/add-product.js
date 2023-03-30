@@ -124,6 +124,7 @@ const AddProduct = () => {
           price: product.price,
           img: product.img,
           detail: product.detail,
+          rating: product.rating,
         }),
         headers: { "Content-Type": "application/json" },
       })
