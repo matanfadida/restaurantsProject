@@ -47,25 +47,17 @@
     right: 5%;
     cursor: pointer;
   }
- 
 
   .category {
     display: flex;
     color: orange;
     background-color: transparent;
     border: none;
-
   }
-
-  .cat{
-    position: fixed;
-    right: 0;
-    margin-right: 10px;
+  .category_list {
+    display: flex;
     flex-direction: column;
-
   }
-
-
 
   .nav_ul {
     display: flex;
@@ -79,7 +71,7 @@
     backdrop-filter: blur(9.4px);
     -webkit-backdrop-filter: blur(9.4px);
     border-bottom: 1px solid rgba(31, 31, 31, 1);
-    
+
     border-top: 2px solid orange;
     padding-bottom: 1rem;
   }

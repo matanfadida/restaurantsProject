@@ -24,7 +24,7 @@ const Header = () => {
     }
   };
 
-  const adminIsLogin = true;
+  const adminIsLogin = false;
   /**@todo: מתן תוסיף פה בדיקה אם האדמין מחובר או לא */
 
   const numberOfItems = ctx.items.reduce((curNumber) => {
@@ -45,7 +45,11 @@ const Header = () => {
           )}
         </button>
 
-        <button className={classes.logout} onClick={Logout}> {adminIsLogin? "התנתק" : ""}</button>
+        {adminIsLogin && (
+          <button className={classes.logout} onClick={Logout}>
+            התנתק
+          </button>
+        )}
       </div>
       <SearchBox />
 

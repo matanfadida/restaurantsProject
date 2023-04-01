@@ -5,9 +5,6 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 const NavLinks = (props) => {
   const [category, setCategory] = useState(false);
-  
-
-  
 
   const closeMenuHandler = () => {
     if (props.isMobile) {
@@ -44,39 +41,36 @@ const NavLinks = (props) => {
           תפריט
         </NavLink>
       </motion.li>
-      
 
       <motion.li
         initial={animateFrom}
         animate={animateTo}
         transition={{ delay: 0.3 }}
       >
-        <button onClick={categoryHandler}>
+        <button className={classes.category} onClick={categoryHandler}>
           קטגוריות
         </button>
         {category && (
-          <ul>
-            <li>
+          <ul className={classes.category_list}>
+            <li className={classes.category_item}>
               <NavLink to="/admin" onClick={closeMenuHandler}>
-               1 תפריט
+                1 תפריט
               </NavLink>
             </li>
             <li>
               <NavLink to="/admin" onClick={closeMenuHandler}>
-               2 תפריט
+                2 תפריט
               </NavLink>
             </li>
             <li>
               <NavLink to="/admin" onClick={closeMenuHandler}>
-               3 תפריט
+                3 תפריט
               </NavLink>
             </li>
           </ul>
         )}
       </motion.li>
-      <motion.li>
-        
-      </motion.li>
+      <motion.li></motion.li>
     </ul>
   );
 };

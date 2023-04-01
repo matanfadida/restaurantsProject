@@ -8,6 +8,7 @@ const Item = (props) => {
   const ctx = useContext(CartContext);
   const [remark, setRemark] = useState("");
   const [amount, setAmount] = useState(1);
+  const [isAdmin, setIsAdmin] = useState(false);
   const buttonAddItemHanlder = () => {
     ctx.AddItem({
       id: props.id,
@@ -41,21 +42,21 @@ const Item = (props) => {
   return (
     <li className={classes.glass}>
       <div className={classes.item}>
-        <div className={classes["div__img"]}>
-          <img className={classes.img} src={props.img} alt={props.name} />
+        <div className={classes.start}>
+          <div className={classes["div__img"]}>
+            <img className={classes.img} src={props.img} alt={props.name} />
+          </div>
+          <div className={classes.right}>
+            <h3>{props.name}</h3>
+            <p>{props.detail}</p>
+            <h4>{`${props.price}₪`}</h4>
+            <NavLink to={`/product/${props.id}`} className={classes.detail}>
+              לחץ לפרטים נוספים
+            </NavLink>
+          </div>
         </div>
         <div className={classes.div}>
           <div>
-            <h3>{props.name}</h3>
-            <div>
-              <p>{props.detail}</p>
-              <NavLink to={`/product/${props.id}`} className={classes.detail}>
-                לחץ לפרטים נוספים
-              </NavLink>
-            </div>
-            <div>
-              <h4>{`${props.price}₪`}</h4>
-            </div>
             <input
               className={classes.remark}
               type="text"
@@ -77,12 +78,13 @@ const Item = (props) => {
             min={0}
             onChange={amountChangeHandler}
           ></input>
+          {isAdmin && (
+            <div>
+              <button onClick={deleteHandler}>מחיקה</button>
 
-          <div>
-            <button onClick={deleteHandler}>מחיקה</button>
-
-            <NavLink to={`/admin/edit-product/${props.id}`}>עריכה</NavLink>
-          </div>
+              <NavLink to={`/admin/edit-product/${props.id}`}>עריכה</NavLink>
+            </div>
+          )}
         </div>
       </div>
     </li>

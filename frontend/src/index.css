@@ -5,9 +5,16 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: white;
+  /* background: white; */
+
+  background-image: url("./mainImg.jpg");
+  background-size: cover;
+  background-attachment: fixed;
+
 }
 
 code {
   font-family: 'Montserrat', sans-serif;
 }
+
+
