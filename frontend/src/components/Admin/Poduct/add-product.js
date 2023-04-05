@@ -38,7 +38,7 @@ const AddProduct = () => {
 
         .catch((err) => console.log(err));
     }
-  }, []);
+  }, [params.productId]);
 
   const {
     value: nameValue,

@@ -8,7 +8,7 @@ const Item = (props) => {
   const ctx = useContext(CartContext);
   const [remark, setRemark] = useState("");
   const [amount, setAmount] = useState(1);
-  const [isAdmin, setIsAdmin] = useState(false);
+  
   const buttonAddItemHanlder = () => {
     ctx.AddItem({
       id: props.id,
@@ -78,7 +78,7 @@ const Item = (props) => {
             min={0}
             onChange={amountChangeHandler}
           ></input>
-          {isAdmin && (
+          {ctx.isLogged && (
             <div>
               <button onClick={deleteHandler}>מחיקה</button>
 

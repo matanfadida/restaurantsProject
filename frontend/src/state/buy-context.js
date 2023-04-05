@@ -7,6 +7,8 @@ const CartContext = React.createContext({
     RemoveItem: (id) => {},
     cartShowhandler: () => {},
     cartShow: false,
+    isLogged: false,
+    setIsLoggedHandler: (value) => {}
 });
 
 export default CartContext;

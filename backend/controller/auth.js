@@ -47,3 +47,11 @@ exports.postSignup = (req, res, next) => {
     }).catch(err => {console.log(err); res.json('error');});
     
 }
+
+exports.IsLogin = (req, res, next) => {
+    if(req.session.isLoggedIn == undefined){
+        res.json(false);
+    }else{
+        res.json(true);
+    }
+}

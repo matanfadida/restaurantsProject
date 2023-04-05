@@ -32,7 +32,7 @@ const TableDetail = () => {
       // setLoading(false);
       // setHasError(error.message || "Something went wrong!");
     });
-  }, []);
+  }, [params.tableId]);
 
   // status: מוכן-2 בהכנה-1 לא התחילו -0
   const products = orders.map((order) => order.products.map((item) => (

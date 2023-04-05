@@ -9,23 +9,22 @@ import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const ctx = useContext(CartContext);
-
   const navigate = useNavigate();
+
   const Logout = async () => {
-    const response = await fetch(`/api/auth/logout`, {
+  const response = await fetch(`/api/auth/logout`, {
       method: "POST",
     });
     if (!response.ok) {
       throw new Error("Request failed!");
     }
     const result = await response.json();
+    console.log(result);
     if (result === "ok") {
+      ctx.setIsLoggedHandler(false);
       navigate("/", { replace: true });
     }
   };
-
-  const adminIsLogin = false;
-  /**@todo: מתן תוסיף פה בדיקה אם האדמין מחובר או לא */
 
   const numberOfItems = ctx.items.reduce((curNumber) => {
     return curNumber + 1;
@@ -45,7 +44,7 @@ const Header = () => {
           )}
         </button>
 
-        {adminIsLogin && (
+        {ctx.isLogged && (
           <button className={classes.logout} onClick={Logout}>
             התנתק
           </button>

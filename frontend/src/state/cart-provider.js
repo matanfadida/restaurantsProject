@@ -1,4 +1,4 @@
-import { useReducer, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 import CartContext from "./buy-context";
 
 const initialCartState = {
@@ -54,6 +54,24 @@ const CartReducer = (state, action) => {
 const CartProvider = (props) => {
   const [cartState, dispatchCart] = useReducer(CartReducer, initialCartState);
   const [showCartButton, setShowCartButton] = useState(false);
+  const [isLogged, setIsLogged] = useState(false);
+
+  useEffect(() => {
+    const fetchProduct = async() => {
+      const response = await fetch(`/api/auth/get-status-admin`);
+      if (!response.ok) {
+        throw new Error("Request failed!");
+      }
+      const result = await response.json();
+      setIsLogged(result);
+    };
+    fetchProduct().catch((error) => {
+    });
+  }, []);
+
+  const setIsLoggedHandler = (value) => {
+    setIsLogged(value)
+  }
 
   const AddItemHandler = (item) => {
     dispatchCart({ type: "ADD", item: item });
@@ -79,6 +97,8 @@ const CartProvider = (props) => {
     cartShowhandler:cartShowHandler,
     RemoveAll: RemoveAllHandler,
     cartShow:showCartButton,
+    isLogged,
+    setIsLoggedHandler,
   };
 
   return (

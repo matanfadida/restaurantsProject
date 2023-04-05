@@ -1,7 +1,8 @@
-import { useState, useEffect} from "react";
+import { useState, useEffect, useContext} from "react";
 import Cart from "../../UI/cart";
 import classes from "./admin-login.module.css";
 import { useNavigate, useLocation } from "react-router-dom";
+import CartContext from "../../../state/buy-context";
 
 
 const isNotEmpty = (value) => value.trim() !== "";
@@ -14,6 +15,7 @@ const Login = () => {
     blur: false,
   };
 
+  const ctx = useContext(CartContext);
   const [email, setEmail] = useState(defaultValue);
   const [pass, setPass] = useState(defaultValue);
   const [signup, setSignup] = useState(false);
@@ -99,6 +101,7 @@ const Login = () => {
     const result = await response.json();
     console.log(result);
     if(result === 'succeeded'){
+      ctx.setIsLoggedHandler(true);
       navigate('/admin', { replace: true });
     }else{
       navigate('/admin/login', { replace: true });
