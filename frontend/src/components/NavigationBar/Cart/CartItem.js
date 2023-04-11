@@ -17,7 +17,7 @@ const CartItem = (props) => {
   }
 
   const RemoveItemFromCartHandler = () => {
-    ctx.RemoveItem(props.id)
+    ctx.RemoveItem(props.id, props.guid_id)
   }
 
   return (
