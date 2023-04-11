@@ -13,6 +13,7 @@ import Header from "./components/NavigationBar/MainHeader/Header";
 import Login from "./components/Admin/Login/admin-login"; 
 import Meal from "./pages/mealPage";
 import Rate from "./components/Rating/rate";
+import AddCategory from "./components/Admin/Poduct/add-category";
 
 const App = () => {
   const ctx = useContext(CartContext);
@@ -25,6 +26,7 @@ const App = () => {
         <Route path="/product/:productId" element={<Meal/>} />
         <Route path="/rate/:productId" element={<Rate />} />
         <Route path="/admin/add-product" element={<AddProduct />} />
+        <Route path="/admin/add-category" element={<AddCategory />} />
         <Route path="/admin/edit-product/:productId" element={<AddProduct />} />
         <Route path="/admin/tables" element={<Tables />} />
         <Route path="/admin/tables/:tableId" element={<TableDetail />} />

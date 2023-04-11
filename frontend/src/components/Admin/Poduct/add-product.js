@@ -3,8 +3,10 @@ import { useNavigate, useParams } from "react-router-dom";
 import useInput from "../../hooks/use-input";
 import Cart from "../../UI/cart";
 import classes from "./add-product.module.css";
+import Select from "react-select";
 
 const isNotEmpty = (value) => value.trim() !== "";
+const isNotEmptyArr = (value) => value.length > 0;
 const isBiggerThenZero = (value) => value > 0;
 
 const AddProduct = () => {
@@ -15,8 +17,32 @@ const AddProduct = () => {
     priceValue: "",
     detailValue: "",
     imgValue: "",
+    category: [],
     flag: false,
   });
+  const [category, setCategory] = useState([]);
+
+  const [categoryHasError, setCategoryError] = useState(true);
+  const [catagoryBlured, setCategoryBlured] = useState(false);
+  const [catagoryIsValid, setCategoryIsValid] = useState(false);
+
+  const categoryChangeHandler = (selected) => {
+    setCategory(selected);
+
+    setCategoryError(!isNotEmptyArr(selected));
+  };
+
+  const categoryBlurHandle = () => {
+    setCategoryBlured(true);
+  };
+
+  
+  // למשוך את הקטגוריות האמיתיות מהבסיס נתונים
+  const categoryOptions = [
+    { value: 1, label: "Apple" },
+    { value: 2, label: "Banana" },
+    { value: 3, label: "Orange" },
+  ];
 
   useEffect(() => {
     if (params.productId) {
@@ -82,7 +108,13 @@ const AddProduct = () => {
 
   let formIsValid = false;
 
-  if (nameIsValid && priceIsValid && detailIsValid && imgIsValid) {
+  if (
+    nameIsValid &&
+    priceIsValid &&
+    detailIsValid &&
+    imgIsValid &&
+    !categoryHasError
+  ) {
     formIsValid = true;
   }
 
@@ -98,6 +130,7 @@ const AddProduct = () => {
     priceDefault(product.priceValue);
     detailDefault(product.detailValue);
     imgDefault(product.imgValue);
+    setCategory(product.categoryValue);
 
     setProduct({
       ...product,
@@ -156,6 +189,8 @@ const AddProduct = () => {
   const nameDetailClasses = detailHasError ? "invalid" : "valid";
   const nameImgClasses = imgHasError ? "invalid" : "valid";
 
+  const nameCategoryClasses = categoryHasError ? "select" : "valid";
+
   if (product.flag === true) {
     defaultValues();
   }
@@ -203,6 +238,20 @@ const AddProduct = () => {
             onChange={priceChangeHandler}
             onBlur={priceBlurHandler}
           ></input>
+        </div>
+
+        <div>
+          {categoryHasError && catagoryBlured && (
+            <p className={classes.error_text}> נא לבחור לפחות קטגוריה אחת</p>
+          )}
+          <Select
+            className={classes[nameCategoryClasses]}
+            value={category.categoryValue}
+            onChange={categoryChangeHandler}
+            options={categoryOptions}
+            isMulti
+            onBlur={categoryBlurHandle}
+          />
         </div>
 
         <div className={classes[nameDetailClasses]}>

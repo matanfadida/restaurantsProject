@@ -1,11 +1,14 @@
 .remark {
-  width: 90%;
+  width: 80%;
+  
+  margin-right: 20px;
   background-color: white;
   border-radius: 10px;
   font-style: italic;
   padding: 0.5rem;
   text-align: right;
   margin-bottom: 0.5rem;
+  margin-top: 20px;
 }
 
 .glass {
@@ -23,10 +26,11 @@
 }
 
 .detail {
-  color: #fe3b32;
+  color: orange;
   text-decoration: none;
   font-weight: bold;
   font-size: 5vw;
+  margin-right: 20px;
 }
 
 .item {
@@ -36,6 +40,7 @@
 .start {
   display: flex;
   margin: 20px;
+  margin-bottom: 0;
 }
 
 .right {
@@ -43,35 +48,37 @@
 }
 
 .amount {
-  width: 30%;
-  background-color: white;
-  border-radius: 10px;
+  width: 40px;
+  height: 40px;
+  text-align: center;
   font-style: italic;
-  padding: 0.5rem;
-  font-weight: bold;
+  font-weight: bolder;
+  margin-right: 10px;
 }
 
 .plus_button {
-  width: 10%;
-  height: 2rem;
-  margin-right: 1rem;
-  background-color: white;
-  border-radius: 20px;
-  border-color: orange;
+  background-color: transparent;
+  border: none;
+  color: red;
+  font-weight: bold;
+  margin-right: 10px;
+ 
 }
 
 .img {
-  height: 100%;
-  width: 100%;
+  height: 150px;
+  width: 150px;
   border-radius: 50%;
-  box-shadow: 5px 10px 18px #888888;
+  border: 1px solid red;
+  /* box-shadow: 5px 10px 18px #888888; */
 }
 .div__img {
   flex-basis: 40%;
 }
 
 .div {
-  display: inline-block;
+  margin-right: 20px;
+
 }
 @media (min-width: 600px) {
   .detail {

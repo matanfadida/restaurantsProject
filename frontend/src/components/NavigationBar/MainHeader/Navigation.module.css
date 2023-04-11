@@ -57,6 +57,7 @@
   .category_list {
     display: flex;
     flex-direction: column;
+    right: 0;
   }
 
   .nav_ul {

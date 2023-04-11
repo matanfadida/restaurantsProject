@@ -3,7 +3,6 @@ import { useLocation } from "react-router-dom";
 import Item from "./item";
 import classes from "./show-item.module.css";
 
-
 const ShowItem = (props) => {
   const [orders, setOrders] = useState([]);
   const [search, setSearch] = useState([]);
@@ -11,10 +10,11 @@ const ShowItem = (props) => {
 
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-  const filterVal = queryParams.get('filter');
+  const filterVal = queryParams.get("filter");
+  const categoryVal = queryParams.get("category");
   useEffect(() => {
-    const fetchProduct = async() => {
-      const response = await fetch('/api');
+    const fetchProduct = async () => {
+      const response = await fetch("/api");
       if (!response.ok) {
         throw new Error("Request failed!");
       }
@@ -29,6 +29,21 @@ const ShowItem = (props) => {
     });
   }, []);
 
+  console.log(categoryVal);
+
+  useEffect(() => {
+    const val = categoryVal;
+    setSearch(
+      orders.filter((value) => {
+        if (val === null) {
+          return value;
+        } else if (value.category === val) {
+          return value;
+        }
+      })
+    );
+  }, [categoryVal]);
+
   useEffect(() => {
     const val = filterVal;
     setSearch(
@@ -40,30 +55,33 @@ const ShowItem = (props) => {
         }
       })
     );
-  }, [filterVal]); 
+  }, [filterVal]);
 
-  if(loading){
-    return <div>loading..</div>
+  if (loading) {
+    return <div>loading..</div>;
   }
-  if(search.length === 0){
-    return <div className={classes.noFound}>לא נמצאו פריטים התואמים את החיפוש</div>
+  if (search.length === 0) {
+    return (
+      <div className={classes.noFound}>לא נמצאו פריטים התואמים את החיפוש</div>
+    );
   }
   return (
-    <div>
-      {<ul className={classes["ul-item"]}>
-        {search.map((item) => (
-          <Item
-            key={item._id}
-            id={item._id}
-            name={item.name}
-            detail={item.detail}
-            price={item.price}
-            img={item.image}
-            amount={1}
-          />
-        ))}
-      </ul>}
-      
+    <div className={classes.div}>
+      {
+        <ul className={classes["ul-item"]}>
+          {search.map((item) => (
+            <Item
+              key={item._id}
+              id={item._id}
+              name={item.name}
+              detail={item.detail}
+              price={item.price}
+              img={item.image}
+              amount={1}
+            />
+          ))}
+        </ul>
+      }
     </div>
   );
 };
