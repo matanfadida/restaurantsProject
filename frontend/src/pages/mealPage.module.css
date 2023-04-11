@@ -1,22 +1,61 @@
 .main {
-    margin-top: 20px;
+  margin-top: 20px;
   display: block;
   max-width: 80%;
   margin-left: auto;
   margin-right: auto;
+  /* From https://css.glass */
+  background: rgba(31, 28, 28, 0.76);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(8.9px);
+  -webkit-backdrop-filter: blur(8.9px);
+  border: 1px solid rgba(31, 28, 28, 1);
 
+  color: white;
   text-align: right;
+  margin-bottom: 1rem;
+  padding: 10px;
+}
+.rate {
+  margin-top: 30px;
 }
 
 .img {
-  
   max-width: 100%;
-  
+
   height: auto;
   border-radius: 20px;
-  border: 1px solid #FF6347;
+  border: 1px solid #ff6347;
 }
 
-.main h1{
-    color: #FF6347;
+.main h1 {
+  color: #ff6347;
 }
+
+.comment {
+  border-bottom: 1px solid white;
+  margin-top: 20px;
+}
+
+.comment span {
+  color: gray;
+  margin-right: 5px;
+}
+.comment p {
+  margin-right: 20px;
+}
+
+.stars {
+    position: fixed;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+@media (min-width: 600px) {
+    .main {
+        
+        max-width: 50%;
+        
+      }
+  }

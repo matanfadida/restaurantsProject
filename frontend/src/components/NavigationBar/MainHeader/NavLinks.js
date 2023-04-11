@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import classes from "./Navigation.module.css";
 
 import { motion } from "framer-motion";
@@ -50,27 +50,26 @@ const NavLinks = (props) => {
         <button className={classes.category} onClick={categoryHandler}>
           קטגוריות
         </button>
-        {category && (
-          <ul className={classes.category_list}>
-            <li className={classes.category_item}>
-              <NavLink to="/admin" onClick={closeMenuHandler}>
-                1 תפריט
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/admin" onClick={closeMenuHandler}>
-                2 תפריט
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/admin" onClick={closeMenuHandler}>
-                3 תפריט
-              </NavLink>
-            </li>
-          </ul>
-        )}
       </motion.li>
-      <motion.li></motion.li>
+      {category && (
+        <ul className={classes.category_list}>
+          <li className={classes.category_item}>
+            <NavLink to="/admin" onClick={closeMenuHandler}>
+              1 תפריט
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/admin" onClick={closeMenuHandler}>
+              2 תפריט
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/admin" onClick={closeMenuHandler}>
+              3 תפריט
+            </NavLink>
+          </li>
+        </ul>
+      )}
     </ul>
   );
 };

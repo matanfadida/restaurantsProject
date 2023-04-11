@@ -9,6 +9,7 @@ const SearchBox = () => {
   };
   const navigate = useNavigate();
 
+  
   const changeFilterHandler = (event) => {
     navigate(`/?filter=${event.target.value}`);
   };

@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import classes from "./mealPage.module.css";
 import Stars from "../components/Rating/ratingStar";
+import Comment from "./comment";
 
 const Meal = () => {
   const params = useParams();
@@ -37,21 +38,24 @@ const Meal = () => {
   }
 
   return (
-    <div>
-      <div className={classes.main}>
-        <img
-          className={classes.img}
-          src={product.product.image}
-          alt={product.product.name}
-        ></img>
+    <div className={classes.main}>
+      <img
+        className={classes.img}
+        src={product.product.image}
+        alt={product.product.name}
+      ></img>
 
-        <h1>{product.product.name}</h1>
-        <h5>{product.product.detail}</h5>
-        <h2>{`${product.product.price}₪`}</h2>
-        <Stars value={product.product.rating} />
-      </div>
-      <div>
-        {product.comments.map(comment => <p key={comment._id}>{comment.comment}</p>)}
+      <h1>{product.product.name}</h1>
+      <h5>{product.product.detail}</h5>
+      <h2>{`${product.product.price}₪`}</h2>
+
+      <div className={classes.rate}>
+        <div className={classes.stars}>
+          <Stars value={product.product.rating} />
+        </div>
+        {product.comments.map((comment) => (
+          <Comment key={comment._id} comment={comment.comment} />
+        ))}
       </div>
     </div>
   );

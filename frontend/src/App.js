@@ -13,6 +13,7 @@ import Header from "./components/NavigationBar/MainHeader/Header";
 import Login from "./components/Admin/Login/admin-login"; 
 import Meal from "./pages/mealPage";
 import Rate from "./components/Rating/rate";
+import AddCategory from "./components/Admin/Poduct/add-category";
 
 const App = () => {
   const ctx = useContext(CartContext);
@@ -30,6 +31,7 @@ const App = () => {
         <Route path="/admin/tables" element={ctx.isLogged ? <Tables /> : <Navigate replace to="/admin/login" />} />
         <Route path="/admin/tables/:tableId" element={ctx.isLogged ? <TableDetail /> : <Navigate replace to="/admin/login" />} />
         <Route path="/admin/login" element={ctx.isLogged ? <Navigate replace to="/admin" /> : <Login />} />
+        <Route path="/admin/add-category" element={ctx.isLogged ? <AddCategory /> : <Navigate replace to="/admin/login" />} />
         <Route path="/admin/signup" element={<Login />} />
         <Route path="/admin" element={ctx.isLogged ? <AdminHome /> : <Navigate replace to="/admin/login" />} />
         <Route path="/:restaurantName/:tableId" element={<Home />} />
