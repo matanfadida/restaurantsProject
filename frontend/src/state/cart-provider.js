@@ -4,6 +4,7 @@ import CartContext from "./buy-context";
 const initialCartState = {
   items: [],
   totalAmount: 0,
+  itemsToBack: [],
 };
 
 const CartReducer = (state, action) => {
@@ -12,6 +13,7 @@ const CartReducer = (state, action) => {
     const existingCartItemIndex = state.items.findIndex(item => item.id === action.item.id && item.remark === action.item.remark)
     const existingCartItem = state.items[existingCartItemIndex]
     let updateItems;
+    let itemsToBack = state.itemsToBack.concat(action.item);
     if(existingCartItem){
       const updateItem = {
           ...existingCartItem,
@@ -23,7 +25,7 @@ const CartReducer = (state, action) => {
     else{
       updateItems = state.items.concat(action.item);
     }
-    return { items: updateItems, totalAmount: updateTotalAmount };
+    return { items: updateItems, totalAmount: updateTotalAmount, itemsToBack };
   }
   if (action.type === "REMOVE") {
     const existingCartItemIndex = state.items.findIndex(
@@ -33,6 +35,9 @@ const CartReducer = (state, action) => {
 
     const updateTotalAmount = state.totalAmount - +existingCartItem.price;
     let updateItems;
+    let itemsToBack;
+    itemsToBack = state.itemsToBack.filter((item) => item.guid_id !== action.guid_id);//remove the item
+    console.log(itemsToBack);
     if(existingCartItem.amount === 1){
       updateItems = state.items.filter((item) => item.id !== action.id);//remove the item
     }else{
@@ -43,7 +48,8 @@ const CartReducer = (state, action) => {
       updateItems = [...state.items];//copy list
       updateItems[existingCartItemIndex] = updateItem;//update
     }
-    return { items: updateItems, totalAmount: updateTotalAmount };
+      console.log(updateItems);
+      return { items: updateItems, totalAmount: updateTotalAmount, itemsToBack };
   }
   if (action.type === "REMOVEALL") {
     return initialCartState;
@@ -77,8 +83,8 @@ const CartProvider = (props) => {
     dispatchCart({ type: "ADD", item: item });
   };
 
-  const RemoveItemHandler = (id) => {
-    dispatchCart({ type: "REMOVE", id: id });
+  const RemoveItemHandler = (id, guid_id) => {
+    dispatchCart({ type: "REMOVE", id: id, guid_id });
   };
 
   const cartShowHandler = () => {
@@ -99,6 +105,7 @@ const CartProvider = (props) => {
     cartShow:showCartButton,
     isLogged,
     setIsLoggedHandler,
+    itemsToBack: cartState.itemsToBack,
   };
 
   return (

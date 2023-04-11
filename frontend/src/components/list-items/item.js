@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import CartContext from "../../state/buy-context";
 import classes from "./item.module.css";
 import { NavLink, useNavigate } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
 
 const Item = (props) => {
   const navigate = useNavigate();
@@ -12,11 +13,13 @@ const Item = (props) => {
   const buttonAddItemHanlder = () => {
     ctx.AddItem({
       id: props.id,
+      guid_id: uuidv4(),
       name: props.name,
       detail: props.detail,
       price: props.price,
       remark: remark,
       amount: +amount,
+      status:"נשלח לטבח",
     });
     setRemark("");
     setAmount(1);
