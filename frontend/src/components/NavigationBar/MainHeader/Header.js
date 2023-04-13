@@ -49,8 +49,8 @@ const Header = () => {
             התנתק
           </button>
         )}
-      </div>
       <SearchBox />
+      </div>
 
       <Navigation />
     </header>
