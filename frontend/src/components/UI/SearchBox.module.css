@@ -1,6 +1,10 @@
 
 .box{
     width: 100%;
+    margin-left: 10px;
+    
+    padding-top: 5px;
+    /* left: 0; */
     
     
 }

@@ -27,9 +27,7 @@ const NavLinks = (props) => {
         animate={animateTo}
         transition={{ delay: 0.1 }}
       >
-        <NavLink className={classes.active} to="/#שולחןשלי">
-          השולחן-שלי
-        </NavLink>
+        <NavLink to="/#שולחןשלי">השולחן-שלי</NavLink>
       </motion.li>
       <motion.li
         onClick={closeMenuHandler}
@@ -37,39 +35,8 @@ const NavLinks = (props) => {
         animate={animateTo}
         transition={{ delay: 0.2 }}
       >
-        <NavLink className={classes.active} to="/">
-          תפריט
-        </NavLink>
+        <NavLink to="/">תפריט</NavLink>
       </motion.li>
-
-      <motion.li
-        initial={animateFrom}
-        animate={animateTo}
-        transition={{ delay: 0.3 }}
-      >
-        <button className={classes.category} onClick={categoryHandler}>
-          קטגוריות
-        </button>
-      </motion.li>
-      {category && (
-        <ul className={classes.category_list}>
-          <li className={classes.category_item}>
-            <NavLink to="/admin" onClick={closeMenuHandler}>
-              1 תפריט
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/admin" onClick={closeMenuHandler}>
-              2 תפריט
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/admin" onClick={closeMenuHandler}>
-              3 תפריט
-            </NavLink>
-          </li>
-        </ul>
-      )}
     </ul>
   );
 };

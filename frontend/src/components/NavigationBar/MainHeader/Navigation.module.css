@@ -18,14 +18,14 @@
 }
 
 .nav a {
-  color: white;
+  color: orange;
   text-decoration: none;
 }
 
 .nav a:hover,
 .nav a:active,
 .nav a.active {
-  color: orange;
+  color: white;
   border-bottom: 1px solid orange;
 }
 
