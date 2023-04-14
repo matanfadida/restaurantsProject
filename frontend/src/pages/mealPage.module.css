@@ -47,15 +47,12 @@
 }
 
 .stars {
-    position: fixed;
-    left: 50%;
-    transform: translate(-50%, -50%);
+  display: flex;
+  margin-left: 20%;
 }
 
 @media (min-width: 600px) {
-    .main {
-        
-        max-width: 50%;
-        
-      }
+  .main {
+    max-width: 50%;
   }
+}

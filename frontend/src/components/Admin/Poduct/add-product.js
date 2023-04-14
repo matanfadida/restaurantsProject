@@ -249,7 +249,6 @@ const AddProduct = () => {
             value={category.categoryValue}
             onChange={categoryChangeHandler}
             options={categoryOptions}
-            isMulti
             onBlur={categoryBlurHandle}
           />
         </div>
