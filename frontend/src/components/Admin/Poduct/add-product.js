@@ -30,17 +30,17 @@ const AddProduct = () => {
           throw new Error("Request failed!");
         }
         const result = await response.json();
-        setcCategoryOptions(result);
+        setcCategoryOptions(result.map((item) => (
+          <option value={item.value} key={item._id}>{item.label}</option>
+        )));
+        // console.log(result);
+        // categories = categoryOptions.
     };
     fetchCategories().catch((error) => {
       // setLoading(false);
       // setHasError(error.message || "Something went wrong!");
     });
   }, []);
-
-  const categories = categoryOptions.map((item) => (
-    <option value={item.value}>{item.label}</option>
-  ));
 
   useEffect(() => {
     if (params.productId) {
@@ -157,7 +157,7 @@ const AddProduct = () => {
       img: imgValue,
       price: Number(priceValue),
       rating: params.productId ? product.rating : 0,
-      category: category,
+      category: categoryValue,
       flag: true,
     };
     if (params.productId) {
@@ -265,7 +265,7 @@ const AddProduct = () => {
             onBlur={categoryBlurHandler}
           >
             <option value="">בחר קטגוריה</option>
-            {categories}
+            {categoryOptions}
           </select>
         </div>
 

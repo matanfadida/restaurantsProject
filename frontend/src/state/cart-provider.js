@@ -61,6 +61,7 @@ const CartProvider = (props) => {
   const [cartState, dispatchCart] = useReducer(CartReducer, initialCartState);
   const [showCartButton, setShowCartButton] = useState(false);
   const [isLogged, setIsLogged] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchProduct = async() => {
@@ -69,9 +70,12 @@ const CartProvider = (props) => {
         throw new Error("Request failed!");
       }
       const result = await response.json();
-      setIsLogged(result);
+      setIsLoggedHandler(result);
+      setIsLoading(false);
     };
+
     fetchProduct().catch((error) => {
+      setIsLoading(false);
     });
   }, []);
 
@@ -106,6 +110,7 @@ const CartProvider = (props) => {
     isLogged,
     setIsLoggedHandler,
     itemsToBack: cartState.itemsToBack,
+    isLoading,
   };
 
   return (

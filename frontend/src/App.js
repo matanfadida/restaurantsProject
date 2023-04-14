@@ -14,10 +14,15 @@ import Login from "./components/Admin/Login/admin-login";
 import Meal from "./pages/mealPage";
 import Rate from "./components/Rating/rate";
 import AddCategory from "./components/Admin/Poduct/add-category";
+import Loader from "./components/UI/loader";
 
 
 const App = () => {
   const ctx = useContext(CartContext);
+
+  if(ctx.isLoading){
+    return <Loader/>
+  }
 
   return (
     <Fragment>

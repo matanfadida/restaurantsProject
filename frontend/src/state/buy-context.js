@@ -10,6 +10,7 @@ const CartContext = React.createContext({
     isLogged: false,
     setIsLoggedHandler: (value) => {},
     itemsToBack: [],
+    isLoading: true,
 });
 
 export default CartContext;
