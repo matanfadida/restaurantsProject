@@ -1,4 +1,4 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import classes from "./Navigation.module.css";
 
 import { motion } from "framer-motion";

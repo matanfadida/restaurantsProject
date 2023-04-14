@@ -1,12 +1,26 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Cart from "../../UI/cart";
 import classes from "./add-category.module.css";
 import Select from "react-select";
 
 const AddCategory = () => {
   const [category, setCategory] = useState();
+  const [currentCategories, setCurrentCategories] = useState([]);
 
-  const currentCategories = [{ value: "apple123", label: "Apple" }]; //להוציא את הרשימה של הקטגוריות מהבסיס נתונים
+  useEffect(() => {
+    const fetchCategories = async () => {
+      const response = await fetch(`/api/category/get-category`);
+        if (!response.ok) {
+          throw new Error("Request failed!");
+        }
+        const result = await response.json();
+        setCurrentCategories(result);
+    };
+    fetchCategories().catch((error) => {
+      // setLoading(false);
+      // setHasError(error.message || "Something went wrong!");
+    });
+  }, []);
 
   const currentLabels = currentCategories.map((item) => item.label);
 
@@ -30,8 +44,22 @@ const AddCategory = () => {
 
   const handleCategoryChange = (selected) => {
     setCategory(selected);
-    //להוסיף לבסיס נתונים את הרשימה של מה שנבחר שים לב שזה מערך של אוביקטים ולא רק אחד
+    console.log(selected);
   };
+
+  const addToBackHandler = async() => {
+    const response = await fetch(`/api/category/add-category`, {
+      method: "POST",
+      body: JSON.stringify({ categories: category }),
+      headers: { "Content-Type": "application/json" },
+    });
+      if (!response.ok) {
+        throw new Error("Request failed!");
+      }
+      const result = await response.json();
+      console.log(result);
+    //להוסיף לבסיס נתונים את הרשימה של מה שנבחר שים לב שזה מערך של אוביקטים ולא רק אחד
+  }
   return (
     <Cart className={classes.container}>
       <label htmlFor="category-input">:נא לבחור קטגוריות להוספה</label>
@@ -41,6 +69,7 @@ const AddCategory = () => {
         options={options.filter((item) => !currentLabels.includes(item.label))}
         isMulti
       />
+      <button onClick={addToBackHandler}>הוסף</button>
     </Cart>
   );
 };

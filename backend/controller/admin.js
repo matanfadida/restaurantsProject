@@ -6,7 +6,8 @@ exports.postAddProduct = (req, res, next) => {
   const price = req.body.price;
   const img = req.body.img;
   const detail = req.body.detail;
-  const product = new Product(name, price, img, detail);
+  const category = req.body.category;
+  const product = new Product(name, price, img, detail, category);
   product
     .save()
     .then((result) => console.log(result))

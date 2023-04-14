@@ -13,14 +13,13 @@ import { MdOutlineRestaurantMenu } from "react-icons/md";
 import { SiFoodpanda } from "react-icons/si";
 import { CiBowlNoodles } from "react-icons/ci";
 import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 const Category = () => {
+  const [realCategories, setRealCategories] = useState([])
+
   const categories = [
-    {
-      value: 1,
-      label: "עיקריות",
-      icon: <MdOutlineRestaurantMenu size="30px" />,
-    },
+    { value: 1, label: "עיקריות", icon: <MdOutlineRestaurantMenu size="30px" />,},
     { value: 2, label: "מנות פתיחה", icon: <TbBowl size="30px" /> },
     { value: 3, label: "קינוחים", icon: <GiCupcake size="30px" /> },
     { value: 4, label: "שתיה", icon: <BsCupStraw size="30px" /> },
@@ -37,24 +36,40 @@ const Category = () => {
     { value: 15, label: "סלטים", icon: <TbSalad size="30px" /> },
   ];
 
-  //להוציא מהבסיס נתונים
-  const realCategories = [
-    { value: 1, label: "עיקריות" },
-    { value: 2, label: "מנות פתיחה" },
-    { value: 3, label: "קינוחים" },
-    { value: 4, label: "שתיה" },
-    { value: 5, label: "שתיה חריפה" },
-    { value: 6, label: "קקוטלים" },
-    { value: 7, label: "פסטות" },
-    { value: 8, label: "פיצות" },
-    { value: 9, label: "מיוחדים" },
-    { value: 10, label: "ילדים" },
-    { value: 11, label: "שתיה חמה" },
-    { value: 12, label: "המבורגרים" },
-    { value: 13, label: "מאפים" },
-    { value: 14, label: "בשרים" },
-    { value: 15, label: "סלטים" },
-  ];
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      const response = await fetch(`/api/category/get-category`);
+        if (!response.ok) {
+          throw new Error("Request failed!");
+        }
+        const result = await response.json();
+        setRealCategories(result);
+    };
+    fetchCategories().catch((error) => {
+      // setLoading(false);
+      // setHasError(error.message || "Something went wrong!");
+    });
+  }, []);
+
+  //להוציא מהבסיס נתונים במקום זה
+  // const realCategories = [
+  //   { value: 1, label: "עיקריות" },
+  //   { value: 2, label: "מנות פתיחה" },
+  //   { value: 3, label: "קינוחים" },
+  //   { value: 4, label: "שתיה" },
+  //   { value: 5, label: "שתיה חריפה" },
+  //   { value: 6, label: "קקוטלים" },
+  //   { value: 7, label: "פסטות" },
+  //   { value: 8, label: "פיצות" },
+  //   { value: 9, label: "מיוחדים" },
+  //   { value: 10, label: "ילדים" },
+  //   { value: 11, label: "שתיה חמה" },
+  //   { value: 12, label: "המבורגרים" },
+  //   { value: 13, label: "מאפים" },
+  //   { value: 14, label: "בשרים" },
+  //   { value: 15, label: "סלטים" },
+  // ];
 
   const commonObjects = categories.filter((obj1) =>
     realCategories.some((obj2) => obj2.value === obj1.value)

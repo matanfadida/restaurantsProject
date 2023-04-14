@@ -1,7 +1,6 @@
 import { useEffect } from "react";
-import { Link, Route, Routes } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Cart from "../UI/cart";
-import AddCategory from "./Poduct/add-category";
 
 const AdminHome = () => {
   useEffect(() => {

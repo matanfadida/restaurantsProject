@@ -29,8 +29,6 @@ const ShowItem = (props) => {
     });
   }, []);
 
-  console.log(categoryVal);
-
   useEffect(() => {
     const val = categoryVal;
     setSearch(

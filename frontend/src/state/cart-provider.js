@@ -29,7 +29,7 @@ const CartReducer = (state, action) => {
   }
   if (action.type === "REMOVE") {
     const existingCartItemIndex = state.items.findIndex(
-      (item) => item.id === action.id
+      (item) => item.guid_id === action.guid_id
     );
     const existingCartItem = state.items[existingCartItemIndex];
 
@@ -39,7 +39,7 @@ const CartReducer = (state, action) => {
     itemsToBack = state.itemsToBack.filter((item) => item.guid_id !== action.guid_id);//remove the item
     console.log(itemsToBack);
     if(existingCartItem.amount === 1){
-      updateItems = state.items.filter((item) => item.id !== action.id);//remove the item
+      updateItems = state.items.filter((item) => item.guid_id !== action.guid_id);//remove the item
     }else{
       const updateItem = {
         ...existingCartItem,

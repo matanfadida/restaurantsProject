@@ -17,14 +17,16 @@ const AddProduct = () => {
     priceValue: "",
     detailValue: "",
     imgValue: "",
-    category: [],
+    rating: 0,
+    category: "",
     flag: false,
   });
   const [category, setCategory] = useState([]);
 
   const [categoryHasError, setCategoryError] = useState(true);
   const [catagoryBlured, setCategoryBlured] = useState(false);
-  const [catagoryIsValid, setCategoryIsValid] = useState(false);
+  const [categoryOptions, setcCategoryOptions] = useState("");
+  // const [catagoryIsValid, setCategoryIsValid] = useState(false);
 
   const categoryChangeHandler = (selected) => {
     setCategory(selected);
@@ -36,16 +38,31 @@ const AddProduct = () => {
     setCategoryBlured(true);
   };
 
-  
+  useEffect(() => {
+    const fetchCategories = async () => {
+      const response = await fetch(`/api/category/get-category`);
+        if (!response.ok) {
+          throw new Error("Request failed!");
+        }
+        const result = await response.json();
+        setcCategoryOptions(result);
+    };
+    fetchCategories().catch((error) => {
+      // setLoading(false);
+      // setHasError(error.message || "Something went wrong!");
+    });
+  }, []);
+
   // למשוך את הקטגוריות האמיתיות מהבסיס נתונים
-  const categoryOptions = [
-    { value: 1, label: "Apple" },
-    { value: 2, label: "Banana" },
-    { value: 3, label: "Orange" },
-  ];
+  // const categoryOptions = [
+  //   { value: 1, label: "Apple" },
+  //   { value: 2, label: "Banana" },
+  //   { value: 3, label: "Orange" },
+  // ];
 
   useEffect(() => {
     if (params.productId) {
+            //להוסיף גם את הקטגוריות
       fetch(`/api/admin/edit-product/${params.productId}`)
         .then((res) => {
           if (res.ok) {
@@ -58,6 +75,8 @@ const AddProduct = () => {
             priceValue: result.price,
             detailValue: result.detail,
             imgValue: result.image,
+            rating: result.rating,
+            category: result.category,
             flag: true,
           })
         )
@@ -112,8 +131,7 @@ const AddProduct = () => {
     nameIsValid &&
     priceIsValid &&
     detailIsValid &&
-    imgIsValid &&
-    !categoryHasError
+    imgIsValid 
   ) {
     formIsValid = true;
   }
@@ -145,9 +163,12 @@ const AddProduct = () => {
       detail: detailValue,
       img: imgValue,
       price: Number(priceValue),
+      rating: params.productId ? product.rating : 0,
+      category: category,
       flag: true,
     };
     if (params.productId) {
+      //להוסיף גם את הקטגוריות
       console.log("Update");
       fetch("/api/admin/edit-product", {
         method: "POST",
@@ -158,6 +179,7 @@ const AddProduct = () => {
           img: product.img,
           detail: product.detail,
           rating: product.rating,
+          category: product.category,
         }),
         headers: { "Content-Type": "application/json" },
       })
@@ -165,6 +187,7 @@ const AddProduct = () => {
         .catch((err) => console.log(err));
     } else {
       console.log("else");
+            //להוסיף גם את הקטגוריות
       fetch("/api/admin/add-product", {
         method: "POST",
         body: JSON.stringify({
@@ -173,6 +196,7 @@ const AddProduct = () => {
           price: product.price,
           img: product.img,
           detail: product.detail,
+          category: product.category,
         }),
         headers: { "Content-Type": "application/json" },
       })
@@ -246,10 +270,9 @@ const AddProduct = () => {
           )}
           <Select
             className={classes[nameCategoryClasses]}
-            value={category.categoryValue}
+            value={category}
             onChange={categoryChangeHandler}
             options={categoryOptions}
-            isMulti
             onBlur={categoryBlurHandle}
           />
         </div>
