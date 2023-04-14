@@ -39,9 +39,22 @@
   background-color: #fddddd;
 }
 
-.select{
+.invalid select{
   border: 1px solid #b40e0e;
   background-color: #fddddd;
+  width: 100%;
+  padding: 8px;
+  margin: 0.3rem auto;
+  border-radius: 10px;
+  text-align: right;
+}
+
+.valid select{
+  width: 100%;
+  padding: 8px;
+  margin: 0.3rem auto;
+  border-radius: 10px;
+  text-align: right;
 }
 
 .error_text {

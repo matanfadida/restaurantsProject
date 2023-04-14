@@ -6,7 +6,6 @@ import classes from "./add-product.module.css";
 import Select from "react-select";
 
 const isNotEmpty = (value) => value.trim() !== "";
-const isNotEmptyArr = (value) => value.length > 0;
 const isBiggerThenZero = (value) => value > 0;
 
 const AddProduct = () => {
@@ -17,32 +16,20 @@ const AddProduct = () => {
     priceValue: "",
     detailValue: "",
     imgValue: "",
-    category: [],
+    category: "",
     flag: false,
   });
-  const [category, setCategory] = useState([]);
 
-  const [categoryHasError, setCategoryError] = useState(true);
-  const [catagoryBlured, setCategoryBlured] = useState(false);
-  const [catagoryIsValid, setCategoryIsValid] = useState(false);
-
-  const categoryChangeHandler = (selected) => {
-    setCategory(selected);
-
-    setCategoryError(!isNotEmptyArr(selected));
-  };
-
-  const categoryBlurHandle = () => {
-    setCategoryBlured(true);
-  };
-
-  
   // למשוך את הקטגוריות האמיתיות מהבסיס נתונים
   const categoryOptions = [
     { value: 1, label: "Apple" },
     { value: 2, label: "Banana" },
     { value: 3, label: "Orange" },
   ];
+
+  const categories = categoryOptions.map((item) => (
+    <option value={item.value}>{item.label}</option>
+  ));
 
   useEffect(() => {
     if (params.productId) {
@@ -65,6 +52,16 @@ const AddProduct = () => {
         .catch((err) => console.log(err));
     }
   }, [params.productId]);
+
+  const {
+    value: categoryValue,
+    isValid: categoryIsValid,
+    hasError: categoryHasError,
+    valueChangeHandler: categoryChangeHandler,
+    inputBlurHandler: categoryBlurHandler,
+    reset: categoryReset,
+    defaultValue: categoryDefault,
+  } = useInput(isNotEmpty);
 
   const {
     value: nameValue,
@@ -113,7 +110,7 @@ const AddProduct = () => {
     priceIsValid &&
     detailIsValid &&
     imgIsValid &&
-    !categoryHasError
+    categoryIsValid
   ) {
     formIsValid = true;
   }
@@ -123,6 +120,7 @@ const AddProduct = () => {
     detailReset();
     nameReset();
     priceReset();
+    categoryReset();
   };
 
   const defaultValues = () => {
@@ -130,7 +128,7 @@ const AddProduct = () => {
     priceDefault(product.priceValue);
     detailDefault(product.detailValue);
     imgDefault(product.imgValue);
-    setCategory(product.categoryValue);
+    categoryDefault(product.categoryValue);
 
     setProduct({
       ...product,
@@ -189,7 +187,7 @@ const AddProduct = () => {
   const nameDetailClasses = detailHasError ? "invalid" : "valid";
   const nameImgClasses = imgHasError ? "invalid" : "valid";
 
-  const nameCategoryClasses = categoryHasError ? "select" : "valid";
+  const nameCategoryClasses = categoryHasError ? "invalid" : "valid";
 
   if (product.flag === true) {
     defaultValues();
@@ -240,17 +238,25 @@ const AddProduct = () => {
           ></input>
         </div>
 
-        <div>
-          {categoryHasError && catagoryBlured && (
-            <p className={classes.error_text}> נא לבחור לפחות קטגוריה אחת</p>
+        <div className={classes[nameCategoryClasses]}>
+          {categoryHasError && (
+            <p className={classes.error_text}> נא לבחור קטגוריה אחת</p>
           )}
-          <Select
+          {/* <Select
             className={classes[nameCategoryClasses]}
-            value={category.categoryValue}
+            // value={categoryValue}
             onChange={categoryChangeHandler}
             options={categoryOptions}
-            onBlur={categoryBlurHandle}
-          />
+            onBlur={categoryBlurHandler}
+          /> */}
+          <select
+            value={categoryValue}
+            onChange={categoryChangeHandler}
+            onBlur={categoryBlurHandler}
+          >
+            <option value="">בחר קטגוריה</option>
+            {categories}
+          </select>
         </div>
 
         <div className={classes[nameDetailClasses]}>
