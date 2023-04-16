@@ -1,0 +1,25 @@
+.button {
+  font-weight: bold;
+  color: white;
+  background-color: cornflowerblue;
+  padding: 5px 20px;
+  border-radius: 20px;
+  margin: 20px;
+}
+
+.button:hover,
+.button:active {
+  color: cornflowerblue;
+  background-color: white;
+}
+
+.div {
+  width: 80%;
+  margin: 20px auto 0 auto;
+}
+
+.div label {
+  font-weight: bolder;
+  font-size: xx-large;
+  color: cornflowerblue;
+}

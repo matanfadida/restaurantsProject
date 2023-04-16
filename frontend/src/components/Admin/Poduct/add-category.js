@@ -7,20 +7,24 @@ const AddCategory = () => {
   const [category, setCategory] = useState();
   const [currentCategories, setCurrentCategories] = useState([]);
 
+  const [reload, setReload] = useState(0);
+
+  const [deleteCategory, setDeleteCategory] = useState();
+
   useEffect(() => {
     const fetchCategories = async () => {
       const response = await fetch(`/api/category/get-category`);
-        if (!response.ok) {
-          throw new Error("Request failed!");
-        }
-        const result = await response.json();
-        setCurrentCategories(result);
+      if (!response.ok) {
+        throw new Error("Request failed!");
+      }
+      const result = await response.json();
+      setCurrentCategories(result);
     };
     fetchCategories().catch((error) => {
       // setLoading(false);
       // setHasError(error.message || "Something went wrong!");
     });
-  }, []);
+  }, [reload]);
 
   const currentLabels = currentCategories.map((item) => item.label);
 
@@ -44,33 +48,59 @@ const AddCategory = () => {
 
   const handleCategoryChange = (selected) => {
     setCategory(selected);
-    console.log(selected);
   };
 
-  const addToBackHandler = async() => {
+  const addToBackHandler = async () => {
     const response = await fetch(`/api/category/add-category`, {
       method: "POST",
       body: JSON.stringify({ categories: category }),
       headers: { "Content-Type": "application/json" },
     });
-      if (!response.ok) {
-        throw new Error("Request failed!");
-      }
-      const result = await response.json();
-      console.log(result);
-    //להוסיף לבסיס נתונים את הרשימה של מה שנבחר שים לב שזה מערך של אוביקטים ולא רק אחד
-  }
+    if (!response.ok) {
+      throw new Error("Request failed!");
+    }
+    const result = await response.json();
+    setCategory([]);
+    setReload(reload + 1);
+  };
+
+  const handleDeleteCategoryChange = (selected) => {
+    setDeleteCategory(selected);
+  };
+
+  const deleteFromBackHandler = () => {};
   return (
-    <Cart className={classes.container}>
-      <label htmlFor="category-input">:נא לבחור קטגוריות להוספה</label>
-      <Select
-        value={category}
-        onChange={handleCategoryChange}
-        options={options.filter((item) => !currentLabels.includes(item.label))}
-        isMulti
-      />
-      <button onClick={addToBackHandler}>הוסף</button>
-    </Cart>
+    <div className={classes.div}>
+      <Cart>
+        <label htmlFor="category-input">:נא לבחור קטגוריות להוספה</label>
+        <Select
+          value={category}
+          onChange={handleCategoryChange}
+          options={options.filter(
+            (item) => !currentLabels.includes(item.label)
+          )}
+          isMulti
+        />
+        <button className={classes.button} onClick={addToBackHandler}>
+          הוסף
+        </button>
+      </Cart>
+
+      <Cart>
+        <label htmlFor="category-input">:נא לבחור קטגוריות למחיקה</label>
+        <Select
+          value={deleteCategory}
+          onChange={handleDeleteCategoryChange}
+          options={options.filter(
+            (item) => currentLabels.includes(item.label)
+          )}
+          isMulti
+        />
+        <button className={classes.button} onClick={deleteFromBackHandler}>
+          מחק
+        </button>
+      </Cart>
+    </div>
   );
 };
 
