@@ -18,7 +18,7 @@
     border-radius: 14px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
     z-index: 30;
-    animation: slide-down 300ms ease-out forwards;
+    animation: slide-down 500ms ease-out forwards;
   }
   
   @media (min-width: 768px) {
@@ -29,12 +29,18 @@
   }
   
   @keyframes slide-down {
-    from {
+    0% {
       opacity: 0;
-      transform: translateY(-3rem);
+      transform: translateY(-100%);
     }
-    to {
+
+    50% {
+      opacity: 0.5;
+      transform: translateY(30%);
+    }
+    100% {
       opacity: 1;
       transform: translateY(0);
     }
   }
+
