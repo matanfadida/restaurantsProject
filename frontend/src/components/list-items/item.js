@@ -13,16 +13,28 @@ const Item = (props) => {
   const [amount, setAmount] = useState(1);
 
   const buttonAddItemHanlder = () => {
-    ctx.AddItem({
-      id: props.id,
-      guid_id: uuidv4(),
-      name: props.name,
-      detail: props.detail,
-      price: props.price,
-      remark: remark,
-      amount: +amount,
-      status:"נשלח לטבח",
-    });
+    for(var i = 0; i < +amount; i++){
+      ctx.AddItem({
+        id: props.id,
+        guid_id: uuidv4(),
+        name: props.name,
+        detail: props.detail,
+        price: props.price,
+        remark: remark,
+        amount: 1,
+        status:"נשלח לטבח",
+      });
+    }
+    // ctx.AddItem({
+    //   id: props.id,
+    //   guid_id: uuidv4(),
+    //   name: props.name,
+    //   detail: props.detail,
+    //   price: props.price,
+    //   remark: remark,
+    //   amount: +amount,
+    //   status:"נשלח לטבח",
+    // });
     setRemark("");
     setAmount(1);
   };

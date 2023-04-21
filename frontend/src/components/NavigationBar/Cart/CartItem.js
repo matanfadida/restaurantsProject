@@ -6,7 +6,17 @@ const CartItem = (props) => {
   const ctx = useContext(CartContext);
 
   const AddToCartHanlder = () => {
+    ctx.updateCookie({
+      guid_id: props.guid_id,
+      id: props.id,
+      name: props.name,
+      detail: props.detail,
+      price: props.price,
+      amount: +props.amount + 1,
+      remark: props.remark,
+    })
     ctx.AddItem({
+      guid_id: props.guid_id,
       id: props.id,
       name: props.name,
       detail: props.detail,
@@ -17,6 +27,15 @@ const CartItem = (props) => {
   }
 
   const RemoveItemFromCartHandler = () => {
+    ctx.updateCookie({
+      guid_id: props.guid_id,
+      id: props.id,
+      name: props.name,
+      detail: props.detail,
+      price: props.price,
+      amount: +props.amount - 1,
+      remark: props.remark,
+    })
     ctx.RemoveItem(props.id, props.guid_id)
   }
 
