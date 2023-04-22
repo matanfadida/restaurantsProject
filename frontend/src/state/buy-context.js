@@ -6,6 +6,7 @@ const CartContext = React.createContext({
     AddItem: (item) => {},
     RemoveItem: (id, guid_id) => {},
     cartShowhandler: () => {},
+    updateCookie: (item) => {},
     cartShow: false,
     isLogged: false,
     setIsLoggedHandler: (value) => {},
