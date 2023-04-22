@@ -5,11 +5,8 @@ import Select from "react-select";
 
 const AddCategory = () => {
   const [category, setCategory] = useState();
+  const [updateCategory, setUpdateCategory] = useState();
   const [currentCategories, setCurrentCategories] = useState([]);
-
-  const [reload, setReload] = useState(0);
-
-  const [deleteCategory, setDeleteCategory] = useState();
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -18,13 +15,15 @@ const AddCategory = () => {
         throw new Error("Request failed!");
       }
       const result = await response.json();
+      console.log(result);
       setCurrentCategories(result);
+      setCategory(result);
     };
     fetchCategories().catch((error) => {
       // setLoading(false);
       // setHasError(error.message || "Something went wrong!");
     });
-  }, [reload]);
+  }, []);
 
   const currentLabels = currentCategories.map((item) => item.label);
 
@@ -60,18 +59,19 @@ const AddCategory = () => {
       throw new Error("Request failed!");
     }
     const result = await response.json();
+    if(result === 'ok'){
+      setUpdateCategory(true);
+    }
     if(result !== "ok"){
       console.log("error");
     }
     setCategory([]);
-    setReload(reload + 1);
   };
 
-  const handleDeleteCategoryChange = (selected) => {
-    setDeleteCategory(selected);
-  };
+  if(updateCategory){
+    return <div><Cart>עודכן בהצלחה !</Cart></div>
+  }
 
-  const deleteFromBackHandler = () => {};
   return (
     <div className={classes.div}>
       <Cart>
@@ -86,21 +86,6 @@ const AddCategory = () => {
         />
         <button className={classes.button} onClick={addToBackHandler}>
           הוסף
-        </button>
-      </Cart>
-
-      <Cart>
-        <label htmlFor="category-input">:נא לבחור קטגוריות למחיקה</label>
-        <Select
-          value={deleteCategory}
-          onChange={handleDeleteCategoryChange}
-          options={options.filter(
-            (item) => currentLabels.includes(item.label)
-          )}
-          isMulti
-        />
-        <button className={classes.button} onClick={deleteFromBackHandler}>
-          מחק
         </button>
       </Cart>
     </div>

@@ -12,12 +12,12 @@ exports.getCategories = (req, res, next) => {
 
 exports.postAddCategories = (req, res, next) => {
   const categoriesFromUser = req.body.categories;
-  console.log(categoriesFromUser);
+  Category.deleteAll().then(
   Category.fetchAllCategories()
     .then((categories) => {
+      const categoriesValues = categories.map(category => category.value);
         categoriesFromUser.forEach((category) => {
-            console.log(category.value)
-        if (!categories.includes(category.value)) {
+        if (!categoriesValues.includes(category.value)) {
           var newCategory = new Category(category.value, category.label);
           newCategory
             .save()
@@ -29,5 +29,5 @@ exports.postAddCategories = (req, res, next) => {
     })
     .catch((err) => {
       console.log(err);
-    });
+    }));
 };

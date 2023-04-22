@@ -44,6 +44,19 @@ class Category {
       .catch((err) => console.log(err));
   }
 
+  static deleteAll() {
+    const db = getDb();
+    return db
+      .collection("Category")
+  .deleteMany({})
+  .then((result) => {
+    return result.deletedCount;
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+  }
+
 }
 
 module.exports = Category;
