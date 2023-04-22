@@ -60,6 +60,9 @@ const AddCategory = () => {
       throw new Error("Request failed!");
     }
     const result = await response.json();
+    if(result !== "ok"){
+      console.log("error");
+    }
     setCategory([]);
     setReload(reload + 1);
   };

@@ -4,6 +4,8 @@ import Modal from "../../UI/modal";
 
 import style from "./Cart.module.css";
 import CartItem from "./CartItem";
+import { fetchProductFromCookie } from "../../Helper/productHelp";
+
 
 const Cart = (props) => {
   const ctx = useContext(CartContext);
@@ -13,12 +15,18 @@ const Cart = (props) => {
 
   const hashItem = ctx.items.length > 0;
   const sendOrder = async () => {
+    let products = []
+    let sum = 0
+    await fetchProductFromCookie().then(({ newArrayItems, updateTotalAmount }) => {
+      products = newArrayItems;
+      sum = updateTotalAmount;
+    })
     const response = await fetch("/api/add-order", {
       method: "POST",
       body: JSON.stringify({
         numberTable: 1,
-        price: Number(totalAmount),
-        products: ctx.itemsToBack,
+        price: sum,
+        products: products,
       }),
       headers: { "Content-Type": "application/json" },
     });
