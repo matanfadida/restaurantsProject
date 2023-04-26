@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import CartContext from "../../state/buy-context";
 import classes from "./item.module.css";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ImPlus, ImMinus } from "react-icons/im";
 import { BiRestaurant } from "react-icons/bi";
 import { v4 as uuidv4 } from "uuid";
@@ -21,7 +21,7 @@ const Item = (props) => {
       price: props.price,
       remark: remark,
       amount: +amount,
-      status:"נשלח לטבח",
+      status: "נשלח לטבח",
     });
     setRemark("");
     setAmount(1);
@@ -56,63 +56,25 @@ const Item = (props) => {
 
   return (
     <li className={classes.glass}>
-      <div className={classes.item}>
-        <div className={classes.start}>
-          <div className={classes["div__img"]}>
-            <img className={classes.img} src={props.img} alt={props.name} />
-          </div>
-          <div className={classes.right}>
-            <h3>{props.name}</h3>
-            <p>{props.detail}</p>
-            <h4>{`${props.price}₪`}</h4>
-          </div>
-        </div>
-        <div>
-          <NavLink to={`/product/${props.id}`} className={classes.detail}>
-            לחץ לפרטים נוספים
-          </NavLink>
-        </div>
-        <div>
-          <input
-            className={classes.remark}
-            type="text"
-            onChange={remarkChangeHandler}
-            value={remark}
-            placeholder="הערות לטבח"
-          ></input>
-        </div>
-        <div className={classes.div}>
-          <div>
-            <button
-              className={classes.plus_button}
-              onClick={buttonAddItemHanlder}
-            >
-              הוסף
-              <BiRestaurant />
-            </button>
-            <button className={classes.plus_button} onClick={plusHanlder}>
-              <ImPlus />
-            </button>
-            <input
-              className={classes.amount}
-              value={amount}
-              type="number"
-              min={0}
-              onChange={amountChangeHandler}
-            ></input>
-            <button className={classes.plus_button} onClick={minusHanlder}>
-              <ImMinus />
-            </button>
-          </div>
-          {ctx.isLogged && (
-            <div>
-              <button onClick={deleteHandler}>מחיקה</button>
-
-              <NavLink to={`/admin/edit-product/${props.id}`}>עריכה</NavLink>
+      <Link to={`/product/${props.id}`} className={classes.nodeco}>
+        <div className={classes.item}>
+            <div className={classes["div__img"]}>
+              <img className={classes.img} src={props.img} alt={props.name} />
             </div>
-          )}
-        </div>
-      </div>
+            <div className={classes.right}>
+              <h3>{props.name}</h3>
+              <h3>{`${props.price}₪`}</h3>
+            </div>
+
+            {ctx.isLogged && (
+              <div>
+                <button onClick={deleteHandler}>מחיקה</button>
+
+                <Link to={`/admin/edit-product/${props.id}`}>עריכה</Link>
+              </div>
+            )}
+          </div>
+      </Link>
     </li>
   );
 };

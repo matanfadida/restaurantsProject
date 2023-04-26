@@ -9,17 +9,21 @@ const TableDetail = () => {
   const [orders, getOrders] = useState([]);
   let totalPrice = 0;
 
-  if(orders.length > 0){
-    const arrOfPrice = orders.map(order => order.price);
-    totalPrice = (arrOfPrice.reduce((accumulator, currentValue) => accumulator + currentValue,
-    0));
-    
+  if (orders.length > 0) {
+    const arrOfPrice = orders.map((order) => order.price);
+    totalPrice = arrOfPrice.reduce(
+      (accumulator, currentValue) => accumulator + currentValue,
+      0
+    );
+
     const arrOfProdutcs = [];
-    orders.map(order => order.products.map(product => arrOfProdutcs.push(product)))
+    orders.map((order) =>
+      order.products.map((product) => arrOfProdutcs.push(product))
+    );
   }
 
   useEffect(() => {
-    const fetchOrders = async() => {
+    const fetchOrders = async () => {
       const response = await fetch(`/api/admin/tables/${params.tableId}`);
       if (!response.ok) {
         throw new Error("Request failed!");
@@ -35,23 +39,36 @@ const TableDetail = () => {
   }, [params.tableId]);
 
   // status: מוכן-2 בהכנה-1 לא התחילו -0
-  const products = orders.map((order) => order.products.map((item) => (
-    <tr key={Math.random()}>
-      <td>
-        <ButtonGroup aria-label="Basic example">
+  const products = orders.map((order) =>
+    order.products.map((item) => (
+      <tr key={Math.random()}>
+        <td>
+          {/* <ButtonGroup aria-label="Basic example">
           <Button variant={item.status === 1 ? "success" : "light"}>
             מוכן
           </Button>
           <Button variant={item.status === 0 ? "success" : "light"}>
             בהכנה
           </Button>
-        </ButtonGroup>
-      </td>
-      <td>{item.price}</td>
-      <td>{item.amount}</td>
-      <td>{item.name}</td>
-    </tr>
-  )));
+        </ButtonGroup> */}
+          <div className={classes.status}>
+            <div className={item.status === 2 ? classes.yes : classes.no}>
+              מוכן
+            </div>
+            <div className={item.status === 1 ? classes.yes : classes.no}>
+              בהכנה
+            </div>
+            <div className={item.status === 0 ? classes.yes : classes.no}>
+              בהזמנה
+            </div>
+          </div>
+        </td>
+        <td>{item.price}</td>
+        <td>{item.amount}</td>
+        <td>{item.name}</td>
+      </tr>
+    ))
+  );
 
   return (
     <div className={classes.table}>
@@ -67,6 +84,7 @@ const TableDetail = () => {
           </tr>
         </thead>
         <tbody>{products}</tbody>
+        
       </Table>
       <h4>סה"כ לתשלום: {totalPrice}</h4>
     </div>

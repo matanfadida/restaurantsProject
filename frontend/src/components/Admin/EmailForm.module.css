@@ -1,0 +1,115 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: orange;
+  text-align: center;
+  
+  width: 80%;
+  margin: 20px auto ;
+  background: rgba(31, 28, 28, 0.76);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(8.9px);
+  -webkit-backdrop-filter: blur(8.9px);
+  border: 1px solid rgba(31, 28, 28, 1);
+}
+
+.main button:disabled,
+.main button:disabled:hover,
+.main button:disabled:active {
+  background-color: #ccc;
+  color: #4b556b;
+  cursor: not-allowed;
+  transform: scale(1);
+  border-top-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border-color: white 1px;
+  border-style: solid;
+}
+
+.main form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.main textarea {
+  width: 300px;
+  height: 200px;
+  margin: 5px;
+  border-radius: 10px;
+  border-color: white;
+  text-align: right;
+  font-size: larger;
+}
+
+.main input {
+  width: 300px;
+  height: 40px;
+  margin: 5px;
+  border-radius: 10px;
+  border-color: white;
+  text-align: right;
+  font-size: larger;
+}
+
+.invalid input {
+  border: 1px solid #b40e0e;
+  background-color: #fddddd;
+
+}
+
+.invalid textarea {
+  border: 1px solid #b40e0e;
+  background-color: #fddddd;
+
+}
+
+.error_text {
+  margin: 0;
+  font-weight: bold;
+  margin-left: 1rem;
+  font-size: 20px;
+  color: #b40e0e;
+  
+  
+}
+
+
+.main button {
+  background-color: orange;
+  color: white;
+  border: none;
+  padding: 10px 30px;
+  border-radius: 30px;
+  margin-bottom: 20px;
+  font-size: 20px;
+  border-color: white 1px;
+  border-style: solid;
+  
+}
+
+.main button:hover{
+  
+  border-top-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  cursor: pointer;
+  transition: 2s;
+  transform: scale(1.2);
+}
+
+.main button:active {
+  transform: scale(2);
+}
+
+@media (max-width: 600px) {
+  .main input {
+    width: 70vw;
+  }
+
+  .main textarea{
+    width: 70vw;
+  }
+}

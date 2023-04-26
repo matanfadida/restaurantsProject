@@ -35,12 +35,6 @@
     display: inline-block;
   }
   
-  /* @media (min-width: 768px) {
-    .actions {
-      flex-direction: row;
-    }
-  }
-   */
   .cart-item button {
     font: inherit;
     font-weight: bold;

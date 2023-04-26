@@ -15,6 +15,8 @@ import Meal from "./pages/mealPage";
 import Rate from "./components/Rating/rate";
 import AddCategory from "./components/Admin/Poduct/add-category";
 import Loader from "./components/UI/loader";
+import Contact from "./pages/contact";
+import EditContact from "./components/Admin/EditContact";
 
 
 const App = () => {
@@ -32,7 +34,9 @@ const App = () => {
         <Route path="/chef" element={<Chef />} />
         <Route path="/product/:productId" element={<Meal/>} />
         <Route path="/rate/:productId" element={<Rate />} />
+        <Route path="/contact" element={<Contact />} />
         <Route path="/admin/add-product" element={ctx.isLogged ? <AddProduct /> : <Navigate replace to="/admin/login" />} />
+        <Route path="/admin/contact" element={ctx.isLogged ? <EditContact /> : <Navigate replace to="/admin/login" />} />
         <Route path="/admin/edit-product/:productId" element={ctx.isLogged ? <AddProduct /> : <Navigate replace to="/admin/login" />} />
         <Route path="/admin/tables" element={ctx.isLogged ? <Tables /> : <Navigate replace to="/admin/login" />} />
         <Route path="/admin/tables/:tableId" element={ctx.isLogged ? <TableDetail /> : <Navigate replace to="/admin/login" />} />
