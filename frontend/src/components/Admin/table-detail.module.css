@@ -1,11 +1,15 @@
 
 .table{
     text-align: right;
+    color: #ffc172;
+
+    
 }
 
 .table h1 {
-    color: #ffc172;
+    color: orange;
     text-align: center;
+    margin-top: 20px ;
 }
 
 .table h4 {
@@ -13,12 +17,54 @@
     text-align: center;
 }
 
+.status{
+    display: flex;
+    flex-direction: row;
+    
+}
+
+
+.yes{
+    background-color: green;
+    
+}
+.no{
+    background-color: white;
+    
+}
+
+.status div{
+    border-color: #ff7a66 0.5px;
+    border-style: solid;
+    padding: 2px;
+    border-radius: 3px;
+    margin: 2px;
+    min-width: 60px;
+    text-align: center;
+}
+
 .item{
-    width: 80vw;
-    margin-left: 10vw;
+    width: auto;
+    margin: auto;
+    justify-content: space-between;
+    color: #ffc172;
+
+    
+    background: rgba(31, 28, 28, 0.76);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(8.9px);
+  -webkit-backdrop-filter: blur(8.9px);
     
     
 }
+.table h4{
+    background-color: rgba(31, 28, 28, 0.76);
+    width: max-content;
+    margin: 10px auto;
+    padding: 5px;
+    border-radius: 10px;
+}
 .item th {
     color: #ff7a66;
+    text-align: center;
 }

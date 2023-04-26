@@ -33,6 +33,9 @@ const AdminHome = () => {
         <li>
           <Link to="/admin/tables">שולחנות</Link>
         </li>
+        <li>
+          <Link to="/admin/contact">עדכן פרטי מסעדה </Link>
+        </li>
       </ul>
     </Cart>
   );

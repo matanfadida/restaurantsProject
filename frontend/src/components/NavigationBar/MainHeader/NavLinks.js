@@ -4,18 +4,13 @@ import classes from "./Navigation.module.css";
 import { motion } from "framer-motion";
 import { useState } from "react";
 const NavLinks = (props) => {
-  const [category, setCategory] = useState(false);
 
   const closeMenuHandler = () => {
     if (props.isMobile) {
       props.closeMenu();
     }
-  };
-
-  const categoryHandler = () => {
-    const temp = !category;
-    setCategory(temp);
-  };
+  }
+  
 
   const animateFrom = { opacity: 0, y: -40 };
   const animateTo = { opacity: 1, y: 0 };
@@ -27,7 +22,7 @@ const NavLinks = (props) => {
         animate={animateTo}
         transition={{ delay: 0.1 }}
       >
-        <NavLink to="/#שולחןשלי">השולחן-שלי</NavLink>
+        <NavLink to="/contact">צור קשר</NavLink>
       </motion.li>
       <motion.li
         onClick={closeMenuHandler}
@@ -35,8 +30,17 @@ const NavLinks = (props) => {
         animate={animateTo}
         transition={{ delay: 0.2 }}
       >
+        <NavLink to="/#שולחןשלי">השולחן-שלי</NavLink>
+      </motion.li>
+      <motion.li
+        onClick={closeMenuHandler}
+        initial={animateFrom}
+        animate={animateTo}
+        transition={{ delay: 0.3 }}
+      >
         <NavLink to="/">תפריט</NavLink>
       </motion.li>
+      
     </ul>
   );
 };
