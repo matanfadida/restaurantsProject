@@ -22,7 +22,7 @@
 }
 
 .img {
-  max-width: 100%;
+  width: 100%;
 
   height: auto;
   border-radius: 20px;
@@ -47,8 +47,9 @@
 }
 
 .stars {
-  display: flex;
-  margin-left: 20%;
+  width: max-content;
+  margin: auto;
+
 }
 
 .amount {
