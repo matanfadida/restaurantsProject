@@ -50,7 +50,7 @@ const EditContact = () => {
           <input
             type="tel"
             id="phone"
-            placeholder=" מספר"
+            placeholder=" מספר טלפון"
             value={numberValue}
             onChange={numberChangeHandler}
             onBlur={numberBlurHandler}

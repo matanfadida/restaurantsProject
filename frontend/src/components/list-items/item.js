@@ -13,8 +13,7 @@ const Item = (props) => {
   const [amount, setAmount] = useState(1);
 
   const buttonAddItemHanlder = () => {
-
-    for(var i = 0; i < +amount; i++){
+    for (var i = 0; i < +amount; i++) {
       ctx.AddItem({
         id: props.id,
         guid_id: uuidv4(),
@@ -23,7 +22,7 @@ const Item = (props) => {
         price: props.price,
         remark: remark,
         amount: 1,
-        status:"נשלח לטבח",
+        status: "נשלח לטבח",
       });
     }
     // ctx.AddItem({
@@ -68,36 +67,15 @@ const Item = (props) => {
     setAmount(event.target.value);
   };
 
-  // <div className={classes.item}>
-  //           <div className={classes["div__img"]}>
-  //             <img className={classes.img} src={props.img} alt={props.name} />
-  //           </div>
-  //           <div className={classes.right}>
-  //             <h3>{props.name}</h3>
-  //             <h3>{`${props.price}₪`}</h3>
-  //           </div>
-
-  //           {/* {ctx.isLogged && (
-  //             <div>
-  //               <button onClick={deleteHandler}>מחיקה</button>
-
-  //               <Link to={`/admin/edit-product/${props.id}`}>עריכה</Link>
-  //             </div>
-  //           )} */}
-  //         </div>
 
   return (
     <li className={classes.glass}>
       <Link to={`/product/${props.id}`} className={classes.nodeco}>
-        <div className={classes.conti}>
-          <div>
-            <img className={classes.img} src={props.img} alt={props.name} />
-          </div>
-          <div>
-            <h3>{props.name}</h3>
-            <h3>{`${props.price}₪`}</h3>
-          </div>
-        </div>
+        <img className={classes.img} src={props.img} alt={props.name} />
+
+        <h3>{props.name}</h3>
+        <h3>{`${props.price}₪`}</h3>
+
         {ctx.isLogged && (
           <div>
             <button className={classes.admin} onClick={deleteHandler}>
