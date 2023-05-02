@@ -1,8 +1,8 @@
 .header {
   top: 0;
   left: 0;
-  background-color: #1f1f1f;
-  /* color: aliceblue; */
+  position: fixed;
+  background-color: #abb9cc;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -10,7 +10,8 @@
   height: 60px;
   font: inherit;
   /* overflow-x: hidden; */
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid #87CEFA;
+  border-radius: 0 0 1rem 1rem;
   padding: 0 5% 0 5%;
   z-index: 99999;
 }
@@ -34,7 +35,7 @@
 .logout {
   background-color: transparent;
   border: none;
-  color: #c55307;
+  color: #004687;
   font-weight: bold;
   font-size: large;
 }

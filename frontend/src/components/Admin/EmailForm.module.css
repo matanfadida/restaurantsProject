@@ -3,7 +3,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  color: orange;
+  color: #00308F;
   text-align: center;
   
   width: 80%;
@@ -79,7 +79,7 @@
 
 
 .main button {
-  background-color: orange;
+  background-color: #72A0C1;
   color: white;
   border: none;
   padding: 10px 30px;

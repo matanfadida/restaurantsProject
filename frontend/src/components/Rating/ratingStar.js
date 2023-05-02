@@ -25,7 +25,7 @@ const Stars = (props) => {
             <FaStar
               key={index}
               size={24}
-              color={props.value > index ? colors.orange : colors.grey}
+              color={props.value > index ? (props.color ? props.color :colors.orange ): colors.grey}
               style={{
                 marginRight: 10,
               }}

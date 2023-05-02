@@ -38,7 +38,7 @@ const Header = () => {
           </a>
         </div>
         <button className={style.btn} onClick={ctx.cartShowhandler}>
-          <BiRestaurant size="40px" color="white" className={classes.icon} />
+          <BiRestaurant size="40px" color="#00416A" className={classes.icon} />
           {numberOfItems > 0 && (
             <span className={style["btn__badge"]}>{numberOfItems}</span>
           )}

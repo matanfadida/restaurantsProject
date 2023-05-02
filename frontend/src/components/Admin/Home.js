@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Cart from "../UI/cart";
+import './Home.css'
 
 const AdminHome = () => {
   // useEffect(() => {
@@ -20,10 +21,9 @@ const AdminHome = () => {
   //   });
   // }, []);
   return (
-    <Cart>
+    
      
-      <h1>! ברוכים הבאים</h1>
-      <ul>
+      <ul className="ul">
         <li>
           <Link to="/admin/add-product">הוסף לתפריט</Link>
         </li>
@@ -37,7 +37,7 @@ const AdminHome = () => {
           <Link to="/admin/contact">עדכן פרטי מסעדה </Link>
         </li>
       </ul>
-    </Cart>
+    
   );
 };
 

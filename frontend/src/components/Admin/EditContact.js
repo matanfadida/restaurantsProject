@@ -26,7 +26,7 @@ const EditContact = () => {
   //למשוך את הנתונים שכבר יש בבסיס נתונים ולעשות set
   const handleSubmit = () => {
     console.log("matan klipush") //להוסיף לבסיס נתונים את ההפרטים החדשים
-
+      //לחזור לדף אדמין
     addressReset();
     numberReset();
   }

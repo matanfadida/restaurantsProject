@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { ImPlus, ImMinus } from "react-icons/im";
 import { BiRestaurant } from "react-icons/bi";
 import { v4 as uuidv4 } from "uuid";
+import Stars from "../Rating/ratingStar";
 
 const Item = (props) => {
   const navigate = useNavigate();
@@ -67,30 +68,25 @@ const Item = (props) => {
     setAmount(event.target.value);
   };
 
-
   return (
-    <li className={classes.glass}>
-      <Link to={`/product/${props.id}`} className={classes.nodeco}>
-        <img className={classes.img} src={props.img} alt={props.name} />
+    <li className={classes.li}>
+      <img className={classes.img} src={props.img} alt={props.name} />
 
-        <h3>{props.name}</h3>
-        <h3>{`${props.price}₪`}</h3>
+      <div className={classes.details}>
+        <span>{`${props.price}₪`}</span>
+        <span className={classes.name}>{props.name}</span>
+      </div>
+      <div className={classes.stars}>
+        <Stars color="#002D62"className={classes.stars} value={4} />
+      </div>
 
-        {ctx.isLogged && (
-          <div>
-            <button className={classes.admin} onClick={deleteHandler}>
-              מחיקה
-            </button>
+      {ctx.isLogged && ( 
+        <div className={classes.admin}>
+          <button onClick={deleteHandler}>מחיקה</button>
 
-            <Link
-              className={classes.admin}
-              to={`/admin/edit-product/${props.id}`}
-            >
-              עריכה
-            </Link>
-          </div>
-        )}
-      </Link>
+          <Link to={`/admin/edit-product/${props.id}`}>עריכה</Link>
+        </div>
+      )}
     </li>
   );
 };

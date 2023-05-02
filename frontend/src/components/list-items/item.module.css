@@ -1,59 +1,109 @@
-.glass {
-  /* From https://css.glass */
-  background: rgba(15, 14, 14, 0.76);
-  border-radius: 16px;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(8.9px);
-  -webkit-backdrop-filter: blur(8.9px);
-  border: 1px solid black;
+.li {
+  background: white;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.379);
+  list-style: none;
 
-  margin-bottom: 1rem;
-  padding: 10px;
-  width: 48%;
-  margin-right: auto;
+  width: 100%;
   height: 30vh;
+  position: relative;
+  margin-bottom: 8vw;
+  border-radius: 2rem;
+}
 
-  display: table-cell;
+.details {
+  display: flex;
+  flex-direction: column;
+  top: 35vw;
+  position: absolute;
+  right: 0;
+  margin-right: 2rem;
+  color: #72a0c1;
+}
+
+.img {
+  width: 40vw;
+  height: 40vw;
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-radius: 50%;
+  margin: -7vw -7vw 0 0;
+  border: 2px solid #7cb9e8;
+}
+
+.details p {
+  color: #72a0c1;
+  font-size: xx-large;
+  text-align: right;
+  font-weight: bolder;
+  font-family: oldstyle-nums;
+}
+
+.stars {
+  
+  top: 1rem;
+  width: min-content;
+  left: 1rem;
+  position: absolute;
 }
 
 .admin {
-  color: orange;
-  background-color: white;
-  margin-right: 10px;
-  padding: 5px;
-  text-decoration: none;
-  border-radius: 10px;
-  border: orange 1px solid;
-}
-
-.admin:hover {
-  color: white;
-  background-color: orange;
-}
-.nodeco {
-  color: orange;
-  text-decoration: none;
   display: flex;
   flex-direction: column;
-  width: 100%;
-  justify-content: space-between;
+  top: 1rem;
+  left: 3rem;
+  position: absolute;
+  align-items: center;
 }
 
-
-.nodeco:hover {
-  color: white;
+.admin button {
+  background-color: white;
+  border: #72a0c1 2px solid;
+  border-radius: 5px;
+  width: 5rem;
+  margin: 1rem;
+  color: #00308f;
+}
+.admin a {
+  text-align: center;
+  text-decoration: none;
+  background-color: white;
+  border: #72a0c1 2px solid;
+  border-radius: 5px;
+  width: 5rem;
+  color: #00308f;
 }
 
-
-
-.img {
-  height: 8rem;
-  width: 8rem;
-  border-radius: 50%;
-  border: 2px solid orange;
-  margin-left: auto;
-  margin-right: auto;
+.details span {
+  font-size: xx-large;
+  font-weight: bolder;
+  text-align: right;
+  font-style: italic;
+  font-family: cursive;
 }
 
-@media (min-width: 600px) {
+@media (min-width: 440px) {
+  .img {
+    width: 40vh;
+    height: 40vh;
+    margin: -5vh -5vh 0 0;
+    border-radius: 50%;
+    border: 2px solid #7cb9e8;
+    right: 0;
+    position: absolute;
+  }
+
+  .details {
+    top: 0;
+    margin: 5vh 40vh 0 0;
+  }
+
+  .name {
+    order: -1;
+  }
+
+  .stars{
+    margin: 4vh 0 0 5vh;
+
+  }
 }
