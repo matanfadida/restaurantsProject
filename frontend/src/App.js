@@ -17,6 +17,7 @@ import AddCategory from "./components/Admin/Poduct/add-category";
 import Loader from "./components/UI/loader";
 import Contact from "./pages/contact";
 import EditContact from "./components/Admin/EditContact";
+import Footer from "./components/NavigationBar/footer/Footer";
 
 const App = () => {
   const ctx = useContext(CartContext);
@@ -29,7 +30,7 @@ const App = () => {
     <Fragment>
       <Header />
       {ctx.cartShow && <Cart />}
-      <div style={{marginTop:"70px"}}>
+      <div style={{marginTop:"70px", marginBottom:"70px"}}>
         <Routes>
           <Route path="/chef" element={<Chef />} />
           <Route path="/product/:productId" element={<Meal />} />
@@ -113,6 +114,7 @@ const App = () => {
           <Route path="*" element={<Error404 />} />
         </Routes>
       </div>
+      <Footer/>
     </Fragment>
   );
 };
