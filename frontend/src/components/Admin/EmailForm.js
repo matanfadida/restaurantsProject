@@ -143,7 +143,7 @@ const EmailForm = () => {
           )}
           <textarea
             name="message"
-            placeholder=" שתף אותנו בחווית המסעדה שלך "
+            placeholder="שתפו אותנו בחווית המסעדה שלכם "
             value={msgValue}
             onChange={msgChangeHandler}
             onBlur={msgBlurHandler}

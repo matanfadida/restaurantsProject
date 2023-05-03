@@ -9,7 +9,7 @@ const Contact = () => {
   //מתן להוציא את הנתונים מהבסיס נתונים כתובת ומספר טלפון
 
   return (
-    <div>
+    <div className={classes.container}>
       <div className={classes.contact}>
         <h3></h3>
         <GoLocation size="50px"/>

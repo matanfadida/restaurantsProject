@@ -3,18 +3,22 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  color: orange;
+  color: #00308F;
   text-align: center;
   
   width: 200px;
   margin: 20px auto 20px;
-  background: rgba(31, 28, 28, 0.76);
+  /* background: rgba(31, 28, 28, 0.76);
   border-radius: 16px;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(8.9px);
   -webkit-backdrop-filter: blur(8.9px);
-  border: 1px solid rgba(31, 28, 28, 1);
+  border: 1px solid rgba(31, 28, 28, 1); */
   
+}
+
+.container{
+  margin-top: 100px;
 }
 
 .contact h3{
