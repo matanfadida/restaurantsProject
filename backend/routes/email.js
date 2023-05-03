@@ -7,4 +7,7 @@ router.post('/send-email', (req, res) => {
     EmailController.postSendEmail(req, res, req.app.get('transporter'));
   });
 
+router.post('/add-email', EmailController.postEditDetails);
+
+
 module.exports = router;
