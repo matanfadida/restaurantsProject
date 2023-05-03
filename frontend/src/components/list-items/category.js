@@ -52,25 +52,6 @@ const Category = () => {
     });
   }, []);
 
-  //להוציא מהבסיס נתונים במקום זה
-  // const realCategories = [
-  //   { value: 1, label: "עיקריות" },
-  //   { value: 2, label: "מנות פתיחה" },
-  //   { value: 3, label: "קינוחים" },
-  //   { value: 4, label: "שתיה" },
-  //   { value: 5, label: "שתיה חריפה" },
-  //   { value: 6, label: "קקוטלים" },
-  //   { value: 7, label: "פסטות" },
-  //   { value: 8, label: "פיצות" },
-  //   { value: 9, label: "מיוחדים" },
-  //   { value: 10, label: "ילדים" },
-  //   { value: 11, label: "שתיה חמה" },
-  //   { value: 12, label: "המבורגרים" },
-  //   { value: 13, label: "מאפים" },
-  //   { value: 14, label: "בשרים" },
-  //   { value: 15, label: "סלטים" },
-  // ];
-
   const commonObjects = categories.filter((obj1) =>
     realCategories.some((obj2) => obj2.value === obj1.value)
   );

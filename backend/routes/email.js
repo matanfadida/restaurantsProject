@@ -9,5 +9,8 @@ router.post('/send-email', (req, res) => {
 
 router.post('/add-email', EmailController.postEditDetails);
 
+router.get('/get-email', EmailController.getEmail);
+
+router.post('/edit-email', EmailController.postEditDetails);
 
 module.exports = router;

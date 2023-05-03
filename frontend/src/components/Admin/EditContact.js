@@ -1,10 +1,16 @@
+import { useEffect, useState } from "react";
 import useInput from "../hooks/use-input";
-import classes from "./EmailForm.module.css"
+import { useNavigate } from "react-router-dom";
+import classes from "./EmailForm.module.css";
 
 const isNotEmpty = (value) => value.trim() !== "";
-const isValidnumber = (num) => isNotEmpty(num) && (/^\d{10}$/.test(num) || /^\d{8}$/.test(num));
+const isValidnumber = (num) =>
+  isNotEmpty(num) && (/^\d{10}$/.test(num) || /^\d{8}$/.test(num));
 
 const EditContact = () => {
+  const [detail, setdetail] = useState(null);
+  const navigate = useNavigate();
+
   const {
     value: numberValue,
     isValid: numberValid,
@@ -23,13 +29,53 @@ const EditContact = () => {
     reset: addressReset,
   } = useInput(isNotEmpty);
 
+
+  useEffect(() => {
+    const fetchEmail = async () => {
+      const response = await fetch(`/api/email/get-email`);
+      if (!response.ok) {
+        throw new Error("Request failed!");
+      }
+      const result = await response.json();
+      if(result != null){
+        // numberValue = result[0].phone;
+        // addressValue = result[0].address;
+        console.log(result);
+        setdetail(result[0])
+      }
+    };
+    fetchEmail().catch((error) => {
+    });
+  }, []);
+
   //למשוך את הנתונים שכבר יש בבסיס נתונים ולעשות set
-  const handleSubmit = () => {
-    console.log("matan klipush") //להוסיף לבסיס נתונים את ההפרטים החדשים
-      //לחזור לדף אדמין
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const AddEmail = async () => {
+      const response = await fetch("/api/email/add-email", {
+        method: "post",
+        body: JSON.stringify({
+          emailId: detail != null ? detail._id : null,
+          email: "haimrubin1@gmail.com", //להחליף למשתנה מהלקוח
+          phone: numberValue,
+          address: addressValue,
+        }),
+        headers: { "Content-Type": "application/json" },
+      });
+      if (!response.ok) {
+        throw new Error("Request failed!");
+      }
+      const result = await response.json();
+      if (result === "ok") {
+        navigate('/admin', { replace: true });
+      }
+    };
+    AddEmail().catch((error) => {});
+
+    //לחזור לדף אדמין
     addressReset();
     numberReset();
-  }
+  };
   let formIsValid = false;
 
   if (addressValid && numberValid) {
@@ -71,7 +117,10 @@ const EditContact = () => {
           ></input>
         </div>
 
-        <button type="submit" disabled={!formIsValid} > עדכן</button>
+        <button type="submit" disabled={!formIsValid}>
+          {" "}
+          עדכן
+        </button>
       </form>
     </div>
   );
