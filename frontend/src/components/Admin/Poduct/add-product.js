@@ -5,7 +5,7 @@ import Cart from "../../UI/cart";
 import classes from "./add-product.module.css";
 import Select from "react-select";
 
-const isNotEmpty = (value) => value.trim() !== "";
+const isNotEmpty = (value) => value !== undefined ? value.trim() !== "" : "";
 const isBiggerThenZero = (value) => value > 0;
 
 const AddProduct = () => {
@@ -151,7 +151,7 @@ const AddProduct = () => {
 
   const addHandler = (event) => {
     event.preventDefault();
-    const product = {
+    const Newproduct = {
       name: nameValue,
       detail: detailValue,
       img: imgValue,
@@ -166,12 +166,12 @@ const AddProduct = () => {
         method: "POST",
         body: JSON.stringify({
           productId: params.productId,
-          name: product.name,
-          price: product.price,
-          img: product.img,
-          detail: product.detail,
-          rating: product.rating,
-          category: product.category,
+          name: Newproduct.name,
+          price: Newproduct.price,
+          img: Newproduct.img,
+          detail: Newproduct.detail,
+          rating: Newproduct.rating,
+          category: Newproduct.category,
         }),
         headers: { "Content-Type": "application/json" },
       })
@@ -183,11 +183,11 @@ const AddProduct = () => {
         method: "POST",
         body: JSON.stringify({
           productId: params.productId,
-          name: product.name,
-          price: product.price,
-          img: product.img,
-          detail: product.detail,
-          category: product.category,
+          name: Newproduct.name,
+          price: Newproduct.price,
+          img: Newproduct.img,
+          detail: Newproduct.detail,
+          category: Newproduct.category,
         }),
         headers: { "Content-Type": "application/json" },
       })

@@ -24,6 +24,7 @@ export async function fetchProductFromCookie() {
           rating: productExisting.rating,
           remark: item.remark,
           amount: item.amount,
+          status:"נשלח לטבח",
           counterRating: productExisting.counterRating
         }),
       ];

@@ -9,6 +9,7 @@ const chefProduct = (props) => {
       body: JSON.stringify({
         idOrder: props.orderId,
         idProduct: props.product.guid_id,
+        numberTable: props.numberTable,
         status: "מוכן",
       }),
       headers: { "Content-Type": "application/json" },
