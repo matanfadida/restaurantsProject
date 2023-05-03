@@ -1,0 +1,19 @@
+.ul{
+    list-style: none;
+    margin: 5rem  auto ;
+    max-width: 500px;
+
+}
+
+.ul li{
+    background-color: #B0C4DE;
+    font-size: xx-large;
+    margin-bottom: 1rem;
+    border-radius: 1rem;
+    text-align: center;
+
+}
+
+.ul li a{
+    text-decoration: none;
+}

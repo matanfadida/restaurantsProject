@@ -18,7 +18,7 @@
 }
 
 .nav a {
-  color: orange;
+  color: #00416A;
   text-decoration: none;
 }
 
@@ -26,7 +26,7 @@
 .nav a:active,
 .nav a.active {
   color: white;
-  border-bottom: 1px solid orange;
+  border-bottom: 1px solid #00416A;
 }
 
 .nav .mobileNav {
@@ -50,7 +50,7 @@
 
   .category {
     display: flex;
-    color: orange;
+    color: #00416A;
     background-color: transparent;
     border: none;
   }
@@ -67,13 +67,12 @@
     top: 60px;
     right: 0;
     width: 100%;
-    background: rgba(31, 31, 31, 0.86);
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    background: #F0F8FF;
+    box-shadow: 30px rgba(0, 0, 0, 0.4);
     backdrop-filter: blur(9.4px);
     -webkit-backdrop-filter: blur(9.4px);
-    border-bottom: 1px solid rgba(31, 31, 31, 1);
+    border-radius: 0 0 10px 10px;
 
-    border-top: 2px solid orange;
     padding-bottom: 1rem;
   }
   .nav li {
@@ -82,7 +81,7 @@
   .nav a:hover,
   .nav a:active,
   .nav a.active {
-    color: orange;
+    color: #00416A;
     border-bottom: none;
   }
 

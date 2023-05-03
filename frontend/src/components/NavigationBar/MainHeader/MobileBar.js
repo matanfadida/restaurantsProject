@@ -14,7 +14,7 @@ const MobileBar = () => {
     <GiHamburgerMenu
       className={classes.hamburger}
       size="40px"
-      color="white"
+      color="#00416A"
       onClick={menuHandler}
     />
   );
@@ -23,7 +23,7 @@ const MobileBar = () => {
     <AiOutlineCloseCircle
       className={classes.hamburger}
       size="40px"
-      color="white"
+      color="#00416A"
       onClick={menuHandler}
     ></AiOutlineCloseCircle>
   );

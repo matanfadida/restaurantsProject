@@ -10,22 +10,21 @@
   display: flex;
   flex-wrap: nowrap;
   flex-direction: row;
-  color: orange;
+  color: #6CB4EE;
 }
 .li {
   cursor: pointer;
   text-align: center;
   margin-left: 10px;
-  color: white;
+  color: #00308F;
 }
 
 .item {
-  background-color: rgb(218, 139, 44);
+  background-color: #F0F8FF;
   border-radius: 10px;
   padding: 5px 10px;
   width: 100px;
   height: 40px;
-
   display: flex;
   justify-content: center;
 }
@@ -34,7 +33,7 @@
   display: none;
 }
 
-@media (min-width: 600px) {
+@media (min-width: 430px) {
   
 
   .list {
@@ -45,5 +44,10 @@
     flex-direction: column;
     
   }
+
+    .li{
+      margin-top: 2rem;
+    }
+ 
   
 }
