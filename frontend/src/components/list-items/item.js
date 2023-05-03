@@ -103,13 +103,7 @@ const Item = (props) => {
             <button className={classes.admin} onClick={deleteHandler}>
               מחיקה
             </button>
-
-            <Link
-              className={classes.admin}
-              to={`/admin/edit-product/${props.id}`}
-            >
-              עריכה
-            </Link>
+            <Link className={classes.admin} to={`/admin/edit-product/${props.id}`}>עריכה</Link>
           </div>
         )}
       </Link>

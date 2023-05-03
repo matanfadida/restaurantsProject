@@ -61,46 +61,27 @@ const EmailForm = () => {
     isEntering = true;
   }
 
-  const sendEmail = (event) => {
+  const sendEmail = async(event) => {
     event.preventDefault();
     if (!formIsValid) {
       return;
     }
-
-    //מתן תטפל בזה בבקאנד
-    //     const nodemailer = require('nodemailer');
-
-    // const transporter = nodemailer.createTransport({
-    //   service: 'gmail',
-    //   auth: {
-    //     user: 'youremail@gmail.com',
-    //     pass: 'yourpassword'
-    //   }
-    // });
-
-    // app.post('/send-email', (req, res) => {
-    //   const { name, email, subject, message } = req.body;
-
-    //   const mailOptions = {
-    //     from: 'youremail@gmail.com',
-    //     to: 'recipientemail@gmail.com',
-    //     subject: subject,
-    //     text: `Name: ${name}\nEmail: ${email}\n\nMessage: ${message}`
-    //   };
-
-    //   transporter.sendMail(mailOptions, (error, info) => {
-    //     if (error) {
-    //       console.log(error);
-    //       res.send('Error');
-    //     } else {
-    //       console.log('Email sent: ' + info.response);
-    //       res.send('Success');
-    //     }
-    //   });
-    // });
-
-    // });
-
+    const response = await fetch("/api/email/send-email", {
+      method: "POST",
+      body: JSON.stringify({
+        name: 'בדיקה', 
+        email:'בדיקה',
+        subject:'בדיקה',
+        message:'בדיקה'
+      }),
+      headers: { "Content-Type": "application/json" },
+    });
+      if (!response.ok) {
+        throw new Error("Request failed!");
+      }
+      const result = await response.json();
+      console.log(result);
+    ///ToDO BACK
     resetForm();
   };
 

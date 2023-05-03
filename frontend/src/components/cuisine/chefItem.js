@@ -12,7 +12,7 @@ const ChefItem = (props) => {
             {props.products.map((product) =>
               Array.from(Array(product.amount).keys())
                 .map((i) => i + 1)
-                .map(() => <ChefProduct orderId={props.orderId} key={product.guid_id} product={product} />)
+                .map(() => <ChefProduct orderId={props.orderId} key={product.guid_id} product={product} numberTable={props.table}/>)
             )}
           </ul>
         </div>

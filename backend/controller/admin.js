@@ -28,11 +28,13 @@ exports.postEditProduct = (req, res, next) => {
   const Updateimg = req.body.img;
   const Updatedetail = req.body.detail;
   const rating = req.body.rating;
+  const UpdateCategory = req.body.category;
   const product = new Product(
     Updatename,
     Updateprice,
     Updateimg,
     Updatedetail,
+    UpdateCategory,
     proId,
     rating
   );
