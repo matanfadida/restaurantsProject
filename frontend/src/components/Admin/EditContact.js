@@ -62,9 +62,7 @@ const EditContact = () => {
     reset: emailReset,
   } = useInput(isValidEmail);
 
-
   //למשוך את הנתונים שכבר יש בבסיס נתונים ולעשות set
-  const handleSubmit = () => {
   useEffect(() => {
     const fetchEmail = async () => {
       const response = await fetch(`/api/email/get-email`);
