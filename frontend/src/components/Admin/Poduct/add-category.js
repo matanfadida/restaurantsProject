@@ -102,7 +102,7 @@ const AddCategory = () => {
 
         <Select
           value={barcategory}
-          onChange={handleCategoryChange}
+          onChange={handleBarCategoryChange}
           options={currentLabels}
           isMulti
         />
