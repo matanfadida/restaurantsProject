@@ -5,14 +5,15 @@
   margin-left: auto;
   margin-right: auto;
   /* From https://css.glass */
-  background: rgba(31, 28, 28, 0.76);
+  /* background: rgba(31, 28, 28, 0.76);
   border-radius: 16px;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(8.9px);
   -webkit-backdrop-filter: blur(8.9px);
-  border: 1px solid rgba(31, 28, 28, 1);
+  border: 1px solid rgba(31, 28, 28, 1); */
+  background-color: white;
 
-  color: white;
+  color: #72a0c1;
   text-align: right;
   margin-bottom: 1rem;
   padding: 10px;
@@ -24,13 +25,13 @@
 .img {
   width: 100%;
 
-  height: auto;
+  height: 40vh;
   border-radius: 20px;
-  border: 1px solid #ff6347;
+  border: 1px solid #7cb9e8;
 }
 
 .main h1 {
-  color: #ff6347;
+  color: #00308f;
 }
 
 .comment {
@@ -64,7 +65,7 @@
 .plus_button {
   background-color: transparent;
   border: none;
-  color: red;
+  color: #00308f;
   font-weight: bold;
   margin-right: 10px;
  

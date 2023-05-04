@@ -5,6 +5,15 @@ import io from "socket.io-client";
 
 const Chef = (props) => {
   const [orders, setOrders] = useState([]);
+  const [isChef, setIsChef] = useState(true);
+
+
+  
+
+  const isChefHandler = () => {
+    const temp = !isChef
+    setIsChef(temp)
+  }
 
   useEffect(() => {
     const socket = io("http://localhost:5000/"); // Replace with your server URL
@@ -27,7 +36,7 @@ const Chef = (props) => {
       .catch();
   }, []);
 
-  const orderList = orders.map((order) => (
+  const chefList = orders.map((order) => (
     <ChefItem
       orderId={order._id}
       key={order._id}
@@ -36,9 +45,29 @@ const Chef = (props) => {
     />
   ));
 
+
+  const barList = orders.map((order) => (
+    <ChefItem
+      orderId={order._id}
+      key={order._id}
+      products={order.products}
+      table={order.numberTable}
+    />
+  ));
+
+
+
+
+
   return (
     <div className={classes.chef}>
-      <ul>{orderList}</ul>
+      <div className={classes.buttons}>
+        <button onClick={isChefHandler} className={isChef ? classes.off : classes.on}>בר</button>
+        <button onClick={isChefHandler} className={isChef ? classes.on : classes.off}>מטבח</button>
+      </div>
+
+      {isChef && <ul>{chefList}</ul>}
+      {!isChef && <ul>{barList}</ul>}
     </div>
   );
 };

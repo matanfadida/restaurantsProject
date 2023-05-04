@@ -5,6 +5,7 @@ import Select from "react-select";
 
 const AddCategory = () => {
   const [category, setCategory] = useState();
+  const [barcategory, setBarCategory] = useState();
   const [updateCategory, setUpdateCategory] = useState();
   const [currentCategories, setCurrentCategories] = useState([]);
 
@@ -49,6 +50,10 @@ const AddCategory = () => {
     setCategory(selected);
   };
 
+  const handleBarCategoryChange = (selected) => {
+    setBarCategory(selected);
+  };
+
   const addToBackHandler = async () => {
     const response = await fetch(`/api/category/add-category`, {
       method: "POST",
@@ -67,6 +72,13 @@ const AddCategory = () => {
     }
     setCategory([]);
   };
+
+  const addBarToBackHandler = async () => {
+    //תוסיף לבאק
+    setBarCategory([]);
+  };
+
+  
 
   if(updateCategory){
     return <div><Cart>עודכן בהצלחה !</Cart></div>
@@ -87,7 +99,18 @@ const AddCategory = () => {
         <button className={classes.button} onClick={addToBackHandler}>
           הוסף
         </button>
+
+        <Select
+          value={barcategory}
+          onChange={handleCategoryChange}
+          options={currentLabels}
+          isMulti
+        />
       </Cart>
+
+      <button className={classes.button} onClick={addBarToBackHandler}>
+          הוסף
+        </button>
     </div>
   );
 };

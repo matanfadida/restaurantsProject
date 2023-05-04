@@ -1,4 +1,6 @@
-import Button from "./button";
+
+import Button from "../UI/Button";
+import classes from "./chefItem.module.css";
 
 const chefProduct = (props) => {
   const InProgresHandler = async () => {};
@@ -21,13 +23,24 @@ const chefProduct = (props) => {
 
     console.log(result);
   };
-//   className={classes.buttons}
+  //   className={classes.buttons}
   return (
-    <li>
+    <li className={classes.chefProduct}>
+      <div>
+        <Button onClick={ReadyHandler}>מוכן</Button>
+        <Button onClick={InProgresHandler}>בהכנה</Button>
+      </div>
+      <span>{props.product.name}</span>
+    </li>
+  );
+};
+
+{
+  /* <li>
       <div>
         <span>{props.product.name}</span>
         <div>
-          <ul>
+          <ul >
             <li>
               <Button onClick={InProgresHandler}>בהכנה</Button>
             </li>{" "}
@@ -38,8 +51,7 @@ const chefProduct = (props) => {
           </ul>
         </div>
       </div>
-    </li>
-  );
-};
+    </li> */
+}
 
 export default chefProduct;

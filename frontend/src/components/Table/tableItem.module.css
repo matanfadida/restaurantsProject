@@ -2,24 +2,24 @@
   width: 40vw;
   margin: 5vw;
   text-align: center;
-  border: 1px solid #ffe3b3;
+  border: 1px solid #7cb9e8;
   border-radius: 10px;
   flex:  39%;
-  background-color: #ffc172;
+  background-color: white;
 
   max-width: 40%;
 }
 
 .card h1 {
-    color: #ff7a66;
+    color: #004687;
     margin-left: 1rem;
     margin-right: 1rem;
-  border-bottom: 2px solid #ffe3b3;
+  border-bottom: 2px solid #7cb9e8;
 
 }
 
 .card a {
-    color: white;
+    color: #72a0c1;
     text-decoration: none;
     
   }
@@ -27,8 +27,8 @@
   .card a:hover,
   .card a:active,
   .card a.active {
-    color: #7e1470;
-    border: 1px solid #7e1470;
+    color: #004687;
+    border: 1px solid #004687;
     background-color: white;
     padding: 0.5rem;
     border-radius: 10px;

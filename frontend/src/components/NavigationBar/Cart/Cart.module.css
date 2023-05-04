@@ -9,14 +9,14 @@
 
 .btn {
     border-radius: 0 0 0 5px;
-    background-color: #3e424b;
+    background-color: #87CEFA;
     color: white;
     margin: 0px 5px;
     padding: 8px 16px;
 }
 .btn:hover {
     border-radius: 0 0 0 5px;
-    background-color: #b70909;
+    background-color: #72A0C1;
     color: white;
     margin: 0px 5px;
     padding: 8px 16px;
@@ -24,13 +24,13 @@
 
 .btn_ord{
     border-radius: 0 0 0 5px;
-    background-color: #3e424b;
+    background-color: #87CEFA;
     color: white;
     padding: 8px 16px;
 }
 .btn_ord:hover{
     border-radius: 0 0 0 5px;
-    background-color: #EC9706;
+    background-color: #72A0C1;
     color: white;
     padding: 8px 16px;
 }

@@ -1,8 +1,33 @@
 .chef {
   margin: 5rem auto;
   width: 60%;
-  animation: proj-appear 1s ease-out forwards;
   display: flow-root;
+  color: #00416a;
+}
+
+.buttons {
+  margin: auto;
+  width: max-content;
+  margin-bottom: 2rem;
+  color: #72a0c1;
+}
+
+.on {
+  width: 5rem;
+  border: 2px solid #00416a;
+  
+  color: #72a0c1;
+  background-color: #00416a;
+}
+
+.off {
+  width: 5rem;
+  border: 2px solid white;
+
+
+
+  color: #72a0c1;
+  background-color: white;
 }
 
 .chef ul {
@@ -10,4 +35,10 @@
   list-style: none;
   margin: 0;
   padding: 0;
+}
+
+@media (max-width: 600px) {
+  .chef {
+    width: 100%;
+  }
 }

@@ -70,6 +70,7 @@ const Item = (props) => {
 
   return (
     <li className={classes.li}>
+      <Link to={`/product/${props.id}`} className={classes.nodeco}>
       <img className={classes.img} src={props.img} alt={props.name} />
 
       <div className={classes.details}>
@@ -77,7 +78,7 @@ const Item = (props) => {
         <span className={classes.name}>{props.name}</span>
       </div>
       <div className={classes.stars}>
-        <Stars color="#002D62"className={classes.stars} value={4} />
+        <Stars color="#002D62"className={classes.stars} value={props.rating} />
       </div>
 
       {ctx.isLogged && ( 
@@ -87,6 +88,7 @@ const Item = (props) => {
           <Link to={`/admin/edit-product/${props.id}`}>עריכה</Link>
         </div>
       )}
+      </Link>
     </li>
   );
 };

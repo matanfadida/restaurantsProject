@@ -1,6 +1,6 @@
 .item {
-  display: flex;
-  justify-content: space-between;
+  /* display: flex;
+  justify-content: space-between; */
   
 
 }
@@ -17,4 +17,11 @@
 .buttons{
     margin-left: 2rem;
     display: flex;
+}
+
+.chefProduct{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #00416a;
 }

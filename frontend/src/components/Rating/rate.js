@@ -1,7 +1,8 @@
 import classes from "./rate.module.css";
 import { useState, useEffect } from "react";
 import { FaStar } from "react-icons/fa";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+import Button from "../UI/Button";
 
 const colors = {
   orange: "#FFBA5A",
@@ -10,7 +11,7 @@ const colors = {
 
 const Rate = () => {
   const params = useParams();
-
+  const navigate = useNavigate();
   const [currentValue, setCurrentValue] = useState(0);
   const [hoverValue, setHoverValue] = useState(undefined);
   const [loading, setLoading] = useState(true);
@@ -19,7 +20,7 @@ const Rate = () => {
   const stars = Array(5).fill(0);
 
   useEffect(() => {
-    const fetchProduct = async() => {
+    const fetchProduct = async () => {
       const response = await fetch(`/api/get-product`, {
         method: "POST",
         body: JSON.stringify({
@@ -70,11 +71,12 @@ const Rate = () => {
     }
     const result = await response.json();
     console.log(result);
-    console.log(text, currentValue)
+    console.log(text, currentValue);
+    navigate(-1);
   };
 
-  if(loading){
-    return <div>loading..</div>
+  if (loading) {
+    return <div>loading..</div>;
   }
 
   return (
@@ -103,14 +105,13 @@ const Rate = () => {
         })}
       </div>
       <textarea
-        placeholder="What's your experience?"
+        placeholder="תנו את תגובתכם למנה "
         className={classes.textarea}
         onChange={textChangeHandler}
       />
 
-      <button className={classes.button} onClick={submitHandler}>
-        Submit
-      </button>
+      <button onClick={submitHandler}>הגב</button>
+
     </div>
   );
 };

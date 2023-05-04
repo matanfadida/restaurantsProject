@@ -37,6 +37,13 @@ const App = () => {
           <Route path="/rate/:productId" element={<Rate />} />
           <Route path="/contact" element={<Contact />} />
           <Route
+            path="/table/:tableId"
+            element={
+                <TableDetail />
+              
+            }
+          />
+          <Route
             path="/admin/add-product"
             element={
               ctx.isLogged ? (

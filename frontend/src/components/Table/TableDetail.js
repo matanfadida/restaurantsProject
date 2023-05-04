@@ -1,7 +1,7 @@
-import { useParams } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import classes from "./table-detail.module.css";
-
-import { Table, Button, ButtonGroup } from "react-bootstrap";
+import { FaStar } from "react-icons/fa";
+import { Table } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import io from "socket.io-client";
 
@@ -9,7 +9,6 @@ const TableDetail = () => {
   const params = useParams();
   const [orders, getOrders] = useState([]);
   let totalPrice = 0;
-
   if (orders.length > 0) {
     const arrOfPrice = orders.map((order) => order.price);
     totalPrice = arrOfPrice.reduce(
@@ -60,9 +59,7 @@ const TableDetail = () => {
 
     socket.on("update-status-product", (orders) => {
       console.log("New orders received: ", orders);
-      if (
-        parseInt(orders.numberTable) === parseInt(params.tableId)
-      ) {
+      if (parseInt(orders.numberTable) === parseInt(params.tableId)) {
         getOrders(orders.orderByTable);
       }
       //   getOrders(order);
@@ -82,14 +79,11 @@ const TableDetail = () => {
     order.products.map((item) => (
       <tr key={Math.random()}>
         <td>
-          {/* <ButtonGroup aria-label="Basic example">
-          <Button variant={item.status === 1 ? "success" : "light"}>
-            מוכן
-          </Button>
-          <Button variant={item.status === 0 ? "success" : "light"}>
-            בהכנה
-          </Button>
-        </ButtonGroup> */}
+          <NavLink to={`/rate/${item.id}`} >
+            <FaStar size="30px" />
+          </NavLink>
+        </td>
+        <td>
           <div className={classes.status}>
             {item.status === "מוכן" && (
               <div
@@ -130,6 +124,7 @@ const TableDetail = () => {
       <Table className={classes.item}>
         <thead>
           <tr>
+            <th scope="col">דרגו </th>
             <th scope="col">סטטוס</th>
             <th scope="col">מחיר</th>
             <th scope="col">כמות</th>
