@@ -16,10 +16,13 @@ const AddCategory = () => {
         throw new Error("Request failed!");
       }
       const result = await response.json();
-      console.log(result.filter(item => item.worker === "chef"));
-      setCurrentCategories(result.map(item => item.category)
+      const categoryChef = result.filter(item => item.worker === "chef");
+      const categoryBar = result.filter(item => item.worker === "bar");
+      console.log(categoryBar);
+      setCurrentCategories(categoryChef.map(item => item.category)
       );
-      setCategory(result.filter(item => item.worker === "chef"));
+      setCategory(categoryChef.map(item => item.category));
+      setBarCategory(categoryBar.map(item => item.category));
     };
     fetchCategories().catch((error) => {
       console.log(error)
@@ -78,7 +81,7 @@ const AddCategory = () => {
   const addBarToBackHandler = async () => {
     const response = await fetch(`/api/category/add-category`, {
       method: "POST",
-      body: JSON.stringify({ categories: category, worker: 'bar' }),
+      body: JSON.stringify({ categories: barcategory, worker: 'bar' }),
       headers: { "Content-Type": "application/json" },
     });
     if (!response.ok) {

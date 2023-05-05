@@ -30,8 +30,9 @@ const AddProduct = () => {
           throw new Error("Request failed!");
         }
         const result = await response.json();
-        setcCategoryOptions(result.map((item) => (
-          <option value={item.value} key={item._id}>{item.label}</option>
+        const categoryChef = result.filter(item => item.worker === "chef");
+        setcCategoryOptions(categoryChef.map((item) => (
+          <option value={item.category.value} key={item._id}>{item.category.label}</option>
         )));
         // console.log(result);
         // categories = categoryOptions.

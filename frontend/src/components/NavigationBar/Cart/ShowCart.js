@@ -39,6 +39,7 @@ const Cart = (props) => {
     if (result === "ok") {
       setStatusOfOrder(true);
       ctx.RemoveAll();
+      window.location.reload();
     }
   };
 

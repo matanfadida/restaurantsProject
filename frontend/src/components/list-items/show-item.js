@@ -75,6 +75,7 @@ const ShowItem = (props) => {
               detail={item.detail}
               price={item.price}
               img={item.image}
+              rating={item.rating}
               amount={1}
             />
           ))}

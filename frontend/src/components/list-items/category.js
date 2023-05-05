@@ -16,10 +16,14 @@ import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 const Category = () => {
-  const [realCategories, setRealCategories] = useState([])
+  const [realCategories, setRealCategories] = useState([]);
 
   const categories = [
-    { value: 1, label: "עיקריות", icon: <MdOutlineRestaurantMenu size="30px" />,},
+    {
+      value: 1,
+      label: "עיקריות",
+      icon: <MdOutlineRestaurantMenu size="30px" />,
+    },
     { value: 2, label: "מנות פתיחה", icon: <TbBowl size="30px" /> },
     { value: 3, label: "קינוחים", icon: <GiCupcake size="30px" /> },
     { value: 4, label: "שתיה", icon: <BsCupStraw size="30px" /> },
@@ -36,15 +40,16 @@ const Category = () => {
     { value: 15, label: "סלטים", icon: <TbSalad size="30px" /> },
   ];
 
-
   useEffect(() => {
     const fetchCategories = async () => {
       const response = await fetch(`/api/category/get-category`);
-        if (!response.ok) {
-          throw new Error("Request failed!");
-        }
-        const result = await response.json();
-        setRealCategories(result);
+      if (!response.ok) {
+        throw new Error("Request failed!");
+      }
+      const result = await response.json();
+      const categoryChef = result.filter((item) => item.worker === "chef");
+
+      setRealCategories(categoryChef.map((item) => item.category));
     };
     fetchCategories().catch((error) => {
       // setLoading(false);
@@ -57,10 +62,9 @@ const Category = () => {
   );
 
   const navigate = useNavigate();
-  
 
   const CategoryHandle = (value) => {
-    navigate(`/?category=${value}`)
+    navigate(`/?category=${value}`);
   };
   return (
     <div className={classes.list_container}>
