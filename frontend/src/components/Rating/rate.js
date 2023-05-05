@@ -2,7 +2,6 @@ import classes from "./rate.module.css";
 import { useState, useEffect } from "react";
 import { FaStar } from "react-icons/fa";
 import { useParams, useNavigate } from "react-router-dom";
-import Button from "../UI/Button";
 
 const colors = {
   orange: "#FFBA5A",
