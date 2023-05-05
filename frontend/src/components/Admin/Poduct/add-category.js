@@ -16,11 +16,13 @@ const AddCategory = () => {
         throw new Error("Request failed!");
       }
       const result = await response.json();
-      console.log(result);
-      setCurrentCategories(result);
-      setCategory(result);
+      console.log(result.filter(item => item.worker === "chef"));
+      setCurrentCategories(result.map(item => item.category)
+      );
+      setCategory(result.filter(item => item.worker === "chef"));
     };
     fetchCategories().catch((error) => {
+      console.log(error)
       // setLoading(false);
       // setHasError(error.message || "Something went wrong!");
     });
@@ -57,7 +59,7 @@ const AddCategory = () => {
   const addToBackHandler = async () => {
     const response = await fetch(`/api/category/add-category`, {
       method: "POST",
-      body: JSON.stringify({ categories: category }),
+      body: JSON.stringify({ categories: category, worker: 'chef' }),
       headers: { "Content-Type": "application/json" },
     });
     if (!response.ok) {
@@ -74,7 +76,21 @@ const AddCategory = () => {
   };
 
   const addBarToBackHandler = async () => {
-    //תוסיף לבאק
+    const response = await fetch(`/api/category/add-category`, {
+      method: "POST",
+      body: JSON.stringify({ categories: category, worker: 'bar' }),
+      headers: { "Content-Type": "application/json" },
+    });
+    if (!response.ok) {
+      throw new Error("Request failed!");
+    }
+    const result = await response.json();
+    if(result === 'ok'){
+      setUpdateCategory(true);
+    }
+    if(result !== "ok"){
+      console.log("error");
+    }
     setBarCategory([]);
   };
 

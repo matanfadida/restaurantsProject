@@ -2,14 +2,14 @@ const mongodb = require("mongodb");
 const getDb = require("../util/database").getDb;
 
 class Category {
-  constructor(value, label) {
-    this.value = value;
-    this.label = label;
+  constructor(worker, category) {
+    this.worker = worker;
+    this.category = category;
   }
   save() {
     const db = getDb();
     return db
-      .collection("Category")
+      .collection("Categorys")
       .insertOne(this)
       .then((result) => {
         console.log(result);
@@ -18,10 +18,24 @@ class Category {
         console.log(err);
       });
   }
+  static fetchAllCategoriesByWorker(worker) {
+    const db = getDb();
+    return db
+      .collection("Categorys")
+      .find({ worker: worker })
+      .toArray()
+      .then((category) => {
+        return category;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   static fetchAllCategories() {
     const db = getDb();
     return db
-      .collection("Category")
+      .collection("Categorys")
       .find()
       .toArray()
       .then((category) => {
@@ -32,31 +46,31 @@ class Category {
       });
   }
 
-  static findById(ordId) {
+  static findById(worker, value) {
     const db = getDb();
     return db
-      .collection("Category")
-      .find({ _id: new mongodb.ObjectId(ordId) })
+      .collection("Categorys")
+      .find({ worker: worker })
       .next()
-      .then((order) => {
-        return order;
+      .then((categorys) => {
+        const result = categorys.category.find((item) => item.value == value);
+        return result;
       })
       .catch((err) => console.log(err));
   }
 
-  static deleteAll() {
+  static deleteAll(worker) {
     const db = getDb();
     return db
-      .collection("Category")
-  .deleteMany({})
-  .then((result) => {
-    return result.deletedCount;
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+      .collection("Categorys")
+      .deleteMany({ worker: worker })
+      .then((result) => {
+        return result.deletedCount;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
-
 }
 
 module.exports = Category;
