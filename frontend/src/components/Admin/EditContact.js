@@ -107,6 +107,9 @@ const EditContact = () => {
 
     addressReset();
     numberReset();
+    facebookReset();
+    instagramReset();
+    emailReset();
   };
   let formIsValid = false;
 
@@ -117,6 +120,8 @@ const EditContact = () => {
   const addressNameClasses = addressError ? "invalid" : "valid";
   const numberNameClasses = numberError ? "invalid" : "valid";
   const emailNameClasses = emailError ? "invalid" : "valid";
+  const instagramNameClasses = instagramError ? "invalid" : "valid";
+  const facebookNameClasses = instagramError ? "invalid" : "valid";
 
   return (
     <div className={classes.main}>
@@ -160,6 +165,32 @@ const EditContact = () => {
             value={emailValue}
             onChange={emailChangeHandler}
             onBlur={emailBlurHandler}
+          ></input>
+        </div>
+        <div className={classes[instagramNameClasses]}>
+          {instagramError && (
+            <p className={classes.error_text}>נא להכניס כתובת </p>
+          )}
+          <input
+            type="url"
+            id="instagram"
+            placeholder=" דף האינסטגרם"
+            value={instagramValue}
+            onChange={instagramChangeHandler}
+            onBlur={instagramBlurHandler}
+          ></input>
+        </div>
+        <div className={classes[facebookNameClasses]}>
+          {facebookError && (
+            <p className={classes.error_text}>נא להכניס כתובת </p>
+          )}
+          <input
+            type="url"
+            id="facebook"
+            placeholder=" דף הפייסבוק"
+            value={facebookValue}
+            onChange={facebookChangeHandler}
+            onBlur={facebookBlurHandler}
           ></input>
         </div>
         <button type="submit" disabled={!formIsValid}>
