@@ -7,6 +7,7 @@ const Button = (props) => {
   const clickHandler = () =>{
     const temp = !clicked
     setClicked(temp)
+    props.onClick();
   }
   return <button onClick={clickHandler} className={classes[className]}>{props.children}</button>;
 };

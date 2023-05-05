@@ -86,7 +86,7 @@ const AddCategory = () => {
 
   return (
     <div className={classes.div}>
-      <Cart>
+      
         <label htmlFor="category-input">:נא לבחור קטגוריות להוספה</label>
         <Select
           value={category}
@@ -97,19 +97,18 @@ const AddCategory = () => {
           isMulti
         />
         <button className={classes.button} onClick={addToBackHandler}>
-          הוסף
+          עדכן קטגוריות
         </button>
-
+        <label htmlFor="bar-category-input">:נא לבחור קטגוריות לבר</label>
         <Select
           value={barcategory}
           onChange={handleBarCategoryChange}
-          options={currentLabels}
+          options={category}
           isMulti
         />
-      </Cart>
 
       <button className={classes.button} onClick={addBarToBackHandler}>
-          הוסף
+          עדכן קטגוריות בר
         </button>
     </div>
   );
