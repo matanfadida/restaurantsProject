@@ -5,7 +5,7 @@ import Cart from "../../UI/cart";
 import classes from "./add-product.module.css";
 import Select from "react-select";
 
-const isNotEmpty = (value) => value !== undefined ? value.trim() !== "" : "";
+const isNotEmpty = (value) => (value !== undefined ? value.trim() !== "" : "");
 const isBiggerThenZero = (value) => value > 0;
 
 const AddProduct = () => {
@@ -22,19 +22,28 @@ const AddProduct = () => {
   });
 
   const [categoryOptions, setcCategoryOptions] = useState("");
+  const [maker, setMaker] = useState('chef');
+
+  const makerChangeHandler = (event) => {
+    setMaker(event.target.value);
+  };
 
   useEffect(() => {
     const fetchCategories = async () => {
       const response = await fetch(`/api/category/get-category`);
-        if (!response.ok) {
-          throw new Error("Request failed!");
-        }
-        const result = await response.json();
-        setcCategoryOptions(result.map((item) => (
-          <option value={item.value} key={item._id}>{item.label}</option>
-        )));
-        // console.log(result);
-        // categories = categoryOptions.
+      if (!response.ok) {
+        throw new Error("Request failed!");
+      }
+      const result = await response.json();
+      setcCategoryOptions(
+        result.map((item) => (
+          <option value={item.value} key={item._id}>
+            {item.label}
+          </option>
+        ))
+      );
+      // console.log(result);
+      // categories = categoryOptions.
     };
     fetchCategories().catch((error) => {
       // setLoading(false);
@@ -172,6 +181,7 @@ const AddProduct = () => {
           detail: Newproduct.detail,
           rating: Newproduct.rating,
           category: Newproduct.category,
+          //להוסיף maker
         }),
         headers: { "Content-Type": "application/json" },
       })
@@ -268,6 +278,12 @@ const AddProduct = () => {
             {categoryOptions}
           </select>
         </div>
+<div className={classes.valid}>
+        <select value={maker} onChange={makerChangeHandler}>
+          <option value='chef'>chef</option>
+          <option value='bar'>bar</option>
+        </select>
+        </div>
 
         <div className={classes[nameDetailClasses]}>
           {detailHasError && (
@@ -282,6 +298,8 @@ const AddProduct = () => {
             onBlur={detailBlurHandler}
           ></textarea>
         </div>
+
+        
 
         <div className={classes.div}>
           <button type="submit" disabled={!formIsValid}>

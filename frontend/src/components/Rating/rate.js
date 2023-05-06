@@ -1,7 +1,13 @@
 import classes from "./rate.module.css";
 import { useState, useEffect } from "react";
 import { FaStar } from "react-icons/fa";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import {
+  Link,
+  Routes,
+  Route,
+  useNavigate,
+} from 'react-router-dom';
 
 const colors = {
   orange: "#FFBA5A",
@@ -57,20 +63,20 @@ const Rate = () => {
   };
 
   const submitHandler = async () => {
-    const response = await fetch(`/api/update-rating/${params.productId}`, {
-      method: "POST",
-      body: JSON.stringify({
-        rating: currentValue,
-        comment: text,
-      }),
-      headers: { "Content-Type": "application/json" },
-    });
-    if (!response.ok) {
-      throw new Error("Request failed!");
-    }
-    const result = await response.json();
-    console.log(result);
-    console.log(text, currentValue);
+    // const response = await fetch(`/api/update-rating/${params.productId}`, {
+    //   method: "POST",
+    //   body: JSON.stringify({
+    //     rating: currentValue,
+    //     comment: text,
+    //   }),
+    //   headers: { "Content-Type": "application/json" },
+    // });
+    // if (!response.ok) {
+    //   throw new Error("Request failed!");
+    // }
+    // const result = await response.json();
+    // console.log(result);
+    // console.log(text, currentValue);
     navigate(-1);
   };
 
@@ -109,7 +115,7 @@ const Rate = () => {
         onChange={textChangeHandler}
       />
 
-      <button onClick={submitHandler}>הגב</button>
+      <button className={classes.rateButton} onClick={submitHandler}>הגב</button>
 
     </div>
   );

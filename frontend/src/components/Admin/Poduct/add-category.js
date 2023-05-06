@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Cart from "../../UI/cart";
 import classes from "./add-category.module.css";
 import Select from "react-select";
+import { Link, Routes, Route, useNavigate } from "react-router-dom";
 
 const AddCategory = () => {
   const [category, setCategory] = useState();
@@ -64,10 +65,10 @@ const AddCategory = () => {
       throw new Error("Request failed!");
     }
     const result = await response.json();
-    if(result === 'ok'){
+    if (result === "ok") {
       setUpdateCategory(true);
     }
-    if(result !== "ok"){
+    if (result !== "ok") {
       console.log("error");
     }
     setCategory([]);
@@ -75,41 +76,42 @@ const AddCategory = () => {
 
   const addBarToBackHandler = async () => {
     //תוסיף לבאק
+    setUpdateCategory(true);
     setBarCategory([]);
   };
 
-  
-
-  if(updateCategory){
-    return <div><Cart>עודכן בהצלחה !</Cart></div>
+  if (updateCategory) {
+    return (
+      <div>
+        <Cart>עודכן בהצלחה !</Cart>
+        
+      </div>
+    );
   }
 
   return (
     <div className={classes.div}>
-      
-        <label htmlFor="category-input">:נא לבחור קטגוריות להוספה</label>
-        <Select
-          value={category}
-          onChange={handleCategoryChange}
-          options={options.filter(
-            (item) => !currentLabels.includes(item.label)
-          )}
-          isMulti
-        />
-        <button className={classes.button} onClick={addToBackHandler}>
-          עדכן קטגוריות
-        </button>
-        <label htmlFor="bar-category-input">:נא לבחור קטגוריות לבר</label>
-        <Select
-          value={barcategory}
-          onChange={handleBarCategoryChange}
-          options={category}
-          isMulti
-        />
+      <label htmlFor="category-input">:נא לבחור קטגוריות להוספה</label>
+      <Select
+        value={category}
+        onChange={handleCategoryChange}
+        options={options.filter((item) => !currentLabels.includes(item.label))}
+        isMulti
+      />
+      <button className={classes.button} onClick={addToBackHandler}>
+        עדכן קטגוריות
+      </button>
+      <label htmlFor="bar-category-input">:נא לבחור קטגוריות לבר</label>
+      <Select
+        value={barcategory}
+        onChange={handleBarCategoryChange}
+        options={category}
+        isMulti
+      />
 
       <button className={classes.button} onClick={addBarToBackHandler}>
-          עדכן קטגוריות בר
-        </button>
+        עדכן קטגוריות בר
+      </button>
     </div>
   );
 };
