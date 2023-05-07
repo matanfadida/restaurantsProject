@@ -1,9 +1,29 @@
 .container {
-    margin-top: 50px;
+  margin-top: 50px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
+.rateButton {
+  border-radius: 0.5rem;
+  margin: 0.5rem;
+  background-color: #abb9cc;
+  border: 1px solid #87cefa;
+  color: #00416a;
+  width: 5rem;
+  height: 2rem;
+}
+
+.rateButton:hover {
+  border-radius: 0.5rem;
+  margin: 0.5rem;
+  background-color: #00416a;
+  border: 1px solid #87cefa;
+  color: #abb9cc;
+  width: 5rem;
+  height: 2rem;
+}
+
 .stars {
   display: flex;
   flex-direction: row;
@@ -25,10 +45,10 @@
 }
 
 .button:hover,
-.button:active{
-    padding: 10;
-    cursor: pointer;
-    color: #FF6347;
-    border: 1px solid white;
-    background-color: #FFBA5A;
+.button:active {
+  padding: 10;
+  cursor: pointer;
+  color: #ff6347;
+  border: 1px solid white;
+  background-color: #ffba5a;
 }

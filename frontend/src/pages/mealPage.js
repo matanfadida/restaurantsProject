@@ -77,6 +77,8 @@ const Meal = () => {
     return <div>loading..</div>;
   }
 
+  console.log(product.product)
+
   return (
     <div className={classes.main}>
       <img
