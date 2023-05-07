@@ -7,7 +7,9 @@ exports.postAddProduct = (req, res, next) => {
   const img = req.body.img;
   const detail = req.body.detail;
   const category = req.body.category;
-  const product = new Product(name, price, img, detail, category);
+  const worker = req.body.worker;
+  console.log(worker);
+  const product = new Product(name, price, img, detail, category, worker);
   product
     .save()
     .then((result) => console.log(result))
@@ -28,6 +30,7 @@ exports.postEditProduct = (req, res, next) => {
   const Updateimg = req.body.img;
   const Updatedetail = req.body.detail;
   const rating = req.body.rating;
+  const worker = req.body.worker;
   const UpdateCategory = req.body.category;
   const product = new Product(
     Updatename,
@@ -35,6 +38,7 @@ exports.postEditProduct = (req, res, next) => {
     Updateimg,
     Updatedetail,
     UpdateCategory,
+    worker,
     proId,
     rating
   );

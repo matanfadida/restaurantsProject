@@ -13,43 +13,43 @@ const Item = (props) => {
   const [remark, setRemark] = useState("");
   const [amount, setAmount] = useState(1);
 
-  const buttonAddItemHanlder = () => {
-    for (var i = 0; i < +amount; i++) {
-      ctx.AddItem({
-        id: props.id,
-        guid_id: uuidv4(),
-        name: props.name,
-        detail: props.detail,
-        price: props.price,
-        remark: remark,
-        amount: 1,
-        status: "נשלח לטבח",
-      });
-    }
-    // ctx.AddItem({
-    //   id: props.id,
-    //   guid_id: uuidv4(),
-    //   name: props.name,
-    //   detail: props.detail,
-    //   price: props.price,
-    //   remark: remark,
-    //   amount: +amount,
-    //   status:"נשלח לטבח",
-    // });
+  // const buttonAddItemHanlder = () => {
+  //   for (var i = 0; i < +amount; i++) {
+  //     ctx.AddItem({
+  //       id: props.id,
+  //       guid_id: uuidv4(),
+  //       name: props.name,
+  //       detail: props.detail,
+  //       price: props.price,
+  //       remark: remark,
+  //       amount: 1,
+  //       status: "נשלח לטבח",
+  //     });
+  //   }
+  //   // ctx.AddItem({
+  //   //   id: props.id,
+  //   //   guid_id: uuidv4(),
+  //   //   name: props.name,
+  //   //   detail: props.detail,
+  //   //   price: props.price,
+  //   //   remark: remark,
+  //   //   amount: +amount,
+  //   //   status:"נשלח לטבח",
+  //   // });
 
-    setRemark("");
-    setAmount(1);
-  };
+  //   setRemark("");
+  //   setAmount(1);
+  // };
 
-  const plusHanlder = () => {
-    const temp = amount + 1;
-    setAmount(temp);
-  };
+  // const plusHanlder = () => {
+  //   const temp = amount + 1;
+  //   setAmount(temp);
+  // };
 
-  const minusHanlder = () => {
-    const temp = amount - 1;
-    setAmount(temp);
-  };
+  // const minusHanlder = () => {
+  //   const temp = amount - 1;
+  //   setAmount(temp);
+  // };
 
   const deleteHandler = () => {
     fetch("/api/admin/delete-product", {
@@ -71,24 +71,27 @@ const Item = (props) => {
   return (
     <li className={classes.li}>
       <Link to={`/product/${props.id}`} className={classes.nodeco}>
-      <img className={classes.img} src={props.img} alt={props.name} />
+        <img className={classes.img} src={props.img} alt={props.name} />
 
-      <div className={classes.details}>
-        <span>{`${props.price}₪`}</span>
-        <span className={classes.name}>{props.name}</span>
-      </div>
-      <div className={classes.stars}>
-        <Stars color="#002D62"className={classes.stars} value={props.rating} />
-      </div>
-
-      {ctx.isLogged && ( 
+        <div className={classes.details}>
+          <span>{`${props.price}₪`}</span>
+          <span className={classes.name}>{props.name}</span>
+        </div>
+        <div className={classes.stars}>
+          <Stars
+            color="#002D62"
+            className={classes.stars}
+            value={props.rating}
+          />
+        </div>
+      </Link>
+      {ctx.isLogged && (
         <div className={classes.admin}>
           <button onClick={deleteHandler}>מחיקה</button>
 
           <Link to={`/admin/edit-product/${props.id}`}>עריכה</Link>
         </div>
       )}
-      </Link>
     </li>
   );
 };

@@ -6,14 +6,12 @@ import io from "socket.io-client";
 const Chef = (props) => {
   const [orders, setOrders] = useState([]);
   const [isChef, setIsChef] = useState(true);
-
-
-  
+  const [ready, setReady] = useState(true);
 
   const isChefHandler = () => {
-    const temp = !isChef
-    setIsChef(temp)
-  }
+    const temp = !isChef;
+    setIsChef(temp);
+  };
 
   useEffect(() => {
     const socket = io("http://localhost:5000/"); // Replace with your server URL
@@ -34,36 +32,47 @@ const Chef = (props) => {
       })
       .then((result) => setOrders(result))
       .catch();
-  }, []);
+  }, [ready]);
 
   const chefList = orders.map((order) => (
     <ChefItem
+      ready={setReady}
       orderId={order._id}
       key={order._id}
-      products={order.products}
+      products={order.products.filter(
+        (x) => x.worker === "chef" && x.status !== "מוכן"
+      )}
       table={order.numberTable}
     />
   ));
-
 
   const barList = orders.map((order) => (
     <ChefItem
+      ready={setReady}
       orderId={order._id}
       key={order._id}
-      products={order.products}
+      products={order.products.filter(
+        (x) => x.worker === "bar" && x.status !== "מוכן"
+      )}
       table={order.numberTable}
     />
   ));
-
-
-
-
 
   return (
     <div className={classes.chef}>
       <div className={classes.buttons}>
-        <button onClick={isChefHandler} className={isChef ? classes.off : classes.on}>בר</button>
-        <button onClick={isChefHandler} className={isChef ? classes.on : classes.off}>מטבח</button>
+        <button
+          onClick={isChefHandler}
+          className={isChef ? classes.off : classes.on}
+        >
+          בר
+        </button>
+        <button
+          onClick={isChefHandler}
+          className={isChef ? classes.on : classes.off}
+        >
+          מטבח
+        </button>
       </div>
 
       {isChef && <ul>{chefList}</ul>}

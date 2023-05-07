@@ -14,7 +14,7 @@ const ButtonGroup = (props) => {
   };
 
   const buttons = props.buttons.map((item) => (
-    <button
+    <button key={item.id}
       className={buttonClassName(item.id)}
       onClick={(event) => clickHandler(event, item.id, item.onClick)}
     >

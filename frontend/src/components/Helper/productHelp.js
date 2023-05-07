@@ -27,6 +27,7 @@ export async function fetchProductFromCookie() {
           status:"נשלח לטבח",
           counterRating: productExisting.counterRating,
           category: productExisting.category,
+          worker: productExisting.worker,
         }),
       ];
       updateTotalAmount += productExisting.price * item.amount;
