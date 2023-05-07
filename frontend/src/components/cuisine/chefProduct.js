@@ -42,9 +42,8 @@ const chefProduct = (props) => {
   //   className={classes.buttons}
   return (
     <li className={classes.chefProduct}>
-     
       <ButtonGroup
-      focus = {props.status === "מוכן" ? 1 : props.status === "בהכנה" ? 2 : 0}
+      focus = {props.product.status === "מוכן" ? 1 : props.product.status === "בהכנה" ? 2 : 0}
         buttons={[
           { id: 1, onClick: ReadyHandler, name: "מוכן" },
           { id: 2, onClick: InProgresHandler, name: "בהכנה" },
