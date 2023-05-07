@@ -2,7 +2,7 @@ import classes from "./Button.module.css";
 import { useState } from "react";
 
 const ButtonGroup = (props) => {
-  const [focus, setFocus] = useState();
+  const [focus, setFocus] = useState(props.focus);
 
   const buttonClassName = (id) => {
     const className = focus === id ? "clicked" : "notClicked";
