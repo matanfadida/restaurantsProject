@@ -36,7 +36,7 @@ const chefProduct = (props) => {
       throw new Error("Request failed!");
     }
     const result = await response.json();
-
+    props.ready();
     console.log(result);
   };
   //   className={classes.buttons}

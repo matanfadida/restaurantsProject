@@ -18,14 +18,16 @@ const AddProduct = () => {
     imgValue: "",
     rating: 0,
     category: "",
+    worker: "",
     flag: false,
   });
 
   const [categoryOptions, setcCategoryOptions] = useState("");
-  const [maker, setMaker] = useState('chef');
+  const [worker, setWorker] = useState('chef');
 
   const makerChangeHandler = (event) => {
-    setMaker(event.target.value);
+    setWorker(event.target.value);
+    console.log(event.target.value);
   };
 
   useEffect(() => {
@@ -40,9 +42,6 @@ const AddProduct = () => {
         setcCategoryOptions(categoryChef.map((item) => (
           <option value={item.category.value} key={item._id}>{item.category.label}</option>
         )));
-        // console.log(result);
-        // categories = categoryOptions.
-
     };
     fetchCategories().catch((error) => {
       // setLoading(false);
@@ -66,6 +65,7 @@ const AddProduct = () => {
             imgValue: result.image,
             rating: result.rating,
             category: result.category,
+            worker: result.worker,
             flag: true,
           })
         )
@@ -166,6 +166,7 @@ const AddProduct = () => {
       price: Number(priceValue),
       rating: params.productId ? product.rating : 0,
       category: categoryValue,
+      worker: worker,
       flag: true,
     };
     if (params.productId) {
@@ -180,7 +181,7 @@ const AddProduct = () => {
           detail: Newproduct.detail,
           rating: Newproduct.rating,
           category: Newproduct.category,
-          //להוסיף maker
+          worker: Newproduct.worker
         }),
         headers: { "Content-Type": "application/json" },
       })
@@ -197,6 +198,7 @@ const AddProduct = () => {
           img: Newproduct.img,
           detail: Newproduct.detail,
           category: Newproduct.category,
+          worker: Newproduct.worker
         }),
         headers: { "Content-Type": "application/json" },
       })
@@ -277,8 +279,8 @@ const AddProduct = () => {
             {categoryOptions}
           </select>
         </div>
-<div className={classes.valid}>
-        <select value={maker} onChange={makerChangeHandler}>
+        <div className={classes.valid}>
+        <select value={worker} onChange={makerChangeHandler}>
           <option value='chef'>chef</option>
           <option value='bar'>bar</option>
         </select>

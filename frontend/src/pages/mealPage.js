@@ -18,6 +18,7 @@ const Meal = () => {
   const [amount, setAmount] = useState(1);
 
   const buttonAddItemHanlder = () => {
+    for (var i = 0; i < +amount; i++) {
     ctx.AddItem({
       id: params.productId,
       guid_id: uuidv4(),
@@ -25,9 +26,10 @@ const Meal = () => {
       detail: product.product.detail,
       price: product.product.price,
       remark: remark,
-      amount: +amount,
+      amount: 1,
       status: "נשלח לטבח",
     });
+  }
     setRemark("");
     setAmount(1);
   };

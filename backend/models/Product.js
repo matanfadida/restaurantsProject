@@ -2,7 +2,7 @@ const mongodb = require("mongodb");
 const getDb = require("../util/database").getDb;
 
 class Product {
-  constructor(name, price, image, detail,category, _id, rating, counterRating) {
+  constructor(name, price, image, detail,category, worker, _id, rating, counterRating) {
     this.name = name;
     this.price = price;
     this.detail = detail;
@@ -11,6 +11,7 @@ class Product {
     this.rating = rating ? rating : 0;
     this.counterRating = counterRating ? counterRating : 0;
     this.category = category;
+    this.worker = worker;
   }
   save() {
     const db = getDb();

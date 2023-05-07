@@ -45,12 +45,32 @@ class Order {
       .catch((err) => console.log(err));
   }
 
-  static deleteByGuidId(proGuidId) {
+  // static deleteByGuidId(proGuidId) {
+  //   const db = getDb();
+  //   return db
+  //     .collection("Products")
+  //     .deleteOne({ _id: new mongodb.ObjectId(proId) })
+  //     .then(result => console.log("Delete"))
+  //     .catch((err) => console.log(err));
+  // }
+
+  static deleteByGuidId(ordId, proGuidId) {
     const db = getDb();
     return db
-      .collection("Products")
-      .deleteOne({ _id: new mongodb.ObjectId(proId) })
-      .then(result => console.log("Delete"))
+      .collection("Orders")
+      .find({ _id: new mongodb.ObjectId(ordId) })
+      .then((result) => {
+        const products = result.products.filter(
+          (product) => product.guid_id !== proGuidId
+        );
+        db.collection("Orders")
+          .updateOne(
+            { _id: new mongodb.ObjectId(ordId) },
+            { $set: { products: products } }
+          )
+          .then((result) => console.log(result))
+          .catch((err) => console.log(err));
+      })
       .catch((err) => console.log(err));
   }
 
