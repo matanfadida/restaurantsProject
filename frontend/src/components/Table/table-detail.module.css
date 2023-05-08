@@ -1,65 +1,78 @@
-
-.table{
-    text-align: right;
-    color: #72a0c1;
-
-    
+.table {
+  text-align: right;
+  color: #72a0c1;
 }
 
 .table h1 {
-    color: #004687;
-    text-align: center;
-    margin-top: 20px ;
+  color: #004687;
+  text-align: center;
+  margin-top: 20px;
 }
 
 .table h4 {
-    
-    text-align: center;
+  text-align: center;
 }
 
-.status{
-    display: flex;
-    flex-direction: row;
-    
+.status {
+  width: 80%;
+  margin: auto;
 }
 
-
-.yes{
-    background-color: green;
-    
+.yes {
+  background-color: green;
 }
-.no{
-    background-color: gray;
-    
+.no {
+  background-color: gray;
 }
 
-.status div{
-    border-color: #7cb9e8 0.5px;
-    border-style: solid;
-    padding: 2px;
-    border-radius: 3px;
-    margin: 2px;
-    min-width: 60px;
-    text-align: center;
+.status div {
+  border-color: #7cb9e8 0.5px;
+  border-style: solid;
+  padding: 2px;
+  border-radius: 3px;
+  margin: 2px;
+  min-width: 60px;
+  text-align: center;
 }
 
-.item{
-    width: auto;
-    margin: auto;
-    justify-content: space-between;
-    color: #7cb9e8;
-
-  
-    
-    
+.item {
+  width: 90%;
+  margin: auto;
+  justify-content: space-between;
+  color: #7cb9e8;
 }
-.table h4{
-    width: max-content;
-    margin: 10px auto;
-    padding: 5px;
-    border-radius: 10px;
+.price {
+  background-color: #004687;
+}
+.table h4 {
+  width: max-content;
+  margin: 10px auto;
+  padding: 5px;
+  border-radius: 10px;
 }
 .item th {
-    color: #004687;
+  color: #004687;
+  text-align: center;
+}
+.tip{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: auto;
+    width: max-content;
+}
+
+.tip input {
+  width: 100px;
+  height: 40px;
+  border-radius: 10px;
+  border-color: white;
+  text-align: center;
+  font-size: larger;
+}
+
+@media (min-width: 600px) {
+  .item th {
     text-align: right;
+  }
 }

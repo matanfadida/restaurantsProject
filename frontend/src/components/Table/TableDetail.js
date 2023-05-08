@@ -2,12 +2,21 @@ import { NavLink, useParams } from "react-router-dom";
 import classes from "./table-detail.module.css";
 import { FaStar } from "react-icons/fa";
 import { Table } from "react-bootstrap";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import io from "socket.io-client";
+import CartContext from "../../state/buy-context";
+import { AiFillMinusCircle } from "react-icons/ai";
 
 const TableDetail = () => {
   const params = useParams();
   const [orders, getOrders] = useState([]);
+  const ctx = useContext(CartContext);
+  const [tipValue, setTipValue] = useState(parseInt(0));
+
+  const handleTipChange = (event) => {
+    const newValue = event.target.value;
+    setTipValue(newValue);
+  };
   let totalPrice = 0;
   if (orders.length > 0) {
     const arrOfPrice = orders.map((order) => order.price);
@@ -21,6 +30,10 @@ const TableDetail = () => {
       order.products.map((product) => arrOfProdutcs.push(product))
     );
   }
+
+  const minusHandler = () => {
+    console.log("מתן תמחוק מהבאק");
+  };
 
   // useEffect(() => {
   //   const fetchOrders = async () => {
@@ -73,13 +86,16 @@ const TableDetail = () => {
       .then((result) => getOrders(result))
       .catch();
   }, []);
+    let price = parseInt(totalPrice) + parseInt(tipValue);
+    
+  
 
   // status: מוכן-2 בהכנה-1 לא התחילו -0
   const products = orders.map((order) =>
     order.products.map((item) => (
       <tr key={Math.random()}>
         <td>
-          <NavLink to={`/rate/${item.id}`} >
+          <NavLink to={`/rate/${item.id}`}>
             <FaStar size="30px" />
           </NavLink>
         </td>
@@ -110,9 +126,13 @@ const TableDetail = () => {
             )}
           </div>
         </td>
-        <td>{item.price}</td>
-        <td>{item.amount}</td>
+        <td className={classes.price}>{item.price}</td>
         <td>{item.name}</td>
+        {ctx.isLogged && (
+          <td onClick={minusHandler}>
+            <AiFillMinusCircle />
+          </td>
+        )}
       </tr>
     ))
   );
@@ -127,13 +147,26 @@ const TableDetail = () => {
             <th scope="col">דרגו </th>
             <th scope="col">סטטוס</th>
             <th scope="col">מחיר</th>
-            <th scope="col">כמות</th>
             <th scope="col">שם המוצר</th>
+            {ctx.isLogged && <th>אדמין</th>}
           </tr>
         </thead>
         <tbody>{products}</tbody>
       </Table>
-      <h4>סה"כ לתשלום: {totalPrice}</h4>
+      <div className={classes.tip}>
+        <input
+          id="tip-input"
+          type="number"
+          value={tipValue}
+          onChange={handleTipChange}
+          step="1"
+          min="0"
+          required
+        />
+        <h4>?טיפ</h4>
+      </div>
+
+      <h4>סה"כ לתשלום: {price}</h4>
     </div>
   );
 };
