@@ -62,6 +62,8 @@ const EditContact = () => {
     reset: emailReset,
   } = useInput(isValidEmail);
 
+  
+
   //למשוך את הנתונים שכבר יש בבסיס נתונים ולעשות set
   useEffect(() => {
     const fetchEmail = async () => {
@@ -89,9 +91,11 @@ const EditContact = () => {
         method: "post",
         body: JSON.stringify({
           emailId: detail != null ? detail._id : null,
-          email: "haimrubin1@gmail.com", //להחליף למשתנה מהלקוח
+          email: emailValue, 
           phone: numberValue,
           address: addressValue,
+          facebook: facebookValue,
+          instagram:instagramValue,
         }),
         headers: { "Content-Type": "application/json" },
       });
@@ -113,7 +117,7 @@ const EditContact = () => {
   };
   let formIsValid = false;
 
-  if (addressValid && numberValid && emailValid) {
+  if (addressValid && numberValid && emailValid && facebookValid && instagramValid) {
     formIsValid = true;
   }
 
@@ -156,7 +160,7 @@ const EditContact = () => {
         </div>
         <div className={classes[emailNameClasses]}>
           {emailError && (
-            <p className={classes.error_text}>נא להכניס כתובת </p>
+            <p className={classes.error_text}>נא להכניס אימייל לקבלת מיילים </p>
           )}
           <input
             type="email"
@@ -169,7 +173,7 @@ const EditContact = () => {
         </div>
         <div className={classes[instagramNameClasses]}>
           {instagramError && (
-            <p className={classes.error_text}>נא להכניס כתובת </p>
+            <p className={classes.error_text}>נא להכניס כתובת לאתר האינסטגרם </p>
           )}
           <input
             type="url"
@@ -182,7 +186,7 @@ const EditContact = () => {
         </div>
         <div className={classes[facebookNameClasses]}>
           {facebookError && (
-            <p className={classes.error_text}>נא להכניס כתובת </p>
+            <p className={classes.error_text}>נא להכניס כתובת לאתר הפייסבוק </p>
           )}
           <input
             type="url"

@@ -1,4 +1,4 @@
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink, useParams, useNavigate } from "react-router-dom";
 import classes from "./table-detail.module.css";
 import { FaStar } from "react-icons/fa";
 import { Table } from "react-bootstrap";
@@ -6,33 +6,52 @@ import { useEffect, useState, useContext } from "react";
 import io from "socket.io-client";
 import CartContext from "../../state/buy-context";
 import { AiFillMinusCircle } from "react-icons/ai";
+import Payment from "../payment/Payment";
+import Loader from "../UI/loader";
 
 const TableDetail = () => {
+  const navigate = useNavigate();
   const params = useParams();
   const [orders, getOrders] = useState([]);
   const ctx = useContext(CartContext);
   const [tipValue, setTipValue] = useState(parseInt(0));
+  const [loader, setLoader] = useState(true);
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [price, setPrice] = useState(0);
+  const [payNow, setPayNow] = useState(0);
+
+  const [payed, setPayed] = useState(0); //למשוך כמה כבר שולם בשולחן הזה
 
   const handleTipChange = (event) => {
     const newValue = event.target.value;
     setTipValue(newValue);
   };
-  let totalPrice = 0;
-  if (orders.length > 0) {
-    const arrOfPrice = orders.map((order) => order.price);
-    totalPrice = arrOfPrice.reduce(
-      (accumulator, currentValue) => accumulator + currentValue,
-      0
-    );
+  let tempPrice = 0;
 
-    const arrOfProdutcs = [];
-    orders.map((order) =>
-      order.products.map((product) => arrOfProdutcs.push(product))
-    );
-  }
+  useEffect(() => {
+    if (orders.length > 0) {
+      const arrOfPrice = orders.map((order) => order.price);
+      tempPrice = arrOfPrice.reduce(
+        (accumulator, currentValue) => accumulator + currentValue,
+        0
+      );
 
-  const minusHandler = () => {
-    console.log("מתן תמחוק מהבאק");
+      const arrOfProdutcs = [];
+      orders.map((order) =>
+        order.products.map((product) => arrOfProdutcs.push(product))
+      );
+      setTotalPrice(tempPrice);
+    }
+
+    let temp_Price = parseInt(totalPrice) - parseInt(payed);
+    if (!(tipValue === "")) {
+      temp_Price += parseInt(tipValue);
+    }
+    setPrice(temp_Price);
+  }, [orders]);
+
+  const minusHandler = (id) => {
+    console.log("מתן תמחוק מהבאק"); //////////////////////////////////////
   };
 
   // useEffect(() => {
@@ -53,7 +72,7 @@ const TableDetail = () => {
   // }, [params.tableId]);
 
   useEffect(() => {
-    const socket = io("http://localhost:5000/"); // Replace with your server URL
+    const socket = io("http://localhost:5000/");
 
     // Add event listeners to the socket object
     socket.on("connect", () => {
@@ -83,12 +102,17 @@ const TableDetail = () => {
       .then((res) => {
         return res.json();
       })
-      .then((result) => getOrders(result))
-      .catch();
+      .then((result) => {
+        getOrders(result);
+        setLoader(false);
+      })
+      .catch((err) => setLoader(false));
   }, []);
-    let price = parseInt(totalPrice) + parseInt(tipValue);
-    
-  
+
+  const handlePayChange = (event) => {
+    const newValue = event.target.value;
+    setPayNow(newValue);
+  };
 
   // status: מוכן-2 בהכנה-1 לא התחילו -0
   const products = orders.map((order) =>
@@ -101,35 +125,19 @@ const TableDetail = () => {
         </td>
         <td>
           <div className={classes.status}>
-            {item.status === "מוכן" && (
-              <div
-                className={item.status === "מוכן" ? classes.yes : classes.no}
-              >
-                מוכן
-              </div>
-            )}
-            {item.status === "בהכנה" && (
-              <div
-                className={item.status === "בהכנה" ? classes.yes : classes.no}
-              >
-                בהכנה
-              </div>
-            )}
-            {item.status === "נשלח לטבח" && (
-              <div
-                className={
-                  item.status === "נשלח לטבח" ? classes.yes : classes.no
-                }
-              >
-                נשלח
-              </div>
-            )}
+            <div className={classes.yes}>
+              {item.status === "נשלח לטבח" ? "נשלח" : item.status}
+            </div>
           </div>
         </td>
         <td className={classes.price}>{item.price}</td>
         <td>{item.name}</td>
         {ctx.isLogged && (
-          <td onClick={minusHandler}>
+          <td
+            onClick={() => {
+              minusHandler(item.guid_id);
+            }}
+          >
             <AiFillMinusCircle />
           </td>
         )}
@@ -137,6 +145,11 @@ const TableDetail = () => {
     ))
   );
 
+  if (loader) {
+    return <Loader />;
+  }
+
+  console.log(payNow);
   return (
     <div className={classes.table}>
       <h1>שולחן מספר {params.tableId}</h1>
@@ -167,6 +180,32 @@ const TableDetail = () => {
       </div>
 
       <h4>סה"כ לתשלום: {price}</h4>
+      <div className={classes.tip}>
+        <input
+          id="paynow-input"
+          type="number"
+          value={payNow}
+          onChange={handlePayChange}
+          step="1"
+          min="1"
+        />
+        <h4>תשלום חלקי</h4>
+      </div>
+      <button
+        onClick={() => {
+          setPayNow(price);
+        }}
+      >
+        שלם הכל
+      </button>
+
+      <button
+        onClick={() => {
+          navigate(`/payment/${payNow}`);
+        }}
+      >
+        מעבר לתשלום
+      </button>
     </div>
   );
 };

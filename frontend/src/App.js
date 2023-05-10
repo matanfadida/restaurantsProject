@@ -18,6 +18,7 @@ import Loader from "./components/UI/loader";
 import Contact from "./pages/contact";
 import EditContact from "./components/Admin/EditContact";
 import Footer from "./components/NavigationBar/footer/Footer";
+import Payment from "./components/payment/Payment";
 
 const App = () => {
   const ctx = useContext(CartContext);
@@ -117,7 +118,10 @@ const App = () => {
             }
           />
           <Route path="/:restaurantName/:tableId" element={<Home />} />
+          <Route path="/payment/:value" element={<Payment />} />
+
           <Route path="/" element={<Home />} />
+
           <Route path="*" element={<Error404 />} />
         </Routes>
       </div>
