@@ -1,25 +1,27 @@
 const mongodb = require("mongodb");
 const { getDb } = require("../util/database");
 
-class Email {
-  constructor(email, phone, address, _id) {
+class Details {
+  constructor(email, phone, address, _id, instagram, facebook) {
     this.phone = phone; 
     this.email = email;
     this._id = _id ? new mongodb.ObjectId(_id) : null;
     this.address = address;
+    this.facebook = facebook;
+    this.instagram = instagram;
   }
 
   save() {
     const db = getDb();
     let dbOp;
     if (this._id != null) {
-      console.log('update email')
+      console.log('update details')
       dbOp = db
-        .collection("Email")
+        .collection("Details")
         .updateOne({ _id: new mongodb.ObjectId(this._id) }, { $set: this });
     } else {
-      console.log('add email')
-      dbOp = db.collection("Email").insertOne(this);
+      console.log('add details')
+      dbOp = db.collection("Details").insertOne(this);
     }
 
     return dbOp
@@ -34,7 +36,7 @@ class Email {
   static fetchEmail() {
     const db = getDb();
     return db
-      .collection("Email")
+      .collection("Details")
       .find()
       .toArray()
       .then((email) => {
@@ -49,7 +51,7 @@ class Email {
   static getDetails(email) {
     const db = getDb();
     return db
-      .collection("Email")
+      .collection("Details")
       .findOne({ email: email })
       .then()
       .catch((err) => console.log(err));
@@ -64,4 +66,4 @@ class Email {
 //       .catch((err) => console.log(err));
 //   }
 }
-module.exports = Email;
+module.exports = Details;

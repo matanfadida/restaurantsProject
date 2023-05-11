@@ -50,26 +50,32 @@ const TableDetail = () => {
     setPrice(temp_Price);
   }, [orders]);
 
-  const minusHandler = (id) => {
-    console.log("מתן תמחוק מהבאק"); //////////////////////////////////////
+  const minusHandler = (ordId,guid_id) => {
+    setLoader(true);
+    fetch(`/api/delete-product-from-order`, 
+    {method: 'post',
+    body: JSON.stringify({
+      ordId,
+      proGuidId:guid_id,
+      numberTable: 1,
+    }),
+    headers: { "Content-Type": "application/json" },})
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      getOrders(data);
+      const arrOfPrice = data.map((order) => order.price);
+      tempPrice = arrOfPrice.reduce(
+        (accumulator, currentValue) => accumulator + currentValue,
+        0
+      );
+      setTotalPrice(tempPrice);
+      setLoader(false)
+    })
+      .catch((err) => setLoader(false));
   };
 
-  // useEffect(() => {
-  //   const fetchOrders = async () => {
-  //     const response = await fetch(`/api/admin/tables/${params.tableId}`);
-  //     if (!response.ok) {
-  //       throw new Error("Request failed!");
-  //     }
-  //     const result = await response.json();
-  //     console.log(result)
-  //     getOrders(result);
-  //     // setLoading(false);
-  //   };
-  //   fetchOrders().catch((error) => {
-  //     // setLoading(false);
-  //     // setHasError(error.message || "Something went wrong!");
-  //   });
-  // }, [params.tableId]);
 
   useEffect(() => {
     const socket = io("http://localhost:5000/");
@@ -135,7 +141,7 @@ const TableDetail = () => {
         {ctx.isLogged && (
           <td
             onClick={() => {
-              minusHandler(item.guid_id);
+              minusHandler(order._id, item.guid_id);
             }}
           >
             <AiFillMinusCircle />
@@ -149,7 +155,6 @@ const TableDetail = () => {
     return <Loader />;
   }
 
-  console.log(payNow);
   return (
     <div className={classes.table}>
       <h1>שולחן מספר {params.tableId}</h1>

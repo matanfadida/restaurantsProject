@@ -1,7 +1,7 @@
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
-import { useParams , useNavigate} from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
-import './Payment.css'
+import "./Payment.css";
 
 const initialOptions = {
   "client-id":
@@ -10,7 +10,7 @@ const initialOptions = {
 };
 
 const Payment = (props) => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   const params = useParams();
   const value = params.value;
   console.log("a1a1a1a1 ", value);
@@ -36,8 +36,17 @@ const Payment = (props) => {
             return actions.order.capture().then((details) => {
               const name = details.payer.name.given_name;
               alert(`Transaction completed by ${name}`);
-              //להוסיף הורדה של value בבאק
-              navigate(`/table/{1}`) // לשנות למספר שולחן לפי הקוקיס 
+              fetch(`/api/admin//payment`, {
+                method: "post",
+                body: JSON.stringify({
+                  numTable: 1,
+                  value: name,
+                }),
+                headers: { "Content-Type": "application/json" },
+              })
+                .then()
+                .catch();
+              navigate(`/table/{1}`); // לשנות למספר שולחן לפי הקוקיס
             });
           }}
         />

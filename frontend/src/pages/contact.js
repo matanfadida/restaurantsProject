@@ -9,7 +9,7 @@ const Contact = () => {
 
   useEffect(() => {
     const fetchEmail = async () => {
-      const response = await fetch(`/api/email/get-email`);
+      const response = await fetch(`/api/details/get-details`);
       if (!response.ok) {
         throw new Error("Request failed!");
       }

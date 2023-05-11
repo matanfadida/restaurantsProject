@@ -13,6 +13,8 @@ router.post("/delete-product", adminController.postDeleteProduct);
 
 router.get("/tables/:numTable", adminController.getTables);
 
+router.post("/payment", adminController.postPayOnTable);
+
 router.get("/tables", adminController.getAllTable);
 
 router.get("/", (req, res, next) => {

@@ -1,8 +1,8 @@
-const Email = require("../models/Email");
+const Details = require("../models/DetailsRestorent");
 
 exports.postSendEmail = (req, res, transporter) => {
   const { name, email, subject, message } = req.body;
-  Email.fetchEmail()
+  Details.fetchEmail()
   .then((emailDetails) => {
     const ownerEmail = emailDetails != null ? emailDetails[0].email : "default@gmail.com";
     const mailOptions = {
@@ -28,8 +28,8 @@ exports.postSendEmail = (req, res, transporter) => {
   
 };
 
-exports.getEmail = (req, res, next) => {
-    Email.fetchEmail()
+exports.getDetails = (req, res, next) => {
+  Details.fetchEmail()
       .then((emailId) => res.json(emailId))
       .catch((err) => console.log(err));
   };
@@ -39,8 +39,10 @@ exports.postEditDetails = (req, res, next) => {
   const email = req.body.email;
   const phone = req.body.phone;
   const address = req.body.address;
-  const emailObject = new Email(email, phone, address, emailId);
-  emailObject
+  const facebook = req.body.facebook;
+  const instagram = req.body.instagram;
+  const detailsObject = new Details(email, phone, address, emailId, instagram, facebook);
+  detailsObject
     .save()
     .then((result) => res.json("ok"))
     .catch((err) => console.log(err));
