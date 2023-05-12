@@ -17,16 +17,15 @@ const AddCategory = () => {
         throw new Error("Request failed!");
       }
       const result = await response.json();
-      const categoryChef = result.filter(item => item.worker === "chef");
-      const categoryBar = result.filter(item => item.worker === "bar");
+      const categoryChef = result.filter((item) => item.worker === "chef");
+      const categoryBar = result.filter((item) => item.worker === "bar");
       console.log(categoryBar);
-      setCurrentCategories(categoryChef.map(item => item.category)
-      );
-      setCategory(categoryChef.map(item => item.category));
-      setBarCategory(categoryBar.map(item => item.category));
+      setCurrentCategories(categoryChef.map((item) => item.category));
+      setCategory(categoryChef.map((item) => item.category));
+      setBarCategory(categoryBar.map((item) => item.category));
     };
     fetchCategories().catch((error) => {
-      console.log(error)
+      console.log(error);
       // setLoading(false);
       // setHasError(error.message || "Something went wrong!");
     });
@@ -50,6 +49,7 @@ const AddCategory = () => {
     { value: 13, label: "מאפים" },
     { value: 14, label: "בשרים" },
     { value: 15, label: "סלטים" },
+    { value: 16, label: "כריכים" },
   ];
 
   const handleCategoryChange = (selected) => {
@@ -63,7 +63,7 @@ const AddCategory = () => {
   const addToBackHandler = async () => {
     const response = await fetch(`/api/category/add-category`, {
       method: "POST",
-      body: JSON.stringify({ categories: category, worker: 'chef' }),
+      body: JSON.stringify({ categories: category, worker: "chef" }),
       headers: { "Content-Type": "application/json" },
     });
     if (!response.ok) {
@@ -80,20 +80,19 @@ const AddCategory = () => {
   };
 
   const addBarToBackHandler = async () => {
-
     const response = await fetch(`/api/category/add-category`, {
       method: "POST",
-      body: JSON.stringify({ categories: barcategory, worker: 'bar' }),
+      body: JSON.stringify({ categories: barcategory, worker: "bar" }),
       headers: { "Content-Type": "application/json" },
     });
     if (!response.ok) {
       throw new Error("Request failed!");
     }
     const result = await response.json();
-    if(result === 'ok'){
+    if (result === "ok") {
       setUpdateCategory(true);
     }
-    if(result !== "ok"){
+    if (result !== "ok") {
       console.log("error");
     }
     //תוסיף לבאק
@@ -105,7 +104,6 @@ const AddCategory = () => {
     return (
       <div>
         <Cart>עודכן בהצלחה !</Cart>
-        
       </div>
     );
   }

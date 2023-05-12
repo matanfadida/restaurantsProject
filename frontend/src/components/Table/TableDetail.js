@@ -48,7 +48,7 @@ const TableDetail = () => {
       temp_Price += parseInt(tipValue);
     }
     setPrice(temp_Price);
-  }, [orders]);
+  }, [orders,tipValue]);
 
   const minusHandler = (id) => {
     console.log("מתן תמחוק מהבאק"); //////////////////////////////////////
@@ -191,6 +191,9 @@ const TableDetail = () => {
         />
         <h4>תשלום חלקי</h4>
       </div>
+
+      <div className={classes.buttons}>
+
       <button
         onClick={() => {
           setPayNow(price);
@@ -206,6 +209,9 @@ const TableDetail = () => {
       >
         מעבר לתשלום
       </button>
+
+      </div>
+
     </div>
   );
 };

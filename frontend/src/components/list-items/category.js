@@ -8,6 +8,7 @@ import {
   GiDrinkMe,
   GiFullPizza,
   GiHamburger,
+  GiSandwich,
 } from "react-icons/gi";
 import { MdOutlineRestaurantMenu } from "react-icons/md";
 import { SiFoodpanda } from "react-icons/si";
@@ -38,6 +39,7 @@ const Category = () => {
     { value: 13, label: "מאפים", icon: <TbCooker size="30px" /> },
     { value: 14, label: "בשרים", icon: <TbMeat size="30px" /> },
     { value: 15, label: "סלטים", icon: <TbSalad size="30px" /> },
+    { value: 16, label: "כריכים", icon: <GiSandwich size="30px" /> },
   ];
 
   useEffect(() => {
