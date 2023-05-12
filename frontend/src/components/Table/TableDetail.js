@@ -28,6 +28,7 @@ const TableDetail = () => {
   };
   let tempPrice = 0;
 
+
   useEffect(() => {
     if (orders.length > 0) {
       const arrOfPrice = orders.map((order) => order.price);

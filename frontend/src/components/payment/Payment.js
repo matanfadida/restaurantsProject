@@ -39,8 +39,8 @@ const Payment = (props) => {
               fetch(`/api/admin//payment`, {
                 method: "post",
                 body: JSON.stringify({
-                  numTable: 1,
-                  value: name,
+                  numTable: 1, //קוקיס
+                  value: value,
                 }),
                 headers: { "Content-Type": "application/json" },
               })
@@ -51,6 +51,21 @@ const Payment = (props) => {
           }}
         />
       </PayPalScriptProvider>
+      <button
+        onClick={() => {
+          fetch(`/api/admin//payment`, {
+            method: "post",
+            body: JSON.stringify({
+              numTable: 1, //קוקיס
+              value: 5,
+            }),
+            headers: { "Content-Type": "application/json" },
+          })
+            .then()
+            .catch();
+          navigate(`/table/1`);
+        }} // לשנות למספר שולחן לפי הקוקיס}}
+      ></button>
     </div>
   );
 };
