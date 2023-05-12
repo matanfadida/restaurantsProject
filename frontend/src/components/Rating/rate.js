@@ -2,12 +2,7 @@ import classes from "./rate.module.css";
 import { useState, useEffect } from "react";
 import { FaStar } from "react-icons/fa";
 import { useParams } from "react-router-dom";
-import {
-  Link,
-  Routes,
-  Route,
-  useNavigate,
-} from 'react-router-dom';
+import { Link, Routes, Route, useNavigate } from "react-router-dom";
 import Cart from "../UI/cart";
 
 const colors = {
@@ -77,25 +72,28 @@ const Rate = () => {
       throw new Error("Request failed!");
     }
     const result = await response.json();
-    if(result === 'ok'){
+    if (result === "ok") {
       setNewComment(true);
-    }
-    else{
-      alert('הייתה בעיה נסה/י שוב')
+    } else {
+      alert("הייתה בעיה נסה/י שוב");
     }
   };
 
   const returnToTable = () => {
     navigate(-1);
-  }
+  };
 
   if (newComment) {
     return (
       <div>
-        <Cart><div>
-        תגובתך התקבלה בהצלחה !
-        <button onClick={returnToTable}>חזרה לשולחן</button>
-          </div></Cart>
+        <Cart>
+          <div>
+            <button className={classes.rateButton} onClick={returnToTable}>
+              חזרה לשולחן
+            </button>
+            תגובתך התקבלה בהצלחה
+          </div>
+        </Cart>
       </div>
     );
   }
@@ -104,6 +102,7 @@ const Rate = () => {
     return <div>loading..</div>;
   }
 
+  let error = text.trim() !== "" || currentValue === 0;
   return (
     <div className={classes.container}>
       <h2> {product.name} </h2>
@@ -134,9 +133,13 @@ const Rate = () => {
         className={classes.textarea}
         onChange={textChangeHandler}
       />
-
-      <button className={classes.rateButton} onClick={submitHandler}>הגב</button>
-
+      <button
+        className={classes.rateButton}
+        onClick={submitHandler}
+        disabled={!error}
+      >
+        הגב
+      </button>
     </div>
   );
 };
