@@ -80,8 +80,24 @@
   background-color: #abb9cc;
   border: 1px solid #87cefa;
   color: #00416a;
-  width: 5rem;
+  width: max-content;
   height: 2rem;
+}
+
+.table button:disabled{
+  border-radius: 0.5rem;
+  margin: 0.5rem;
+  background-color: gainsboro;
+  border: 1px solid #87cefa;
+  color: gray;
+  width: max-content;
+  height: 2rem;
+}
+
+
+
+.delete{
+  cursor: pointer;
 }
 
 .payment{

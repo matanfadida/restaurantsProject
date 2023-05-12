@@ -88,8 +88,10 @@ const Rate = () => {
       <div>
         <Cart>
           <div>
-            תגובתך התקבלה בהצלחה !
-            <button onClick={returnToTable}>חזרה לשולחן</button>
+            <button className={classes.rateButton} onClick={returnToTable}>
+              חזרה לשולחן
+            </button>
+            תגובתך התקבלה בהצלחה
           </div>
         </Cart>
       </div>
@@ -99,7 +101,8 @@ const Rate = () => {
   if (loading) {
     return <div>loading..</div>;
   }
-
+console.log("cur value", currentValue)
+  let error = text.trim() === "" || currentValue === 0;
   return (
     <div className={classes.container}>
       <h2> {product.name} </h2>
@@ -130,8 +133,11 @@ const Rate = () => {
         className={classes.textarea}
         onChange={textChangeHandler}
       />
-
-      <button className={classes.rateButton} onClick={submitHandler}>
+      <button
+        className={classes.rateButton}
+        onClick={submitHandler}
+        disabled={error}
+      >
         הגב
       </button>
     </div>

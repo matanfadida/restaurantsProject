@@ -34,9 +34,17 @@
   color: #00308f;
 }
 
+.delete{
+  cursor: pointer;
+  width: min-content;
+  height: min-content;
+}
+
 .comment {
   border-bottom: 1px solid white;
   margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
 }
 
 .comment span {

@@ -171,6 +171,7 @@ const TableDetail = () => {
         <td>{item.name}</td>
         {ctx.isLogged && (
           <td
+            className={classes.delete}
             onClick={() => {
               minusHandler(order._id, item.guid_id);
             }}
@@ -190,6 +191,7 @@ const TableDetail = () => {
     return <Cart>העגלה שלך ריקה !</Cart>
   }
 
+  let payError = payNow === "" || payNow > price || payNow <= 0;
   return (
     <div className={classes.table}>
       <h1>שולחן מספר {params.tableId}</h1>
@@ -220,7 +222,15 @@ const TableDetail = () => {
       </div>
 
       <h4>סה"כ לתשלום: {price}</h4>
+
       <div className={classes.tip}>
+        <button
+          onClick={() => {
+            setPayNow(price);
+          }}
+        >
+          שלם הכל
+        </button>
         <input
           id="paynow-input"
           type="number"
@@ -240,8 +250,8 @@ const TableDetail = () => {
         >
           שלם הכל
         </button>
-
         <button
+          disabled={payError}
           onClick={() => {
             navigate(`/payment/${payNow}`);
           }}
