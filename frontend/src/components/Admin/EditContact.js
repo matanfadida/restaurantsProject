@@ -67,16 +67,24 @@ const EditContact = () => {
   //למשוך את הנתונים שכבר יש בבסיס נתונים ולעשות set
   useEffect(() => {
     const fetchEmail = async () => {
-      const response = await fetch(`/api/email/get-email`);
+      const response = await fetch(`/api/details/get-details`);
       if (!response.ok) {
         throw new Error("Request failed!");
       }
       const result = await response.json();
       if(result != null){
-        // numberValue = result[0].phone;
-        // addressValue = result[0].address;
-        console.log(result);
-        setdetail(result[0])
+        setdetail({
+          emailValue: result[0].email,
+          numberValue: result[0].phone,
+          addressValue: result[0].address,
+          facebookValue: result[0].facebook,
+          instagramValue: result[0].instagram,
+        })
+        console.log(result[0].email,
+          result[0].phone,
+          result[0].address,
+          result[0].facebook,
+          result[0].instagram,)
       }
     };
     fetchEmail().catch((error) => {
@@ -87,7 +95,7 @@ const EditContact = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const AddEmail = async () => {
-      const response = await fetch("/api/email/add-email", {
+      const response = await fetch("/api/details/add-details", {
         method: "post",
         body: JSON.stringify({
           emailId: detail != null ? detail._id : null,
@@ -95,7 +103,7 @@ const EditContact = () => {
           phone: numberValue,
           address: addressValue,
           facebook: facebookValue,
-          instagram:instagramValue,
+          instagram: instagramValue,
         }),
         headers: { "Content-Type": "application/json" },
       });
@@ -117,7 +125,7 @@ const EditContact = () => {
   };
   let formIsValid = false;
 
-  if (addressValid && numberValid && emailValid && facebookValid && instagramValid) {
+  if (addressValid && numberValid && emailValid ) {
     formIsValid = true;
   }
 

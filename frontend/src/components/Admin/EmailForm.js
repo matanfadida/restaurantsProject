@@ -66,7 +66,7 @@ const EmailForm = () => {
     if (!formIsValid) {
       return;
     }
-    const response = await fetch("/api/email/send-email", {
+    const response = await fetch("/api/details/send-email", {
       method: "POST",
       body: JSON.stringify({
         name: 'בדיקה', 

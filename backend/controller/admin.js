@@ -1,5 +1,6 @@
 const Product = require("../models/Product");
 const Order = require("../models/Order");
+const Table = require("../models/Table");
 
 exports.postAddProduct = (req, res, next) => {
   const name = req.body.name;
@@ -96,4 +97,14 @@ exports.getAllTable = (req, res, next) => {
   .catch((err) => {
     console.log(err);
   });
+}
+
+exports.postPayOnTable = (req, res, next) => {
+  const numberTable = req.body.numTable;
+  const sumPay = req.body.value;
+  
+  Table.findByNumberTable(numberTable).then(table =>{
+    const updateTable = new Table(numberTable,table.sum - sumPay);
+    updateTable.save().then(re = res.json("ok")).catch(err => res.json('error'))
+  }).catch(err => res.json('error'));
 }

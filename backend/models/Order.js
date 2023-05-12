@@ -54,24 +54,24 @@ class Order {
   //     .catch((err) => console.log(err));
   // }
 
-  static deleteByGuidId(ordId, proGuidId) {
+  static async deleteByGuidId(ordId, proGuidId) {
     const db = getDb();
-    return db
-      .collection("Orders")
-      .find({ _id: new mongodb.ObjectId(ordId) })
-      .then((result) => {
-        const products = result.products.filter(
-          (product) => product.guid_id !== proGuidId
-        );
-        db.collection("Orders")
-          .updateOne(
-            { _id: new mongodb.ObjectId(ordId) },
-            { $set: { products: products } }
-          )
-          .then((result) => console.log(result))
-          .catch((err) => console.log(err));
-      })
-      .catch((err) => console.log(err));
+    const result = await db.collection("Orders").find({ _id: new mongodb.ObjectId(ordId) }).toArray();
+    const products = result[0].products.filter(product => product.guid_id !== proGuidId);
+
+    const sum = products.map(product => product.price).reduce((acc, cur) => acc + cur, 0);
+    if(products.length === 0){
+      await db.collection("Orders").deleteOne(
+        { _id: new mongodb.ObjectId(ordId) }
+      ).then((result) => console.log(result))
+         .catch((err) => console.log(err));
+    }else{
+      await db.collection("Orders").updateOne(
+        { _id: new mongodb.ObjectId(ordId) },
+        { $set: { products: products, price: sum} }
+      ).then((result) => console.log(result))
+         .catch((err) => console.log(err));
+    }
   }
 
   static updateStatusProduct(ordId, status, products, proId){

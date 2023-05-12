@@ -10,6 +10,8 @@ router.post("/api/add-order", (req, res) => {
 
 router.use("/api/get-product", shopController.getProduct);
 
+router.post("/api/delete-product-from-order", shopController.postDeleteProductFromOrder)
+
 router.post("/api/update-rating/:productId", shopController.postUpdateRating)
 
 router.use("/api", shopController.getProducts);

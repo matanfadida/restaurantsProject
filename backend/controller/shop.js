@@ -1,20 +1,24 @@
 const Order = require("../models/Order");
 const Comment = require("../models/Comment");
 const Product = require("../models/Product");
+const Table = require("../models/Table");
 
 exports.postAddOrder = (req, res, io) => {
   const numberTable = req.body.numberTable;
   const price = req.body.price;
   const products = req.body.products;
   const order = new Order(numberTable, price, products);
-  console.log("ttt");
   order
     .save()
     .then((savedOrder) => {
       Order.fetchAllOrders()
         .then((result) => {
           io.emit("new-order", result);
-          res.json("ok");
+          const table = new Table(numberTable, result.map((order) => order.price).reduce(
+            (accumulator, currentValue) => accumulator + currentValue,
+            0
+          ));
+          table.save().then(resu => res.json("ok")).catch(err => console.log(err))
         })
         .catch((err) => {
           console.log(err);
@@ -91,3 +95,21 @@ exports.postUpdateRating = (req, res, next) => {
       console.log(err);
     });
 };
+
+
+exports.postDeleteProductFromOrder = (req, res, next) => {
+  const ordId = req.body.ordId;
+  const proGuidId = req.body.proGuidId;
+  const numberTable = req.body.numberTable;
+  Order.deleteByGuidId(ordId,proGuidId).then(result => Order.fetchAllOrders()
+  .then((result) => {
+    const table = new Table(numberTable, result.map((order) => order.price).reduce(
+      (accumulator, currentValue) => accumulator + currentValue,
+      0
+    ));
+    table.save().then(resu => res.json(result)).catch(err => console.log(err))
+  })
+  .catch((err) => {
+    console.log(err);
+  })).catch(err => console.log(err))
+}
