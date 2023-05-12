@@ -73,7 +73,7 @@ exports.postUpdateRating = (req, res, next) => {
       const counterRating = product.counterRating + 1;
       Product.updateRating(
         proId,
-        (product.rating + rating) / counterRating,
+        (product.rating * product.counterRating + rating) / (counterRating),
         counterRating
       )
         .then((result) => {
@@ -81,7 +81,7 @@ exports.postUpdateRating = (req, res, next) => {
             const newComment = new Comment(proId, comment);
             newComment
               .save()
-              .then((result) => res.json(result))
+              .then((result) => {res.json('ok');})
               .catch((err) => console.log(err));
           } else {
             res.json(result);

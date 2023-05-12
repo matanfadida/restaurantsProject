@@ -8,6 +8,7 @@ import {
   Route,
   useNavigate,
 } from 'react-router-dom';
+import Cart from "../UI/cart";
 
 const colors = {
   orange: "#FFBA5A",
@@ -21,6 +22,7 @@ const Rate = () => {
   const [hoverValue, setHoverValue] = useState(undefined);
   const [loading, setLoading] = useState(true);
   const [product, setProduct] = useState();
+  const [newComment, setNewComment] = useState(false);
   const [text, setText] = useState("");
   const stars = Array(5).fill(0);
 
@@ -63,22 +65,40 @@ const Rate = () => {
   };
 
   const submitHandler = async () => {
-    // const response = await fetch(`/api/update-rating/${params.productId}`, {
-    //   method: "POST",
-    //   body: JSON.stringify({
-    //     rating: currentValue,
-    //     comment: text,
-    //   }),
-    //   headers: { "Content-Type": "application/json" },
-    // });
-    // if (!response.ok) {
-    //   throw new Error("Request failed!");
-    // }
-    // const result = await response.json();
-    // console.log(result);
-    // console.log(text, currentValue);
-    navigate(-1);
+    const response = await fetch(`/api/update-rating/${params.productId}`, {
+      method: "POST",
+      body: JSON.stringify({
+        rating: currentValue,
+        comment: text,
+      }),
+      headers: { "Content-Type": "application/json" },
+    });
+    if (!response.ok) {
+      throw new Error("Request failed!");
+    }
+    const result = await response.json();
+    if(result === 'ok'){
+      setNewComment(true);
+    }
+    else{
+      alert('הייתה בעיה נסה/י שוב')
+    }
   };
+
+  const returnToTable = () => {
+    navigate(-1);
+  }
+
+  if (newComment) {
+    return (
+      <div>
+        <Cart><div>
+        תגובתך התקבלה בהצלחה !
+        <button onClick={returnToTable}>חזרה לשולחן</button>
+          </div></Cart>
+      </div>
+    );
+  }
 
   if (loading) {
     return <div>loading..</div>;
