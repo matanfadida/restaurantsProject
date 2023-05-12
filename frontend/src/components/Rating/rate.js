@@ -101,8 +101,8 @@ const Rate = () => {
   if (loading) {
     return <div>loading..</div>;
   }
-
-  let error = text.trim() !== "" || currentValue === 0;
+console.log("cur value", currentValue)
+  let error = text.trim() === "" || currentValue === 0;
   return (
     <div className={classes.container}>
       <h2> {product.name} </h2>
@@ -136,7 +136,7 @@ const Rate = () => {
       <button
         className={classes.rateButton}
         onClick={submitHandler}
-        disabled={!error}
+        disabled={error}
       >
         הגב
       </button>
