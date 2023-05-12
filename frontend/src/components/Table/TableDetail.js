@@ -28,7 +28,6 @@ const TableDetail = () => {
   };
   let tempPrice = 0;
 
-
   useEffect(() => {
     if (orders.length > 0) {
       const arrOfPrice = orders.map((order) => order.price);
@@ -49,34 +48,34 @@ const TableDetail = () => {
       temp_Price += parseInt(tipValue);
     }
     setPrice(temp_Price);
-  }, [orders,tipValue]);
+  }, [orders, tipValue]);
 
-  const minusHandler = (ordId,guid_id) => {
+  const minusHandler = (ordId, guid_id) => {
     setLoader(true);
-    fetch(`/api/delete-product-from-order`, 
-    {method: 'post',
-    body: JSON.stringify({
-      ordId,
-      proGuidId:guid_id,
-      numberTable: 1,
-    }),
-    headers: { "Content-Type": "application/json" },})
-    .then((res) => {
-      return res.json();
+    fetch(`/api/delete-product-from-order`, {
+      method: "post",
+      body: JSON.stringify({
+        ordId,
+        proGuidId: guid_id,
+        numberTable: 1,
+      }),
+      headers: { "Content-Type": "application/json" },
     })
-    .then((data) => {
-      getOrders(data);
-      const arrOfPrice = data.map((order) => order.price);
-      tempPrice = arrOfPrice.reduce(
-        (accumulator, currentValue) => accumulator + currentValue,
-        0
-      );
-      setTotalPrice(tempPrice);
-      setLoader(false)
-    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        getOrders(data);
+        const arrOfPrice = data.map((order) => order.price);
+        tempPrice = arrOfPrice.reduce(
+          (accumulator, currentValue) => accumulator + currentValue,
+          0
+        );
+        setTotalPrice(tempPrice);
+        setLoader(false);
+      })
       .catch((err) => setLoader(false));
   };
-
 
   useEffect(() => {
     const socket = io("http://localhost:5000/");
@@ -141,6 +140,7 @@ const TableDetail = () => {
         <td>{item.name}</td>
         {ctx.isLogged && (
           <td
+            className={classes.delete}
             onClick={() => {
               minusHandler(order._id, item.guid_id);
             }}
@@ -155,6 +155,8 @@ const TableDetail = () => {
   if (loader) {
     return <Loader />;
   }
+
+  let payError = payNow === "" || payNow > price || payNow <= 0;
 
   return (
     <div className={classes.table}>
@@ -186,7 +188,15 @@ const TableDetail = () => {
       </div>
 
       <h4>סה"כ לתשלום: {price}</h4>
+
       <div className={classes.tip}>
+        <button
+          onClick={() => {
+            setPayNow(price);
+          }}
+        >
+          שלם הכל
+        </button>
         <input
           id="paynow-input"
           type="number"
@@ -199,25 +209,15 @@ const TableDetail = () => {
       </div>
 
       <div className={classes.buttons}>
-
-      <button
-        onClick={() => {
-          setPayNow(price);
-        }}
-      >
-        שלם הכל
-      </button>
-
-      <button
-        onClick={() => {
-          navigate(`/payment/${payNow}`);
-        }}
-      >
-        מעבר לתשלום
-      </button>
-
+        <button
+          disabled={payError}
+          onClick={() => {
+            navigate(`/payment/${payNow}`);
+          }}
+        >
+          מעבר לתשלום
+        </button>
       </div>
-
     </div>
   );
 };
