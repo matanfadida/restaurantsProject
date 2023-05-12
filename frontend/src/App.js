@@ -19,6 +19,7 @@ import Contact from "./pages/contact";
 import EditContact from "./components/Admin/EditContact";
 import Footer from "./components/NavigationBar/footer/Footer";
 import Payment from "./components/payment/Payment";
+import LoaderAddCookie from "./components/UI/between";
 
 const App = () => {
   const ctx = useContext(CartContext);
@@ -117,7 +118,7 @@ const App = () => {
               )
             }
           />
-          <Route path="/:restaurantName/:tableId" element={<Home />} />
+          <Route path="/:restaurantName/:tableId" element={<LoaderAddCookie />} />
           <Route path="/payment/:value" element={<Payment />} />
 
           <Route path="/" element={<Home />} />

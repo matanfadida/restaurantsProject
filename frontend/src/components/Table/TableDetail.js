@@ -1,13 +1,14 @@
 import { NavLink, useParams, useNavigate } from "react-router-dom";
 import classes from "./table-detail.module.css";
 import { FaStar } from "react-icons/fa";
+import Cookies from "js-cookie";
 import { Table } from "react-bootstrap";
 import { useEffect, useState, useContext } from "react";
 import io from "socket.io-client";
 import CartContext from "../../state/buy-context";
 import { AiFillMinusCircle } from "react-icons/ai";
-import Payment from "../payment/Payment";
 import Loader from "../UI/loader";
+import Cart from "../UI/cart";
 
 const TableDetail = () => {
   const navigate = useNavigate();
@@ -19,6 +20,7 @@ const TableDetail = () => {
   const [totalPrice, setTotalPrice] = useState(0);
   const [price, setPrice] = useState(0);
   const [payNow, setPayNow] = useState(0);
+  const [thanksPopup, setThanksPopup] = useState(false);
 
   const [payed, setPayed] = useState(0); //למשוך כמה כבר שולם בשולחן הזה
 
@@ -28,55 +30,75 @@ const TableDetail = () => {
   };
   let tempPrice = 0;
 
-
   useEffect(() => {
-    if (orders.length > 0) {
-      const arrOfPrice = orders.map((order) => order.price);
-      tempPrice = arrOfPrice.reduce(
-        (accumulator, currentValue) => accumulator + currentValue,
-        0
-      );
+    if (Cookies.get("table") !== undefined) {
+      fetch(`/api/admin/get-payment`, {
+        method: "post",
+        body: JSON.stringify({
+          numTable: Cookies.get("table").split("\"")[1],
+        }),
+        headers: { "Content-Type": "application/json" },
+      })
+        .then((res) => {
+          return res.json();
+        })
+        .then((sum) => {
+          setTotalPrice(sum);
+        })
+        .catch();
 
-      const arrOfProdutcs = [];
-      orders.map((order) =>
-        order.products.map((product) => arrOfProdutcs.push(product))
-      );
-      setTotalPrice(tempPrice);
+      console.log(orders.length);
+      if (orders.length > 0 && totalPrice === 0) {
+        fetch(`/api/admin/delete-table`, {
+          method: "post",
+          body: JSON.stringify({
+            numberTable: JSON.parse(Cookies.get("table")),
+          }),
+          headers: { "Content-Type": "application/json" },
+        })
+          .then((res) => {
+            return res.json();
+          }).then(data => console.log('asdasd',data))
+          .catch((err) => console.log(err));
+        setThanksPopup(true);
+        Cookies.remove("table");
+      }
+    } else {
+      setTotalPrice(0);
     }
-
     let temp_Price = parseInt(totalPrice) - parseInt(payed);
     if (!(tipValue === "")) {
       temp_Price += parseInt(tipValue);
     }
     setPrice(temp_Price);
-  }, [orders,tipValue]);
+  }, [orders, tipValue]);
 
-  const minusHandler = (ordId,guid_id) => {
+  const minusHandler = (ordId, guid_id) => {
     setLoader(true);
-    fetch(`/api/delete-product-from-order`, 
-    {method: 'post',
-    body: JSON.stringify({
-      ordId,
-      proGuidId:guid_id,
-      numberTable: 1,
-    }),
-    headers: { "Content-Type": "application/json" },})
-    .then((res) => {
-      return res.json();
+    fetch(`/api/delete-product-from-order`, {
+      method: "post",
+      body: JSON.stringify({
+        ordId,
+        proGuidId: guid_id,
+        numberTable: JSON.parse(Cookies.get("table"))
+      }),
+      headers: { "Content-Type": "application/json" },
     })
-    .then((data) => {
-      getOrders(data);
-      const arrOfPrice = data.map((order) => order.price);
-      tempPrice = arrOfPrice.reduce(
-        (accumulator, currentValue) => accumulator + currentValue,
-        0
-      );
-      setTotalPrice(tempPrice);
-      setLoader(false)
-    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        getOrders(data);
+        const arrOfPrice = data.map((order) => order.price);
+        tempPrice = arrOfPrice.reduce(
+          (accumulator, currentValue) => accumulator + currentValue,
+          0
+        );
+        setTotalPrice(tempPrice);
+        setLoader(false);
+      })
       .catch((err) => setLoader(false));
   };
-
 
   useEffect(() => {
     const socket = io("http://localhost:5000/");
@@ -121,6 +143,14 @@ const TableDetail = () => {
     setPayNow(newValue);
   };
 
+  if (thanksPopup) {
+    return (
+      <div>
+        <Cart>תודה ולהתראות !</Cart>
+      </div>
+    );
+  }
+
   // status: מוכן-2 בהכנה-1 לא התחילו -0
   const products = orders.map((order) =>
     order.products.map((item) => (
@@ -154,6 +184,10 @@ const TableDetail = () => {
 
   if (loader) {
     return <Loader />;
+  }
+
+  if(orders.length === 0){
+    return <Cart>העגלה שלך ריקה !</Cart>
   }
 
   return (
@@ -199,25 +233,22 @@ const TableDetail = () => {
       </div>
 
       <div className={classes.buttons}>
+        <button
+          onClick={() => {
+            setPayNow(price);
+          }}
+        >
+          שלם הכל
+        </button>
 
-      <button
-        onClick={() => {
-          setPayNow(price);
-        }}
-      >
-        שלם הכל
-      </button>
-
-      <button
-        onClick={() => {
-          navigate(`/payment/${payNow}`);
-        }}
-      >
-        מעבר לתשלום
-      </button>
-
+        <button
+          onClick={() => {
+            navigate(`/payment/${payNow}`);
+          }}
+        >
+          מעבר לתשלום
+        </button>
       </div>
-
     </div>
   );
 };

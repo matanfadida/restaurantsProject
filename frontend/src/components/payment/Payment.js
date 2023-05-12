@@ -1,5 +1,6 @@
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import { useParams, useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 import "./Payment.css";
 
@@ -39,14 +40,14 @@ const Payment = (props) => {
               fetch(`/api/admin//payment`, {
                 method: "post",
                 body: JSON.stringify({
-                  numTable: 1, //קוקיס
+                  numTable: JSON.parse(Cookies.get("table")), //קוקיס
                   value: value,
                 }),
                 headers: { "Content-Type": "application/json" },
               })
                 .then()
                 .catch();
-              navigate(`/table/{1}`); // לשנות למספר שולחן לפי הקוקיס
+              navigate(`/table/${JSON.parse(Cookies.get("table"))}`); // לשנות למספר שולחן לפי הקוקיס
             });
           }}
         />
@@ -56,8 +57,8 @@ const Payment = (props) => {
           fetch(`/api/admin//payment`, {
             method: "post",
             body: JSON.stringify({
-              numTable: 1, //קוקיס
-              value: 5,
+              numTable: JSON.parse(Cookies.get("table")), //קוקיס
+              value: 129,
             }),
             headers: { "Content-Type": "application/json" },
           })
