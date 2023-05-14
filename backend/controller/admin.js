@@ -1,6 +1,7 @@
 const Product = require("../models/Product");
 const Order = require("../models/Order");
 const Table = require("../models/Table");
+const Comment = require("../models/Comment");
 
 exports.postAddProduct = (req, res, next) => {
   const name = req.body.name;
@@ -113,7 +114,7 @@ exports.postPayOnTable = (req, res, next) => {
 
   Table.findByNumberTable(numberTable)
     .then((table) => {
-      const updateTable = new Table(numberTable, table.sum - sumPay);
+      const updateTable = new Table(numberTable, sumPay);
       updateTable
         .save()
         .then((re = res.json("ok")))
@@ -134,8 +135,12 @@ exports.getPayOnTable = (req, res, next) => {
 
 exports.postDeleteTable = (req, res, next) => {
   const numberTable = req.body.numberTable;
-  console.log('asdas',+numberTable)
   Order.deleteOrderFromTable(+numberTable)
     .then((result) => res.json())
     .catch((err) => res.json("error"));
 };
+
+exports.postDeleteComment = (req, res, next) => {
+  const id = req.body.id;
+  Comment.deleteComment(id).then(result => res.json('ok')).catch(err => res.json('error'))
+}

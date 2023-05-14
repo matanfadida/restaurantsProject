@@ -107,7 +107,7 @@ class Order {
     console.log(numberTable);
     return db.collection("Orders")
       .deleteMany({ numberTable: +numberTable })
-      .then((res) => console.log("asaok").catch((err) => console.log(err)));
+      .then((res) => console.log("asaok")).catch((err) => console.log(err));
   }
 }
 

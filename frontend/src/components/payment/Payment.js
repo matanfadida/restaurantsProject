@@ -58,13 +58,13 @@ const Payment = (props) => {
             method: "post",
             body: JSON.stringify({
               numTable: JSON.parse(Cookies.get("table")), //קוקיס
-              value: 129,
+              value: 50,
             }),
             headers: { "Content-Type": "application/json" },
           })
             .then()
             .catch();
-          navigate(`/table/1`);
+          navigate(`/table/${JSON.parse(Cookies.get("table"))}`);
         }} // לשנות למספר שולחן לפי הקוקיס}}
       ></button>
     </div>

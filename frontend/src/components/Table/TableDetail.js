@@ -31,47 +31,78 @@ const TableDetail = () => {
   let tempPrice = 0;
 
   useEffect(() => {
-    if (Cookies.get("table") !== undefined) {
-      fetch(`/api/admin/get-payment`, {
-        method: "post",
-        body: JSON.stringify({
-          numTable: Cookies.get("table").split("\"")[1],
-        }),
-        headers: { "Content-Type": "application/json" },
-      })
-        .then((res) => {
-          return res.json();
-        })
-        .then((sum) => {
-          setTotalPrice(sum);
-        })
-        .catch();
+      setLoader(true);
+      if (orders.length > 0) {
+        const arrOfPrice = orders.map((order) => order.price);
+        tempPrice = arrOfPrice.reduce(
+          (accumulator, currentValue) => accumulator + currentValue,
+          0
+        );
+  
+        const arrOfProdutcs = [];
+        orders.map((order) =>
+          order.products.map((product) => arrOfProdutcs.push(product))
+        );
+        setTotalPrice(tempPrice);
+      }
+  
+      let temp_Price = parseInt(totalPrice) - parseInt(payed);
+      if (!(tipValue === "")) {
+        temp_Price += parseInt(tipValue);
+      }
+      setPrice(temp_Price);
+        setLoader(false)
+  }, [orders, tipValue]);
 
-      console.log(orders.length);
-      if (orders.length > 0 && totalPrice === 0) {
-        fetch(`/api/admin/delete-table`, {
+
+  useEffect(() => {
+    const fetchPay = async () => {
+      if (Cookies.get("table") !== undefined) {
+        const response = await fetch(`/api/admin/get-payment`, {
           method: "post",
           body: JSON.stringify({
-            numberTable: JSON.parse(Cookies.get("table")),
+            numTable: JSON.parse(Cookies.get("table")),
           }),
           headers: { "Content-Type": "application/json" },
-        })
-          .then((res) => {
-            return res.json();
-          }).then(data => console.log('asdasd',data))
-          .catch((err) => console.log(err));
-        setThanksPopup(true);
-        Cookies.remove("table");
+        });
+        if (!response.ok) {
+          throw new Error("Request failed!");
+        }
+        const result = await response.json();
+        console.log('res',result)
+        setPayed(result);
       }
-    } else {
-      setTotalPrice(0);
+    };
+    fetchPay().then(() => {
+      // console.log('to2', totalPrice)
+
+      // if (orders.length > 0 && totalPrice === 0) {
+      //   const fetchDeleteTable = async () => {
+      //     const response = await fetch(`/api/admin/delete-table`, {
+      //       method: "post",
+      //       body: JSON.stringify({
+      //         numberTable: JSON.parse(Cookies.get("table")),
+      //       }),
+      //       headers: { "Content-Type": "application/json" },
+      //     });
+      //     if (!response.ok) {
+      //       throw new Error("Request failed!");
+      //     }
+      //     const result = await response.json();
+      //     console.log("result 2", result);
+      //     setThanksPopup(true);
+      //     Cookies.remove("table");
+      //   };
+      //   fetchDeleteTable().catch((error) => {
+      //     // setLoading(false);
+      //   });
+      // }
     }
-    let temp_Price = parseInt(totalPrice) - parseInt(payed);
-    if (!(tipValue === "")) {
-      temp_Price += parseInt(tipValue);
-    }
-    setPrice(temp_Price);
-  }, [orders, tipValue]);
+    ).catch((error) => {
+      // setLoading(false);
+    });
+    
+  }, []);
 
   const minusHandler = (ordId, guid_id) => {
     setLoader(true);
@@ -80,7 +111,7 @@ const TableDetail = () => {
       body: JSON.stringify({
         ordId,
         proGuidId: guid_id,
-        numberTable: JSON.parse(Cookies.get("table"))
+        numberTable: JSON.parse(Cookies.get("table")),
       }),
       headers: { "Content-Type": "application/json" },
     })
@@ -127,15 +158,18 @@ const TableDetail = () => {
       // }
     });
 
-    fetch(`/api/admin/tables/${params.tableId}`)
-      .then((res) => {
-        return res.json();
-      })
-      .then((result) => {
-        getOrders(result);
-        setLoader(false);
-      })
-      .catch((err) => setLoader(false));
+
+    const fetchOrder = async () => {
+      setLoader(true);
+      const response = await fetch(`/api/admin/tables/${params.tableId}`);
+      if (!response.ok) {
+        throw new Error("Request failed!");
+      }
+      const result = await response.json();
+      getOrders(result);
+      setLoader(false);
+    }
+    fetchOrder().then(res => setLoader(false)).catch(err => setLoader(false))
   }, []);
 
   const handlePayChange = (event) => {
@@ -187,8 +221,8 @@ const TableDetail = () => {
     return <Loader />;
   }
 
-  if(orders.length === 0){
-    return <Cart>העגלה שלך ריקה !</Cart>
+  if (orders.length === 0) {
+    return <Cart>העגלה שלך ריקה !</Cart>;
   }
 
   let payError = payNow === "" || payNow > price || payNow <= 0;
@@ -221,7 +255,8 @@ const TableDetail = () => {
         <h4>?טיפ</h4>
       </div>
 
-      <h4>סה"כ לתשלום: {price}</h4>
+      <h4>סה"כ לתשלום: {totalPrice}</h4>
+      <h4>נותר לשלם: {price}</h4>
 
       <div className={classes.tip}>
         <button
