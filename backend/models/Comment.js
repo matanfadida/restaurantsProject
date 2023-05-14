@@ -6,6 +6,7 @@ class Comment {
     this.proId = proId;
     this.comment = comment;
     this._id = _id ? new mongodb.ObjectId(_id) : null;
+    this.date = new Date();
   }
   save() {
     const db = getDb();
@@ -55,11 +56,11 @@ class Comment {
       .catch((err) => console.log(err));
   }
 
-  static deleteCommentByProductId(proId) {
+  static deleteComment(commentId) {
     const db = getDb();
     return db
       .collection("Comments")
-      .deleteOne({ _id: new mongodb.ObjectId(proId) })
+      .deleteOne({ _id: new mongodb.ObjectId(commentId) })
       .then(result => console.log("Delete"))
       .catch((err) => console.log(err));
   }

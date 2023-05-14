@@ -2,7 +2,7 @@ import classes from "./rate.module.css";
 import { useState, useEffect } from "react";
 import { FaStar } from "react-icons/fa";
 import { useParams } from "react-router-dom";
-import { Link, Routes, Route, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Cart from "../UI/cart";
 
 const colors = {

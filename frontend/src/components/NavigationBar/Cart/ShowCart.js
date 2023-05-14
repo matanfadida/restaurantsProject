@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import CartContext from "../../../state/buy-context";
 import Modal from "../../UI/modal";
+import Cookies from "js-cookie";
 
 import style from "./Cart.module.css";
 import CartItem from "./CartItem";
@@ -24,7 +25,7 @@ const Cart = (props) => {
     const response = await fetch("/api/add-order", {
       method: "POST",
       body: JSON.stringify({
-        numberTable: 1,
+        numberTable: JSON.parse(Cookies.get("table")),
         price: sum,
         products: products,
       }),

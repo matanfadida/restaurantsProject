@@ -15,6 +15,12 @@ router.get("/tables/:numTable", adminController.getTables);
 
 router.post("/payment", adminController.postPayOnTable);
 
+router.post("/get-payment", adminController.getPayOnTable);
+
+router.post("/delete-table", adminController.postDeleteTable);
+
+router.post("/delete-comment", adminController.postDeleteComment);
+
 router.get("/tables", adminController.getAllTable);
 
 router.get("/", (req, res, next) => {
