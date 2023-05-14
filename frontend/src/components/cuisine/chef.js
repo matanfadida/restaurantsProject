@@ -70,7 +70,7 @@ const Chef = (props) => {
             { id: 2, onClick: isChefHandler, name: "מטבח" },
           ]}
         ></ButtonGroup>
-        <button
+        {/* <button
           onClick={isChefHandler}
           className={isChef ? classes.off : classes.on}
         >
@@ -81,7 +81,7 @@ const Chef = (props) => {
           className={isChef ? classes.on : classes.off}
         >
           מטבח
-        </button>
+        </button> */}
       </div>
 
       {isChef && <ul>{chefList}</ul>}
