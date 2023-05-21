@@ -51,7 +51,7 @@ const TableDetail = () => {
         temp_Price += parseInt(tipValue);
       }
       setPrice(temp_Price);
-        setLoader(false)
+      setTimeout(()=>{ setLoader(false)}, 5000)
   }, [orders, tipValue]);
 
 
@@ -74,32 +74,8 @@ const TableDetail = () => {
       }
     };
     fetchPay().then(() => {
-      // console.log('to2', totalPrice)
-
-      // if (orders.length > 0 && totalPrice === 0) {
-      //   const fetchDeleteTable = async () => {
-      //     const response = await fetch(`/api/admin/delete-table`, {
-      //       method: "post",
-      //       body: JSON.stringify({
-      //         numberTable: JSON.parse(Cookies.get("table")),
-      //       }),
-      //       headers: { "Content-Type": "application/json" },
-      //     });
-      //     if (!response.ok) {
-      //       throw new Error("Request failed!");
-      //     }
-      //     const result = await response.json();
-      //     console.log("result 2", result);
-      //     setThanksPopup(true);
-      //     Cookies.remove("table");
-      //   };
-      //   fetchDeleteTable().catch((error) => {
-      //     // setLoading(false);
-      //   });
-      // }
     }
     ).catch((error) => {
-      // setLoading(false);
     });
     
   }, []);

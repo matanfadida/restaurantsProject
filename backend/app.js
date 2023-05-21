@@ -8,12 +8,12 @@ const http = require("http");
 const cors = require('cors');
 const nodemailer = require('nodemailer');
 
-const adminRouts = require('./routes/admin');
-const shopRouts = require('./routes/shop');
-const shefRouts = require('./routes/chef');
-const authRouts = require('./routes/auth');
-const detailsRouts = require('./routes/details');
-const categoryRouts = require('./routes/category');
+const adminRoutes = require('./routes/admin');
+const shopRoutes = require('./routes/shop');
+const shefRoutes = require('./routes/chef');
+const authRoutes = require('./routes/auth');
+const detailsRoutes = require('./routes/details');
+const categoryRoutes = require('./routes/category');
 const mongodbConnect = require('./util/database').mongodbConnect;
 
 const app = express();
@@ -22,21 +22,7 @@ const store = new MongoDBStore({
     collection: "sessions"
 });
 
-// const server = http.createServer(app);
-// console.log(server);
-// const io = socketio(server);
-// const io = require('socket.io')(server, {
-//     cors: {
-//       origin: '*',
-//       methods: ['GET', 'POST']
-//     }
-//   });
 
-// Listen for new orders and broadcast them to connected clients
-// function onNewOrder(order) {
-//     io.emit("new-order", order);
-//   }
-//   app.use(cors());
 app.use(cors({
     origin: 'http://localhost:3000' // Allow requests from this domain
   }));
@@ -44,13 +30,12 @@ app.use(bodyParser.json(), bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(session({secret: "my secret", resave: false, saveUninitialized: false, store: store}));
 const port = process.env.PORT || 5000;
-app.use('/api/admin',adminRouts);
-app.use('/api/chef', shefRouts);
-app.use('/api/auth', authRouts);
-app.use('/api/category', categoryRouts);
-app.use('/api/details', detailsRouts);
-app.use(shopRouts);
-
+app.use('/api/admin',adminRoutes);
+app.use('/api/chef', shefRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api/category', categoryRoutes);
+app.use('/api/details', detailsRoutes);
+app.use(shopRoutes);
 
 
 mongodbConnect((client) => {
@@ -73,5 +58,6 @@ mongodbConnect((client) => {
   app.set('io', io);
 
   server.listen(port, () => console.log(`Server started on port ${port}`));
-    // app.listen(port);
 });
+
+module.exports = app;

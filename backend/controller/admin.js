@@ -18,11 +18,21 @@ exports.postAddProduct = (req, res, next) => {
     .catch((err) => console.log(err));
 };
 
-exports.getEditProduct = (req, res, next) => {
-  const proId = req.params.productId;
-  Product.findById(proId)
-    .then((product) => res.json(product))
-    .catch((err) => console.log(err));
+// exports.getEditProduct = (req, res, next) => {
+//   const proId = req.params.productId;
+//   Product.findById(proId)
+//     .then((product) => res.json(product))
+//     .catch((err) => console.log(err));
+// };
+
+exports.getEditProduct = async (req, res, next) => {
+  try {
+    const proId = req.params.productId;
+    const product = await Product.findById(proId);
+    res.json(product);
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 exports.postEditProduct = (req, res, next) => {
