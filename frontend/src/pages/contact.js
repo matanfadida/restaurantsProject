@@ -5,7 +5,7 @@ import classes from "./contact.module.css";
 import { useState, useEffect } from "react";
 
 const Contact = () => {
-  const [detail, setdetail] = useState({phone:"08-659-5698", address:"המכבים 54"});
+  const [detail, setdetail] = useState({phone:"", address:""});
 
   useEffect(() => {
     const fetchEmail = async () => {

@@ -10,7 +10,18 @@ const isValidnumber = (num) =>
 const urlPattern = new RegExp(
   "(?:https?)://(w+:?w*)?(S+)(:d+)?(/|/([w#!:.?+=&%!-/]))?"
 );
-const isValidUrl = (url) => urlPattern.test(url);
+const isValidUrl = (urlString) => {
+  var urlPattern = new RegExp(
+    "^(https?:\\/\\/)?" + 
+      "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" +
+      "((\\d{1,3}\\.){3}\\d{1,3}))" + 
+      "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + 
+      "(\\?[;&a-z\\d%_.~+=-]*)?" + 
+      "(\\#[-a-z\\d_]*)?$",
+    "i"
+  ); 
+  return !!urlPattern.test(urlString);
+};
 const isValidEmail = (email) => /\S+@\S+\.\S+/.test(email);
 
 const EditContact = () => {
@@ -24,6 +35,7 @@ const EditContact = () => {
     valueChangeHandler: numberChangeHandler,
     inputBlurHandler: numberBlurHandler,
     reset: numberReset,
+    defaultValue: numberDefault,
   } = useInput(isValidnumber);
 
   const {
@@ -33,6 +45,7 @@ const EditContact = () => {
     valueChangeHandler: addressChangeHandler,
     inputBlurHandler: addressBlurHandler,
     reset: addressReset,
+    defaultValue: addressDefault,
   } = useInput(isNotEmpty);
 
   const {
@@ -42,6 +55,7 @@ const EditContact = () => {
     valueChangeHandler: instagramChangeHandler,
     inputBlurHandler: instagramBlurHandler,
     reset: instagramReset,
+    defaultValue: instagramDefault,
   } = useInput(isValidUrl);
 
   const {
@@ -51,6 +65,7 @@ const EditContact = () => {
     valueChangeHandler: facebookChangeHandler,
     inputBlurHandler: facebookBlurHandler,
     reset: facebookReset,
+    defaultValue: facebookDefault,
   } = useInput(isValidUrl);
 
   const {
@@ -60,9 +75,8 @@ const EditContact = () => {
     valueChangeHandler: emailChangeHandler,
     inputBlurHandler: emailBlurHandler,
     reset: emailReset,
+    defaultValue: emailDefault,
   } = useInput(isValidEmail);
-
-  
 
   //למשוך את הנתונים שכבר יש בבסיס נתונים ולעשות set
   useEffect(() => {
@@ -72,23 +86,22 @@ const EditContact = () => {
         throw new Error("Request failed!");
       }
       const result = await response.json();
-      if(result != null){
+      if (result != null) {
         setdetail({
           emailValue: result[0].email,
           numberValue: result[0].phone,
           addressValue: result[0].address,
           facebookValue: result[0].facebook,
           instagramValue: result[0].instagram,
-        })
-        console.log(result[0].email,
-          result[0].phone,
-          result[0].address,
-          result[0].facebook,
-          result[0].instagram,)
+        });
+        emailDefault(result[0].email);
+        numberDefault(result[0].phone);
+        addressDefault(result[0].address);
+        facebookDefault(result[0].facebook);
+        instagramDefault(result[0].instagram);
       }
     };
-    fetchEmail().catch((error) => {
-    });
+    fetchEmail().catch((error) => {});
   }, []);
 
   //למשוך את הנתונים שכבר יש בבסיס נתונים ולעשות set
@@ -99,7 +112,7 @@ const EditContact = () => {
         method: "post",
         body: JSON.stringify({
           emailId: detail != null ? detail._id : null,
-          email: emailValue, 
+          email: emailValue,
           phone: numberValue,
           address: addressValue,
           facebook: facebookValue,
@@ -112,7 +125,7 @@ const EditContact = () => {
       }
       const result = await response.json();
       if (result === "ok") {
-        navigate('/admin', { replace: true });
+        navigate("/admin", { replace: true });
       }
     };
     AddEmail().catch((error) => {});
@@ -125,7 +138,13 @@ const EditContact = () => {
   };
   let formIsValid = false;
 
-  if (addressValid && numberValid && emailValid ) {
+  if (
+    addressValid &&
+    numberValid &&
+    emailValid &&
+    facebookValid &&
+    instagramValid
+  ) {
     formIsValid = true;
   }
 
@@ -133,7 +152,7 @@ const EditContact = () => {
   const numberNameClasses = numberError ? "invalid" : "valid";
   const emailNameClasses = emailError ? "invalid" : "valid";
   const instagramNameClasses = instagramError ? "invalid" : "valid";
-  const facebookNameClasses = instagramError ? "invalid" : "valid";
+  const facebookNameClasses = facebookError ? "invalid" : "valid";
 
   return (
     <div className={classes.main}>
@@ -181,7 +200,9 @@ const EditContact = () => {
         </div>
         <div className={classes[instagramNameClasses]}>
           {instagramError && (
-            <p className={classes.error_text}>נא להכניס כתובת לאתר האינסטגרם </p>
+            <p className={classes.error_text}>
+              נא להכניס כתובת לאתר האינסטגרם{" "}
+            </p>
           )}
           <input
             type="url"
