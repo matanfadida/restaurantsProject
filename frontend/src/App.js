@@ -20,6 +20,7 @@ import EditContact from "./components/Admin/EditContact";
 import Footer from "./components/NavigationBar/footer/Footer";
 import Payment from "./components/payment/Payment";
 import LoaderAddCookie from "./components/UI/between";
+import QRgenerator from "./components/Admin/QRgenerator";
 
 const App = () => {
   const ctx = useContext(CartContext);
@@ -50,6 +51,16 @@ const App = () => {
             element={
               ctx.isLogged ? (
                 <AddProduct />
+              ) : (
+                <Navigate replace to="/admin/login" />
+              )
+            }
+          />
+          <Route
+            path="/admin/add-table"
+            element={
+              ctx.isLogged ? (
+                <QRgenerator />
               ) : (
                 <Navigate replace to="/admin/login" />
               )

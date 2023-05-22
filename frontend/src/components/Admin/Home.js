@@ -20,6 +20,9 @@ const AdminHome = () => {
         <li>
           <Link to="/admin/contact">עדכן פרטי מסעדה </Link>
         </li>
+        <li>
+          <Link to="/admin/add-table"> הוסף שולחן</Link>
+        </li>
       </ul>
     
   );
