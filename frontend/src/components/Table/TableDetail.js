@@ -9,6 +9,7 @@ import CartContext from "../../state/buy-context";
 import { AiFillMinusCircle } from "react-icons/ai";
 import Loader from "../UI/loader";
 import Cart from "../UI/cart";
+import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 
 const TableDetail = () => {
   const navigate = useNavigate();
@@ -31,29 +32,30 @@ const TableDetail = () => {
   let tempPrice = 0;
 
   useEffect(() => {
-      setLoader(true);
-      if (orders.length > 0) {
-        const arrOfPrice = orders.map((order) => order.price);
-        tempPrice = arrOfPrice.reduce(
-          (accumulator, currentValue) => accumulator + currentValue,
-          0
-        );
-  
-        const arrOfProdutcs = [];
-        orders.map((order) =>
-          order.products.map((product) => arrOfProdutcs.push(product))
-        );
-        setTotalPrice(tempPrice);
-      }
-  
-      let temp_Price = parseInt(totalPrice) - parseInt(payed);
-      if (!(tipValue === "")) {
-        temp_Price += parseInt(tipValue);
-      }
-      setPrice(temp_Price);
-      setTimeout(()=>{ setLoader(false)}, 5000)
-  }, [orders, tipValue]);
+    setLoader(true);
+    if (orders.length > 0) {
+      const arrOfPrice = orders.map((order) => order.price);
+      tempPrice = arrOfPrice.reduce(
+        (accumulator, currentValue) => accumulator + currentValue,
+        0
+      );
 
+      const arrOfProdutcs = [];
+      orders.map((order) =>
+        order.products.map((product) => arrOfProdutcs.push(product))
+      );
+      setTotalPrice(tempPrice);
+    }
+
+    let temp_Price = parseInt(totalPrice) - parseInt(payed);
+    if (!(tipValue === "")) {
+      temp_Price += parseInt(tipValue);
+    }
+    setPrice(temp_Price);
+    setTimeout(() => {
+      setLoader(false);
+    }, 5000);
+  }, [orders, tipValue]);
 
   useEffect(() => {
     const fetchPay = async () => {
@@ -69,15 +71,13 @@ const TableDetail = () => {
           throw new Error("Request failed!");
         }
         const result = await response.json();
-        console.log('res',result)
+        console.log("res", result);
         setPayed(result);
       }
     };
-    fetchPay().then(() => {
-    }
-    ).catch((error) => {
-    });
-    
+    fetchPay()
+      .then(() => {})
+      .catch((error) => {});
   }, []);
 
   const minusHandler = (ordId, guid_id) => {
@@ -134,7 +134,6 @@ const TableDetail = () => {
       // }
     });
 
-
     const fetchOrder = async () => {
       setLoader(true);
       const response = await fetch(`/api/admin/tables/${params.tableId}`);
@@ -144,8 +143,10 @@ const TableDetail = () => {
       const result = await response.json();
       getOrders(result);
       setLoader(false);
-    }
-    fetchOrder().then(res => setLoader(false)).catch(err => setLoader(false))
+    };
+    fetchOrder()
+      .then((res) => setLoader(false))
+      .catch((err) => setLoader(false));
   }, []);
 
   const handlePayChange = (event) => {
@@ -198,7 +199,17 @@ const TableDetail = () => {
   }
 
   if (orders.length === 0) {
-    return <Cart>העגלה שלך ריקה !</Cart>;
+    return (
+      <div className={classes.empty}>
+        <h3>עוד לא הזמנת כלום</h3>
+        <AddShoppingCartIcon
+          className={classes.emptyCart}
+          onClick={() => {
+            navigate("/");
+          }}
+        />
+      </div>
+    );
   }
 
   let payError = payNow === "" || payNow > price || payNow <= 0;

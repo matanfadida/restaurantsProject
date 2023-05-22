@@ -94,6 +94,17 @@
   height: 2rem;
 }
 
+.empty{
+  margin: 7rem;
+  color: #004687;
+  text-align: center;
+}
+.emptyCart{
+  cursor: pointer;
+margin-top: 3rem;
+  font-size: 60px;
+}
+
 
 
 .delete{

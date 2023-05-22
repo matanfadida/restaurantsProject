@@ -33,7 +33,6 @@ const App = () => {
       <Header />
       {ctx.cartShow && <Cart />}
       <div style={{marginTop:"70px", marginBottom:"70px"}}>
-        <p>haim</p>
         <Routes>
           <Route path="/chef" element={<Chef />} />
           <Route path="/product/:productId" element={<Meal />} />

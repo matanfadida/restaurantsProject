@@ -45,6 +45,8 @@
   margin-top: 20px;
   display: flex;
   justify-content: space-between;
+  width: 100%;
+  
 }
 
 .comment span {

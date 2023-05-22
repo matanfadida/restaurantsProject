@@ -12,23 +12,23 @@ const Comment = (props) => {
   const [loader, setLoader] = useState(false);
 
   const deleteHandler = (id) => {
-    setLoader(true)
+    setLoader(true);
     fetch(`/api/admin/delete-comment`, {
       method: "post",
       body: JSON.stringify({
-        id
+        id,
       }),
       headers: { "Content-Type": "application/json" },
     })
       .then((res) => {
         return res.json();
-      }).then(data => {
-        if(data === 'ok'){
+      })
+      .then((data) => {
+        if (data === "ok") {
           window.location.reload();
         }
       })
       .catch((err) => setLoader(false));
-    // console.log("למחוק מהבאק ", id);
   };
 
   if (loader) {
@@ -37,15 +37,18 @@ const Comment = (props) => {
 
   return (
     <div className={classes.comment}>
-      {ctx.isLogged && (
-        <div className={classes.delete}
-          onClick={() => {
-            deleteHandler(props.id);
-          }}
-        >
-          <AiFillMinusCircle />
-        </div>
-      )}
+      <div>
+        {ctx.isLogged && (
+          <div
+            className={classes.delete}
+            onClick={() => {
+              deleteHandler(props.id);
+            }}
+          >
+            <AiFillMinusCircle />
+          </div>
+        )}
+      </div>
       <div>
         <span>{date.toLocaleDateString()}</span>
         <p>{props.comment}</p>

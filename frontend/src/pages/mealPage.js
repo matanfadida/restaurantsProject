@@ -8,6 +8,7 @@ import CartContext from "../state/buy-context";
 import { ImPlus, ImMinus } from "react-icons/im";
 import { BiRestaurant } from "react-icons/bi";
 import { v4 as uuidv4 } from "uuid";
+import Loader from "../components/UI/loader";
 
 const Meal = () => {
   const params = useParams();
@@ -76,7 +77,7 @@ const Meal = () => {
   }, [params.productId]);
 
   if (loading) {
-    return <div>loading..</div>;
+    return <Loader/>
   }
 
   return (

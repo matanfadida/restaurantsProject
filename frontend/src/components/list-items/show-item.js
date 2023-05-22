@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import Loader from "../UI/loader";
 import Item from "./item";
 import classes from "./show-item.module.css";
 
@@ -56,7 +57,7 @@ const ShowItem = (props) => {
   }, [filterVal]);
 
   if (loading) {
-    return <div>loading..</div>;
+    return <Loader/>
   }
   if (search.length === 0) {
     return (
