@@ -10,8 +10,11 @@ const Chef = (props) => {
   const [ready, setReady] = useState(true);
 
   const isChefHandler = () => {
-    const temp = !isChef;
-    setIsChef(temp);
+    setIsChef(true);
+  };
+
+  const isbarHandler = () => {
+    setIsChef(false);
   };
 
   useEffect(() => {
@@ -61,31 +64,30 @@ const Chef = (props) => {
 
   return (
     <div className={classes.chef}>
-      
       <div className={classes.buttons}>
         <ButtonGroup
           focus={2}
           buttons={[
-            { id: 1, onClick: isChefHandler, name: "בר" },
+            { id: 1, onClick: isbarHandler, name: "בר" },
             { id: 2, onClick: isChefHandler, name: "מטבח" },
           ]}
         ></ButtonGroup>
-        {/* <button
-          onClick={isChefHandler}
-          className={isChef ? classes.off : classes.on}
-        >
-          בר
-        </button>
-        <button
-          onClick={isChefHandler}
-          className={isChef ? classes.on : classes.off}
-        >
-          מטבח
-        </button> */}
       </div>
 
-      {isChef && <ul>{chefList}</ul>}
-      {!isChef && <ul>{barList}</ul>}
+      {isChef && (
+        <div>
+          {" "}
+          <h3>cuisine</h3>
+          <ul>{chefList}</ul>
+        </div>
+      )}
+      {!isChef && (
+        <div>
+          {" "}
+          <h3>bar</h3>
+          <ul>{barList}</ul>
+        </div>
+      )}
     </div>
   );
 };

@@ -19,7 +19,10 @@
   color: #72a0c1;
   background-color: #00416a;
 }
-
+.chef h3{
+  width: max-content;
+  margin: auto;
+}
 .off {
   width: 5rem;
   border: 2px solid white;

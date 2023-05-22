@@ -10,7 +10,7 @@ const isValidnumber = (num) =>
 const urlPattern = new RegExp(
   "(?:https?)://(w+:?w*)?(S+)(:d+)?(/|/([w#!:.?+=&%!-/]))?"
 );
-const isValidUrl = (urlString) => {
+export const isValidUrl = (urlString) => {
   var urlPattern = new RegExp(
     "^(https?:\\/\\/)?" + 
       "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" +

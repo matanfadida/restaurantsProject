@@ -4,22 +4,6 @@ import Cart from "../UI/cart";
 import './Home.css'
 
 const AdminHome = () => {
-  // useEffect(() => {
-  //   const fetchLogin = async () => {
-  //     const response = await fetch("/api/auth");
-  //     if (!response.ok) {
-  //       throw new Error("Request failed!");
-  //     }
-  //     // const result = await response.json();
-  //     // setOrders(result);
-  //     // setSearch(result);
-  //     // setLoading(false);
-  //   };
-  //   fetchLogin().catch((error) => {
-  //     // setLoading(false);
-  //     // setHasError(error.message || "Something went wrong!");
-  //   });
-  // }, []);
   return (
     
      

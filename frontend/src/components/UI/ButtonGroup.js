@@ -14,7 +14,9 @@ const ButtonGroup = (props) => {
   };
 
   const buttons = props.buttons.map((item) => (
-    <button key={item.id}
+    <button
+      key={item.id}
+      name={item.name}
       className={buttonClassName(item.id)}
       onClick={(event) => clickHandler(event, item.id, item.onClick)}
     >
@@ -22,11 +24,7 @@ const ButtonGroup = (props) => {
     </button>
   ));
 
-  return (
-    <div className={classes.button}>
-      {buttons}
-    </div>
-  );
+  return <div className={classes.button}>{buttons}</div>;
 };
 
 export default ButtonGroup;
