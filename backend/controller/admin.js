@@ -140,7 +140,6 @@ exports.getPayOnTable = (req, res, next) => {
     .then((table) => res.json(table.sum))
     .catch();
   }
-  
 };
 
 exports.postDeleteTable = (req, res, next) => {

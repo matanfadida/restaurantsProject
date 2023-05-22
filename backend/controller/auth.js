@@ -18,12 +18,11 @@ exports.postLogin = (req, res, next) => {
                 req.session.isLoggedIn = true;
                 req.session.user = admin;
                 return req.session.save(err => {
-                    console.log(err);
                     res.json('succeeded');
                 });
             }
             return res.json('not succeeded');
-        }).catch(err => {console.log('password error'); res.json('password error');
+        }).catch(err => { console.log('bcrypt error', err); console.log('password error'); res.json('password error');
     });
     })
 }
@@ -45,7 +44,6 @@ exports.postSignup = (req, res, next) => {
         .then((result) => {console.log(result); res.json('ok');})
         .catch((err) => {console.log(err); res.json('error');});
     }).catch(err => {console.log(err); res.json('error');});
-    
 }
 
 exports.IsLogin = (req, res, next) => {
