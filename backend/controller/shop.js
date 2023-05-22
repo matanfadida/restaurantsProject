@@ -14,11 +14,12 @@ exports.postAddOrder = (req, res, io) => {
       Order.fetchAllOrders()
         .then((result) => {
           io.emit("new-order", result);
-          const table = new Table(numberTable, result.map((order) => order.price).reduce(
-            (accumulator, currentValue) => accumulator + currentValue,
-            0
-          ));
-          table.save().then(resu => res.json("ok")).catch(err => console.log(err))
+          // const table = new Table(numberTable, result.map((order) => order.price).reduce(
+          //   (accumulator, currentValue) => accumulator + currentValue,
+          //   0
+          // ));
+          // table.save().then(resu => ).catch(err => console.log(err))
+          res.json("ok")
         })
         .catch((err) => {
           console.log(err);
@@ -103,11 +104,12 @@ exports.postDeleteProductFromOrder = (req, res, next) => {
   const numberTable = req.body.numberTable;
   Order.deleteByGuidId(ordId,proGuidId).then(result => Order.fetchAllOrders()
   .then((result) => {
-    const table = new Table(numberTable, result.map((order) => order.price).reduce(
-      (accumulator, currentValue) => accumulator + currentValue,
-      0
-    ));
-    table.save().then(resu => res.json(result)).catch(err => console.log(err))
+    // const table = new Table(numberTable, result.map((order) => order.price).reduce(
+    //   (accumulator, currentValue) => accumulator + currentValue,
+    //   0
+    // ));
+    // table.save().then(resu => res.json(result)).catch(err => console.log(err))
+    res.json(result)
   })
   .catch((err) => {
     console.log(err);

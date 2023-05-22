@@ -79,8 +79,6 @@ const Meal = () => {
     return <div>loading..</div>;
   }
 
-  console.log(product.product)
-
   return (
     <div className={classes.main}>
       <img
@@ -98,7 +96,7 @@ const Meal = () => {
           <Stars value={product.product.rating} />
         </div>
         {product.comments.map((comment) => (
-          <Comment key={comment._id} comment={comment.comment} />
+          <Comment key={comment._id} id={comment._id} comment={comment.comment} date={comment.date} />
         ))}
       </div>
 

@@ -34,11 +34,14 @@ class Table {
 
   static findByNumberTable(number) {
     const db = getDb();
-    return db
-      .collection("Tables")
-      .findOne({ numberTable: number })
-      .then()
-      .catch((err) => console.log(err));
+    return db.collection("Tables")
+      .findOne({ numberTable: +number })
+      .then(res => {
+        return res; // return the result of the query
+      })
+      .catch((err) => {
+        return null; // return null if there was an error
+      });
   }
 }
 module.exports = Table;

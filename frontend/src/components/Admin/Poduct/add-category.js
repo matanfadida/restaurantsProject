@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Cart from "../../UI/cart";
 import classes from "./add-category.module.css";
 import Select from "react-select";
-import { Link, Routes, Route, useNavigate } from "react-router-dom";
+// import { Link, Routes, Route, useNavigate } from "react-router-dom";
 
 const AddCategory = () => {
   const [category, setCategory] = useState();

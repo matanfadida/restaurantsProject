@@ -1,6 +1,7 @@
 const Product = require("../models/Product");
 const Order = require("../models/Order");
 const Table = require("../models/Table");
+const Comment = require("../models/Comment");
 
 exports.postAddProduct = (req, res, next) => {
   const name = req.body.name;
@@ -17,11 +18,21 @@ exports.postAddProduct = (req, res, next) => {
     .catch((err) => console.log(err));
 };
 
-exports.getEditProduct = (req, res, next) => {
-  const proId = req.params.productId;
-  Product.findById(proId)
-    .then((product) => res.json(product))
-    .catch((err) => console.log(err));
+// exports.getEditProduct = (req, res, next) => {
+//   const proId = req.params.productId;
+//   Product.findById(proId)
+//     .then((product) => res.json(product))
+//     .catch((err) => console.log(err));
+// };
+
+exports.getEditProduct = async (req, res, next) => {
+  try {
+    const proId = req.params.productId;
+    const product = await Product.findById(proId);
+    res.json(product);
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 exports.postEditProduct = (req, res, next) => {
@@ -60,51 +71,86 @@ exports.getTables = (req, res, next) => {
   const numTable = req.params.numTable;
   Order.fetchAllOrders()
     .then((result) => {
-      const orderByTable = result.filter(num => num.numberTable == numTable);
+      const orderByTable = result.filter((num) => num.numberTable == numTable);
       res.json(orderByTable);
     })
     .catch((err) => {
       console.log(err);
     });
 };
-const NUMBERTABLE = [1,2,3,4,5,6,7,8,9,10]
+const NUMBERTABLE = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 exports.getAllTable = (req, res, next) => {
-  const arrayOfTable = []
+  const arrayOfTable = [];
   let flag = true;
   let flag2 = false;
   Order.fetchAllOrders()
-  .then((result) => {
-    NUMBERTABLE.forEach(number => {
-        let totalPrice = 0
-          result.forEach(element => {
-              if(element.numberTable === number){
-                  totalPrice += element.price;
-                  flag2 = true;
-              }
-          })
-          if(result[0] != undefined && flag){
-            flag = false;
-            arrayOfTable.push({_id:result[0]._id, numberTable:1 ,totalPrice:totalPrice});
+    .then((result) => {
+      NUMBERTABLE.forEach((number) => {
+        let totalPrice = 0;
+        result.forEach((element) => {
+          if (element.numberTable === number) {
+            totalPrice += element.price;
+            flag2 = true;
           }
-          if(flag2 && number-1 != 0){
-            arrayOfTable.push({_id:Math.random(), numberTable:number ,totalPrice:totalPrice});
-          }
-          flag2 = false;
+        });
+        if (result[0] != undefined && flag) {
+          flag = false;
+          arrayOfTable.push({
+            _id: result[0]._id,
+            numberTable: 1,
+            totalPrice: totalPrice,
+          });
+        }
+        if (flag2 && number - 1 != 0) {
+          arrayOfTable.push({
+            _id: Math.random(),
+            numberTable: number,
+            totalPrice: totalPrice,
+          });
+        }
+        flag2 = false;
       });
-    res.json(arrayOfTable);
-  })
-  .catch((err) => {
-    console.log(err);
-  });
-}
+      res.json(arrayOfTable);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
 
 exports.postPayOnTable = (req, res, next) => {
   const numberTable = req.body.numTable;
   const sumPay = req.body.value;
+
+  Table.findByNumberTable(numberTable)
+    .then((table) => {
+      const updateTable = new Table(numberTable, sumPay);
+      updateTable
+        .save()
+        .then((re = res.json("ok")))
+        .catch((err) => res.json("error"));
+    })
+    .catch((err) => res.json("error"));
+};
+
+exports.getPayOnTable = (req, res, next) => {
+  const numberTable = req.body.numTable;
+  if(numberTable != null){
+    Table.findByNumberTable(numberTable)
+    .then((table) => res.json(table.sum))
+    .catch();
+  }
   
-  Table.findByNumberTable(numberTable).then(table =>{
-    const updateTable = new Table(numberTable,table.sum - sumPay);
-    updateTable.save().then(re = res.json("ok")).catch(err => res.json('error'))
-  }).catch(err => res.json('error'));
+};
+
+exports.postDeleteTable = (req, res, next) => {
+  const numberTable = req.body.numberTable;
+  Order.deleteOrderFromTable(+numberTable)
+    .then((result) => res.json())
+    .catch((err) => res.json("error"));
+};
+
+exports.postDeleteComment = (req, res, next) => {
+  const id = req.body.id;
+  Comment.deleteComment(id).then(result => res.json('ok')).catch(err => res.json('error'))
 }
