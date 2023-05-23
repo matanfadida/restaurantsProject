@@ -3,6 +3,7 @@ import Cookies from "js-cookie";
 import { useNavigate, useParams } from "react-router-dom";
 import ReactDOM from 'react-dom';
 import classes from "./loader.module.css";
+import Loader from './loader';
 
 const LoaderAddCookie = () => {
   const portalElment = document.getElementById("loader");
@@ -15,27 +16,7 @@ const LoaderAddCookie = () => {
   },[1])
 
   return (
-    <Fragment>
-      {ReactDOM.createPortal(
-        <div className={classes["backdrop"]}>
-          <div className={classes["lds-spinner"]}>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-          </div>
-        </div>,
-        portalElment
-      )}
-    </Fragment>
+    <Loader/>
   );
 };
 

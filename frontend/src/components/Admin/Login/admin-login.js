@@ -1,9 +1,11 @@
-import { useState, useEffect, useContext} from "react";
+import { useState, useEffect, useContext } from "react";
 import Cart from "../../UI/cart";
 import classes from "./admin-login.module.css";
 import { useNavigate, useLocation } from "react-router-dom";
 import CartContext from "../../../state/buy-context";
-
+import TextField from "@mui/material/TextField";
+import Box from "@mui/material/Box";
+import { Button } from "@mui/material";
 
 const isNotEmpty = (value) => value.trim() !== "";
 const isValidEmail = (email) => /\S+@\S+\.\S+/.test(email);
@@ -23,33 +25,33 @@ const Login = () => {
   const location = useLocation();
 
   useEffect(() => {
-    console.log(location.pathname);
-    if(location.pathname.includes('signup')){
+    if (location.pathname.includes("signup")) {
       setSignup(true);
     }
-  }, [location.pathname])
+  }, [location.pathname]);
 
   let formIsValid = false;
-
   if (pass.isValid && email.isValid) {
     formIsValid = true;
   }
 
   const emailChangeHangler = (event) => {
     setEmail({
+      ...email,
       value: event.target.value,
       isValid: isValidEmail(event.target.value),
     });
   };
 
-  const passChangeHangler = (event) => {
+  const passChangeHandler = (event) => {
     setPass({
+      ...pass,
       value: event.target.value,
       isValid: isNotEmpty(event.target.value),
     });
   };
 
-  const passBlurHangler = (event) => {
+  const passBlurHandler = (event) => {
     setPass({
       ...pass,
       blur: true,
@@ -66,12 +68,12 @@ const Login = () => {
   const AccountHandler = async (e) => {
     e.preventDefault();
 
-    if(signup){
+    if (signup) {
       const response = await fetch(`/api/auth/signup`, {
         method: "POST",
         body: JSON.stringify({
           email: email.value,
-          password: pass.value
+          password: pass.value,
         }),
         headers: { "Content-Type": "application/json" },
       });
@@ -79,11 +81,11 @@ const Login = () => {
         throw new Error("Request failed!");
       }
       const result = await response.json();
-      if(result === 'ok'){
-        navigate('/admin/login', { replace: true });
-      }else{
-        navigate('/admin/signup', { replace: true });
-        console.log('error');
+      if (result === "ok") {
+        navigate("/admin/login", { replace: true });
+      } else {
+        navigate("/admin/signup", { replace: true });
+        console.log("error");
       }
       return;
     }
@@ -91,7 +93,7 @@ const Login = () => {
       method: "POST",
       body: JSON.stringify({
         email: email.value,
-        password: pass.value
+        password: pass.value,
       }),
       headers: { "Content-Type": "application/json" },
     });
@@ -100,54 +102,56 @@ const Login = () => {
     }
     const result = await response.json();
     console.log(result);
-    if(result === 'succeeded'){
+    if (result === "succeeded") {
       ctx.setIsLoggedHandler(true);
-      navigate('/admin', { replace: true });
-    }else{
-      navigate('/admin/login', { replace: true });
-      console.log('error');
+      navigate("/admin", { replace: true });
+    } else {
+      navigate("/admin/login", { replace: true });
+      console.log("error");
     }
-  }
+  };
 
-  const nameUserClasses = !email.isValid && email.blur? "invalid" : "valid";
-  const namePassClasses = !pass.isValid && pass.blur? "invalid" : "valid";
+  const emailClasses = !email.isValid && email.blur;
+  const passClasses = !pass.isValid && pass.blur;
 
   return (
-    <Cart className={classes.main}>
-      <form className={classes.form} onSubmit={AccountHandler}>
-        <div className={classes[nameUserClasses]}>
-          {!email.isValid && email.blur &&(
-            <p className={classes.error_text}>נא להכניס שם משתמש תקין</p>
-          )}
-          <input
-            type="email"
-            name="user"
-            placeholder="שם מתשמש"
-            onChange={emailChangeHangler}
-            onBlur={emailBlurHandler}
-          ></input>
-        </div>
+    <form className={classes.form} onSubmit={AccountHandler}>
+      <h1>Admin Login</h1>
+      <Box
+        sx={{
+          "& .MuiTextField-root": { m: 1, width: "25ch" },
+        }}
+      >
+        <TextField
+          error={emailClasses}
+          label="Email"
+          helperText={emailClasses && "please enter a valid email"}
+          value={email.value}
+          onChange={emailChangeHangler}
+          onBlur={emailBlurHandler}
+          type="email"
+        />
 
-        <div className={classes[namePassClasses]}>
-          {!pass.isValid && pass.blur &&(
-            <p className={classes.error_text}>נא להכניס סיסמא</p>
-          )}
-          <input
-            type="password"
-            name="user"
-            placeholder="סיסמא"
-            onChange={passChangeHangler}
-            onBlur={passBlurHangler}
-          ></input>
-        </div>
-
-        <div className={classes.div}>
-          <button type="submit" disabled={!formIsValid}>
-            התחבר
-          </button>
-        </div>
-      </form>
-    </Cart>
+        <TextField
+          error={passClasses}
+          label="Password"
+          helperText={passClasses && "please enter password"}
+          value={pass.value}
+          onChange={passChangeHandler}
+          onBlur={passBlurHandler}
+          type="password"
+        />
+      </Box>
+      <Button
+        variant="outlined"
+        type="submit"
+        size="small"
+        sx={{ m: "auto", mt: 2, width: 200 }}
+        disabled={!formIsValid}
+      >
+        התחבר
+      </Button>
+    </form>
   );
 };
 
