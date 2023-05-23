@@ -24,8 +24,6 @@ exports.postSendEmail = (req, res, transporter) => {
       });
   })
   .catch((err) => console.log(err));
-
-  
 };
 
 exports.getDetails = (req, res, next) => {
