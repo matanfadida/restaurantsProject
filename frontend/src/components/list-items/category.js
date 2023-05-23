@@ -10,7 +10,7 @@ import {
   GiHamburger,
   GiSandwich,
 } from "react-icons/gi";
-import { MdOutlineRestaurantMenu } from "react-icons/md";
+import { MdOutlineRestaurantMenu, MdMenuBook } from "react-icons/md";
 import { SiFoodpanda } from "react-icons/si";
 import { CiBowlNoodles } from "react-icons/ci";
 import { useNavigate } from "react-router-dom";
@@ -63,10 +63,18 @@ const Category = () => {
     realCategories.some((obj2) => obj2.value === obj1.value)
   );
 
+  commonObjects.unshift({
+    value: 0,
+    label: "תפריט",
+    icon: <MdMenuBook size="30px" />,
+  });
+
   const navigate = useNavigate();
 
   const CategoryHandle = (value) => {
-    navigate(`/?category=${value}`);
+    if (value === 0) {
+      navigate("/");
+    } else navigate(`/?category=${value}`);
   };
   return (
     <div className={classes.list_container}>

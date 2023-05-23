@@ -3,7 +3,6 @@
   width: 95%;
   left: 0;
   overflow-x: auto;
-  
 }
 
 .list {
@@ -11,17 +10,17 @@
   display: flex;
   flex-wrap: nowrap;
   flex-direction: row;
-  color: #6CB4EE;
+  color: #6cb4ee;
 }
 .li {
   cursor: pointer;
   text-align: center;
   margin-left: 10px;
-  color: #00308F;
+  color: #00308f;
 }
 
 .item {
-  background-color: #F0F8FF;
+  background-color: #f0f8ff;
   border-radius: 10px;
   padding: 5px 10px;
   width: 100px;
@@ -35,20 +34,16 @@
 }
 
 @media (min-width: 430px) {
-  
-
   .list {
     position: absolute;
     right: 0;
     margin-right: 20px;
     display: flex;
     flex-direction: column;
-    
+    padding-bottom: 100px;
   }
 
-    .li{
-      margin-top: 2rem;
-    }
- 
-  
+  .li {
+    margin-top: 2rem;
+  }
 }
