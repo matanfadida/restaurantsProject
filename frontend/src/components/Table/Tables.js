@@ -6,12 +6,18 @@ const Tables = (props) => {
   const [tables, setTables] = useState([]);
 
   useEffect(() => {
-    fetch(`/api/admin/tables`)
-      .then((res) => {
-        return res.json();
-      })
-      .then((result) => setTables(result))
-      .catch((err) => console.log(err));
+    const fetchTables = async() => {
+      const response = await fetch(`/api/admin/tables`);
+      if (!response.ok) {
+        throw new Error("Request failed!");
+      }
+      const result = await response.json();
+      console.log(result);
+      setTables(result)
+    }
+    fetchTables()
+    .then(() => {})
+    .catch((error) => {});
   }, []);
 
   const tableItems = tables.map((table) =>

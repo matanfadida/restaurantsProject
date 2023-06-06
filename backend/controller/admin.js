@@ -133,12 +133,13 @@ exports.postPayOnTable = (req, res, next) => {
     .catch((err) => res.json("error"));
 };
 
-exports.getPayOnTable = (req, res, next) => {
+exports.getPayOnTable = async(req, res, next) => {
   const numberTable = req.body.numTable;
   if(numberTable != null){
-    Table.findByNumberTable(numberTable)
-    .then((table) => res.json(table.sum))
-    .catch();
+    const table = await Table.findByNumberTable(numberTable);
+    if(table != null){
+      res.json(table.sum)
+    }
   }
 };
 
