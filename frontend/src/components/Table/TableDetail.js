@@ -72,7 +72,7 @@ const TableDetail = () => {
         }
         const result = await response.json();
         console.log("res", result);
-        setPayed(result);
+        setPayed(result.sum);
       }
     };
     fetchPay()
@@ -118,7 +118,7 @@ const TableDetail = () => {
     socket.on("new-order", (order) => {
       if (
         parseInt(order[order.length - 1].numberTable) ===
-        parseInt(params.tableId)
+        parseInt(Cookies.get("table"))
       ) {
         getOrders(order);
         console.log("New order received: ", order);
@@ -127,7 +127,7 @@ const TableDetail = () => {
 
     socket.on("update-status-product", (orders) => {
       console.log("New orders received: ", orders);
-      if (parseInt(orders.numberTable) === parseInt(params.tableId)) {
+      if (parseInt(orders.numberTable) === parseInt(Cookies.get("table"))) {
         getOrders(orders.orderByTable);
       }
       //   getOrders(order);
@@ -136,7 +136,7 @@ const TableDetail = () => {
 
     const fetchOrder = async () => {
       setLoader(true);
-      const response = await fetch(`/api/admin/tables/${params.tableId}`);
+      const response = await fetch(`/api/admin/tables/${Cookies.get("table")}`);
       if (!response.ok) {
         throw new Error("Request failed!");
       }
@@ -215,7 +215,7 @@ const TableDetail = () => {
   let payError = payNow === "" || payNow > price || payNow <= 0;
   return (
     <div className={classes.table}>
-      <h1>שולחן מספר {params.tableId}</h1>
+      <h1>שולחן מספר {Cookies.get("table")}</h1>
 
       <Table className={classes.item}>
         <thead>
@@ -275,7 +275,7 @@ const TableDetail = () => {
         <button
           disabled={payError}
           onClick={() => {
-            navigate(`/payment/${payNow}`);
+            navigate(`/payment/${price}/${tipValue}`);
           }}
         >
           מעבר לתשלום

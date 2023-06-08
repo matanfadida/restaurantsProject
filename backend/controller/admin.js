@@ -121,10 +121,12 @@ exports.getAllTable = (req, res, next) => {
 exports.postPayOnTable = (req, res, next) => {
   const numberTable = req.body.numTable;
   const sumPay = req.body.value;
+  const tip = req.body.tip;
+
 
   Table.findByNumberTable(numberTable)
     .then((table) => {
-      const updateTable = new Table(numberTable, sumPay);
+      const updateTable = new Table(numberTable, sumPay, tip);
       updateTable
         .save()
         .then((re = res.json("ok")))
@@ -138,7 +140,7 @@ exports.getPayOnTable = async(req, res, next) => {
   if(numberTable != null){
     const table = await Table.findByNumberTable(numberTable);
     if(table != null){
-      res.json(table.sum)
+      res.json({sum: table.sum, tip: table.tip})
     }
   }
 };

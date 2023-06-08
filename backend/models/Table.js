@@ -2,9 +2,11 @@ const mongodb = require("mongodb");
 const { getDb } = require("../util/database");
 
 class Table {
-  constructor(numberTable, sum) {
+  constructor(numberTable, sum, tip) {
     this.numberTable = numberTable;
     this.sum = sum;
+    this.tip = tip;
+
   }
 
   async save() {

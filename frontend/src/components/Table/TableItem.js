@@ -3,7 +3,9 @@ import classes from "./tableItem.module.css";
 import { NavLink } from "react-router-dom";
 
 const TableItem = (props) => {
-  const [payed, setPayed] = useState(0); //למשוך כמה כבר שולם בשולחן הזה
+  const [payed, setPayed] = useState(0); 
+  const [tip, setTip] = useState(0); 
+
 
   useEffect(() => {
     const fetchPay = async () => {
@@ -19,7 +21,8 @@ const TableItem = (props) => {
         }
         const result = await response.json();
         console.log("res", result);
-        setPayed(result);
+        setPayed(result.sum);
+        setTip(result.tip)
     };
     fetchPay()
       .then(() => {})
@@ -35,6 +38,8 @@ const TableItem = (props) => {
       <h4>סה"כ מחיר הזמנה : {props.totalPrice}₪ </h4>
       <h4>שולם: {payed}₪ </h4>
       <h4>נותר לשלם: {props.totalPrice - payed}₪ </h4>
+      <h4>טיפ : {tip}₪ </h4>
+
     </div>
   );
 };

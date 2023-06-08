@@ -40,7 +40,7 @@ const App = () => {
           <Route path="/rate/:productId" element={<Rate />} />
           <Route path="/contact" element={<Contact />} />
           <Route
-            path="/table/:tableId"
+            path="/table"
             element={
                 <TableDetail />
               
@@ -130,7 +130,7 @@ const App = () => {
             }
           />
           <Route path="/:restaurantName/:tableId" element={<LoaderAddCookie />} />
-          <Route path="/payment/:value" element={<Payment />} />
+          <Route path="/payment/:value/:tip" element={<Payment />} />
 
           <Route path="/" element={<Home />} />
 

@@ -30,7 +30,7 @@ const NavLinks = (props) => {
         animate={animateTo}
         transition={{ delay: 0.2 }}
       >
-        <NavLink to="/table/1">השולחן-שלי</NavLink>
+        <NavLink to="/table">השולחן-שלי</NavLink>
       </motion.li>
       <motion.li
         onClick={closeMenuHandler}

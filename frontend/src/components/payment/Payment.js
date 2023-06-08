@@ -14,7 +14,8 @@ const Payment = (props) => {
   const navigate = useNavigate();
   const params = useParams();
   const value = params.value;
-  console.log("a1a1a1a1 ", value);
+  const tip = params.tip;
+
 
   const createOrder = (data, actions) => {
     return actions.order.create({
@@ -40,14 +41,15 @@ const Payment = (props) => {
               fetch(`/api/admin//payment`, {
                 method: "post",
                 body: JSON.stringify({
-                  numTable: JSON.parse(Cookies.get("table")), //קוקיס
+                  numTable: JSON.parse(Cookies.get("table")), 
                   value: value,
+                  tip: tip,
                 }),
                 headers: { "Content-Type": "application/json" },
               })
                 .then()
                 .catch();
-              navigate(`/table/${JSON.parse(Cookies.get("table"))}`); // לשנות למספר שולחן לפי הקוקיס
+              navigate(`/table/${JSON.parse(Cookies.get("table"))}`); 
             });
           }}
         />
@@ -57,15 +59,16 @@ const Payment = (props) => {
           fetch(`/api/admin//payment`, {
             method: "post",
             body: JSON.stringify({
-              numTable: JSON.parse(Cookies.get("table")), //קוקיס
-              value: 50,
+              numTable: JSON.parse(Cookies.get("table")), 
+              value: value,
+              tip: tip,
             }),
             headers: { "Content-Type": "application/json" },
           })
             .then()
             .catch();
           navigate(`/table/${JSON.parse(Cookies.get("table"))}`);
-        }} // לשנות למספר שולחן לפי הקוקיס}}
+        }} 
       ></button>
     </div>
   );
