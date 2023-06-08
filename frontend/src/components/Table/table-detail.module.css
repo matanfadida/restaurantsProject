@@ -70,10 +70,7 @@
   text-align: center;
   font-size: larger;
 }
-.buttons{
-  width: max-content;
-  margin: auto;
-}
+
 .table button{
   border-radius: 0.5rem;
   margin: 0.5rem;
@@ -114,6 +111,11 @@ margin-top: 3rem;
 .payment{
     margin: auto;
     width: max-content;
+}
+
+.payButton{
+  width: max-content;
+  margin: auto;
 }
 
 @media (min-width: 600px) {

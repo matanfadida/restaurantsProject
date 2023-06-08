@@ -264,14 +264,7 @@ const TableDetail = () => {
         <h4>תשלום חלקי</h4>
       </div>
 
-      <div className={classes.buttons}>
-        <button
-          onClick={() => {
-            setPayNow(price);
-          }}
-        >
-          שלם הכל
-        </button>
+      <div className={classes.payButton}>
         <button
           disabled={payError}
           onClick={() => {

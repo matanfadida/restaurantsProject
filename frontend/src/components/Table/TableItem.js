@@ -6,7 +6,7 @@ const TableItem = (props) => {
   const [payed, setPayed] = useState(0); 
   const [tip, setTip] = useState(0); 
 
-  const handlerCloseTable = async() => {
+  const closeTableHandler = async() => {
     const response = await fetch(`/api/admin/delete-table`, {
       method: "post",
       body: JSON.stringify({
@@ -18,7 +18,6 @@ const TableItem = (props) => {
       throw new Error("Request failed!");
     }
     const result = await response.json();
-    console.log('sda')
   }
 
   useEffect(() => {
@@ -34,7 +33,6 @@ const TableItem = (props) => {
           throw new Error("Request failed!");
         }
         const result = await response.json();
-        console.log("res", result);
         setPayed(result.sum);
         setTip(result.tip)
     };
@@ -53,7 +51,7 @@ const TableItem = (props) => {
       <h4>שולם: {payed}₪ </h4>
       <h4>נותר לשלם: {props.totalPrice - payed}₪ </h4>
       <h4>טיפ : {tip}₪ </h4>
-      <button onClick={handlerCloseTable}>סגור שולחן</button>
+      <button onClick={closeTableHandler}>סגור שולחן</button>
     </div>
   );
 };
