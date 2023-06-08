@@ -118,21 +118,27 @@ exports.getAllTable = (req, res, next) => {
     });
 };
 
-exports.postPayOnTable = (req, res, next) => {
+exports.postPayOnTable = async(req, res, next) => {
   const numberTable = req.body.numTable;
-  const sumPay = req.body.value;
-  const tip = req.body.tip;
-
-
-  Table.findByNumberTable(numberTable)
-    .then((table) => {
-      const updateTable = new Table(numberTable, sumPay, tip);
-      updateTable
-        .save()
-        .then((re = res.json("ok")))
-        .catch((err) => res.json("error"));
-    })
-    .catch((err) => res.json("error"));
+  const sumPay = +req.body.value;
+  const tip = +req.body.tip;
+  console.log('postPay')
+  const table = await Table.findByNumberTable(numberTable);
+  console.log('table',table)
+  if(table != null){
+    const updateTable = new Table(numberTable, table.sum += sumPay, table.tip += tip);
+    updateTable
+      .save()
+      .then((re = res.json("ok")))
+      .catch((err) => res.json("error"));
+  }else{
+    const updateTable = new Table(numberTable, sumPay, tip);
+    updateTable
+      .save()
+      .then((re = res.json("ok")))
+      .catch((err) => res.json("error"));
+  }
+  
 };
 
 exports.getPayOnTable = async(req, res, next) => {

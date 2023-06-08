@@ -6,7 +6,6 @@ class Table {
     this.numberTable = numberTable;
     this.sum = sum;
     this.tip = tip;
-
   }
 
   async save() {
@@ -14,7 +13,7 @@ class Table {
     let dbOp;
     const result = await db.collection("Tables").find().toArray();
     const findTable = result.find(table => table.numberTable === this.numberTable);
-
+    console.log('as',findTable)
     if (findTable) {
       console.log('update')
       dbOp = db
