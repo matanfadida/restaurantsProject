@@ -48,14 +48,14 @@ const TableDetail = () => {
     }
 
     let temp_Price = parseInt(totalPrice) - parseInt(payed);
-    if (!(tipValue === "")) {
-      temp_Price += parseInt(tipValue);
-    }
+    // if (!(tipValue === "")) {
+    //   temp_Price += parseInt(tipValue);
+    // }
     setPrice(temp_Price);
     setTimeout(() => {
       setLoader(false);
     }, 5000);
-  }, [orders, tipValue]);
+  }, [orders]);
 
   useEffect(() => {
     const fetchPay = async () => {
@@ -275,7 +275,7 @@ const TableDetail = () => {
         <button
           disabled={payError}
           onClick={() => {
-            navigate(`/payment/${price}/${tipValue}`);
+            navigate(`/payment/${payNow}/${tipValue}`);
           }}
         >
           מעבר לתשלום

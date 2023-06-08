@@ -13,8 +13,8 @@ const initialOptions = {
 const Payment = (props) => {
   const navigate = useNavigate();
   const params = useParams();
-  const value = params.value;
-  const tip = params.tip;
+  const value = +params.value;
+  const tip = +params.tip;
 
 
   const createOrder = (data, actions) => {
@@ -22,7 +22,7 @@ const Payment = (props) => {
       purchase_units: [
         {
           amount: {
-            value: value,
+            value: value + tip,
           },
         },
       ],
