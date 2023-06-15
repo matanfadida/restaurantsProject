@@ -7,6 +7,7 @@ import { useEffect, useState, useContext } from "react";
 import io from "socket.io-client";
 import CartContext from "../../state/buy-context";
 import { AiFillMinusCircle } from "react-icons/ai";
+import { FaQuestionCircle } from "react-icons/fa";
 import Loader from "../UI/loader";
 import Cart from "../UI/cart";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
@@ -22,12 +23,18 @@ const TableDetail = () => {
   const [price, setPrice] = useState(0);
   const [payNow, setPayNow] = useState(0);
   const [thanksPopup, setThanksPopup] = useState(false);
+  const [showTipMsg, setShowTipMsg] = useState(false);
 
   const [payed, setPayed] = useState(0); //למשוך כמה כבר שולם בשולחן הזה
 
   const handleTipChange = (event) => {
     const newValue = event.target.value;
     setTipValue(newValue);
+  };
+
+  const tipMsgHandler = (value) => {
+    const temp = value || !showTipMsg;
+    setShowTipMsg(temp);
   };
   let tempPrice = 0;
 
@@ -230,6 +237,12 @@ const TableDetail = () => {
         <tbody>{products}</tbody>
       </Table>
       <div className={classes.tip}>
+        <FaQuestionCircle
+          size="25px"
+          className={classes.question}
+          onMouseEnter={() => tipMsgHandler(true)}
+          onMouseLeave={() => tipMsgHandler(false)}
+        />
         <input
           id="tip-input"
           type="number"
@@ -242,8 +255,17 @@ const TableDetail = () => {
         <h4>?טיפ</h4>
       </div>
 
-      <h4>סה"כ לתשלום: {totalPrice}</h4>
-      <h4>נותר לשלם: {price}</h4>
+      {showTipMsg && (
+        <div className={classes.tipmsg}>
+          <p>
+            במסעדה שלנו נהוג להשאיר 10% טיפ <br /> לכן אנו נמליץ לכם להשאיר
+          </p>
+          <h2>{Math.floor(totalPrice / 10)}₪</h2>
+        </div>
+      )}
+
+      <h4>סה"כ לתשלום: {totalPrice}₪</h4>
+      <h4>נותר לשלם: {price}₪</h4>
 
       <div className={classes.tip}>
         <button
