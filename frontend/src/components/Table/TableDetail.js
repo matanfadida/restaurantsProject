@@ -33,7 +33,7 @@ const TableDetail = () => {
   };
 
   const tipMsgHandler = (value) => {
-    const temp = value || !showTipMsg;
+    const temp = !showTipMsg;
     setShowTipMsg(temp);
   };
   let tempPrice = 0;
@@ -240,8 +240,7 @@ const TableDetail = () => {
         <FaQuestionCircle
           size="25px"
           className={classes.question}
-          onMouseEnter={() => tipMsgHandler(true)}
-          onMouseLeave={() => tipMsgHandler(false)}
+          onClick={tipMsgHandler}
         />
         <input
           id="tip-input"
@@ -261,6 +260,7 @@ const TableDetail = () => {
             במסעדה שלנו נהוג להשאיר 10% טיפ <br /> לכן אנו נמליץ לכם להשאיר
           </p>
           <h2>{Math.floor(totalPrice / 10)}₪</h2>
+          <button onClick={tipMsgHandler}>סגור</button>
         </div>
       )}
 
