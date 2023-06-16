@@ -20,7 +20,6 @@
   color: #72a0c1;
 }
 
-
 .img {
   width: 40vw;
   height: 40vw;
@@ -41,7 +40,6 @@
 }
 
 .stars {
-  
   top: 1rem;
   width: min-content;
   left: 1rem;
@@ -83,7 +81,6 @@
   /* font-family: cursive; */
 }
 
-
 .add {
   bottom: 0;
   position: absolute;
@@ -97,7 +94,6 @@
   color: #00308f;
   font-weight: bold;
   margin-right: 10px;
- 
 }
 
 @media (min-width: 440px) {
@@ -120,17 +116,21 @@
     order: -1;
   }
 
-  .stars{
+  .stars {
     margin: 4vh 0 0 5vh;
-
   }
 
-  .admin{
+  .admin {
     margin: 4vh 0 0 7vh;
   }
 
   .add {
-    
     margin: 0 0 2rem 15vh;
+  }
+}
+
+@media (min-width: 440px) {
+  .li {
+    min-width: 600px;
   }
 }

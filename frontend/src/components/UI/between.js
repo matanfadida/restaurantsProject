@@ -6,7 +6,7 @@ import classes from "./loader.module.css";
 import Loader from './loader';
 
 const LoaderAddCookie = () => {
-  const portalElment = document.getElementById("loader");
+  // const portalElment = document.getElementById("loader");
   const navigate = useNavigate();
   const params = useParams();
   console.log(params.tableId);
