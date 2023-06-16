@@ -6,22 +6,26 @@ import Cookies from "js-cookie";
 import style from "./Cart.module.css";
 import CartItem from "./CartItem";
 import { fetchProductFromCookie } from "../../Helper/productHelp";
-
+import Loader from "../../UI/loader";
 
 const Cart = (props) => {
   const ctx = useContext(CartContext);
   const [statusOfOrder, setStatusOfOrder] = useState(false);
+  const [loader, setLoader] = useState(false);
   // const totalAmount = `${Number(ctx.totalAmount).toFixed(2)}₪`;
   const totalAmount = Number(ctx.totalAmount).toFixed(2);
 
   const hashItem = ctx.items.length > 0;
   const sendOrder = async () => {
-    let products = []
-    let sum = 0
-    await fetchProductFromCookie().then(({ newArrayItems, updateTotalAmount }) => {
-      products = newArrayItems;
-      sum = updateTotalAmount;
-    })
+    setLoader(true);
+    let products = [];
+    let sum = 0;
+    await fetchProductFromCookie().then(
+      ({ newArrayItems, updateTotalAmount }) => {
+        products = newArrayItems;
+        sum = updateTotalAmount;
+      }
+    );
     const response = await fetch("/api/add-order", {
       method: "POST",
       body: JSON.stringify({
@@ -42,13 +46,14 @@ const Cart = (props) => {
       ctx.RemoveAll();
       window.location.reload();
     }
+    setLoader(false);
   };
 
-  if(statusOfOrder){
+  if (statusOfOrder) {
     return (
       <Modal>
-       <div>
-        <span>הזמנה התבצע בהצלחה !</span>
+        <div>
+          <span>הזמנה התבצע בהצלחה !</span>
         </div>
         <div>
           <button className={style.btn} onClick={ctx.cartShowhandler}>
@@ -57,6 +62,10 @@ const Cart = (props) => {
         </div>
       </Modal>
     );
+  }
+
+  if (loader) {
+    return <Loader />;
   }
   // console.log(ctx.itemsToBack);
   return (

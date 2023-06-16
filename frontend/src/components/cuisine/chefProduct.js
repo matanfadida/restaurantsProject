@@ -43,16 +43,24 @@ const chefProduct = (props) => {
   return (
     <li className={classes.chefProduct}>
       <ButtonGroup
-      focus = {props.product.status === "מוכן" ? 1 : props.product.status === "בהכנה" ? 2 : 0}
+        focus={
+          props.product.status === "מוכן"
+            ? 1
+            : props.product.status === "בהכנה"
+            ? 2
+            : 0
+        }
         buttons={[
           { id: 1, onClick: ReadyHandler, name: "מוכן" },
           { id: 2, onClick: InProgresHandler, name: "בהכנה" },
         ]}
       ></ButtonGroup>
-      <span>{props.product.name}</span>
+      
+        {props.product.remark && <span>הערות:  {props.product.remark}</span>}
+        <span>{props.product.name}</span>
+      
     </li>
   );
 };
-
 
 export default chefProduct;
