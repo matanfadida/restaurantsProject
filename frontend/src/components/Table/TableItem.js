@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import classes from "./tableItem.module.css";
 import { NavLink } from "react-router-dom";
+import Cookies from "js-cookie";
 
 const TableItem = (props) => {
   const [payed, setPayed] = useState(0); 
@@ -46,7 +47,7 @@ const TableItem = (props) => {
         <h1>שולחן {props.table}</h1>
       </div>
     
-      <NavLink to={`./${props.table}`}>פירוט הזמנה</NavLink>
+      <NavLink onClick={() => {Cookies.set("table", +props.table)}} to={`/table`}>פירוט הזמנה</NavLink>
       <h4>סה"כ מחיר הזמנה : {props.totalPrice}₪ </h4>
       <h4>שולם: {payed}₪ </h4>
       <h4>נותר לשלם: {props.totalPrice - payed}₪ </h4>
