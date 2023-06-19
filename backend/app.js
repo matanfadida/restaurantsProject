@@ -7,6 +7,7 @@ const MongoDBStore = require('connect-mongodb-session')(session);
 const http = require("http");
 const cors = require('cors');
 const nodemailer = require('nodemailer');
+const path = require("path");
 
 const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
@@ -22,6 +23,7 @@ const store = new MongoDBStore({
     collection: "sessions"
 });
 
+// app.use(express.static(path.join(__dirname + "/public")))
 
 app.use(cors({
     origin: 'http://localhost:3000' // Allow requests from this domain
